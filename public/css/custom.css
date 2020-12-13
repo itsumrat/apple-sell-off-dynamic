@@ -1,0 +1,25 @@
+button.admin-actionbtn {
+    border: none;
+    background: none;
+}
+
+i.fas.fa-trash-alt  {
+    color: red;
+}
+
+i.far.fa-edit {
+    color: #47c172;
+}
+
+@media (min-width: 1024px) {
+  /*.top-navbar {
+    display: -webkit-inline-box !important;
+    display: -ms-inline-flexbox !important;
+    display: inline-flex !important;
+  }*/
+}
+
+/*.dropdown:hover .dropdown-menu {
+  display: block;
+}
+*/

@@ -5728,6 +5728,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductDetails",
@@ -5736,6 +5762,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       product: {},
       baseUrlPath: null,
       unit_price: 0,
+      unit_price_sample: 0,
       ram_price: 0,
       hard_drive_price: 0,
       graphics_card_price: 0,
@@ -5743,7 +5770,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       ram_price_set: false,
       hard_drive_price_set: false,
       graphics_card_price_set: false,
-      processor_price_set: false
+      processor_price_set: false,
+      prev_price: 0,
+      price_array: [],
+      grandPrice: 0
     };
   },
   mounted: function mounted() {
@@ -5757,55 +5787,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get("/api/product/".concat(this.$route.params.id)).then(function (response) {
         _this.product = response.data;
         _this.unit_price = _this.product.stock_product.unit_price;
+        _this.unit_price_sample = _this.product.stock_product.unit_price;
       });
     },
     additional_price_set: function additional_price_set(device_type, price, id_class) {
-      console.log(device_type);
+      console.log(id_class);
 
       var _this = this;
 
-      if (device_type == 1) {
-        if (_this.ram_price != 0) {
-          _this.unit_price = parseInt(_this.unit_price) - parseInt(_this.ram_price);
-        }
+      var findPrev = _this.price_array.findIndex(function (device) {
+        return device.device_type === device_type;
+      });
 
-        _this.ram_price = price;
-        $('.ram').find('.configuration-item-active').removeClass('configuration-item-active').addClass('configuration-item');
+      if (findPrev === -1) {
+        _this.price_array.push({
+          selected: id_class,
+          device_type: device_type,
+          price: price
+        });
+      } else {
+        _this.price_array[findPrev].price = price;
       }
 
-      if (device_type == 2) {
-        if (_this.hard_drive_price != 0) {
-          _this.unit_price = parseInt(_this.unit_price) - parseInt(_this.hard_drive_price);
-        }
+      var sum = 0;
 
-        _this.hard_drive_price = price;
-        $('.storage').find('.configuration-item-active').removeClass('configuration-item-active').addClass('configuration-item');
+      for (var data in _this.price_array) {
+        sum += parseFloat(_this.price_array[data].price);
       }
 
-      if (device_type == 3) {
-        if (_this.graphics_card_price != 0) {
-          _this.unit_price = parseInt(_this.unit_price) - parseInt(_this.graphics_card_price);
-        }
-
-        _this.graphics_card_price = price;
-        $('.graphics').find('.configuration-item-active').removeClass('configuration-item-active').addClass('configuration-item');
-      }
-
-      if (device_type == 4) {
-        if (_this.processor_price != 0) {
-          _this.unit_price = parseInt(_this.unit_price) - parseInt(_this.processor_price);
-        }
-
-        _this.processor_price = price;
-        $('.processor').find('.configuration-item-active').removeClass('configuration-item-active').addClass('configuration-item');
-      }
-
-      _this.unit_price = parseInt(_this.unit_price) + parseInt(_this.ram_price) + parseInt(_this.hard_drive_price) + parseInt(_this.graphics_card_price) + parseInt(_this.processor_price);
+      _this.grandPrice = sum;
+      var classes = {
+        1: ".ram",
+        2: ".storage",
+        3: ".graphics",
+        4: ".processor"
+      };
+      $(classes[device_type]).find('.configuration-item-active').removeClass('configuration-item-active').addClass('configuration-item');
       $('.' + id_class).addClass('configuration-item-active');
-    } // additional_price() {
-    //     const _this = this;
-    // }
-
+    }
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     products: "cart/products"
@@ -75043,14 +75062,14 @@ var render = function() {
                     "div",
                     {
                       class:
-                        "configuration-item rounded p-4 mt-1 mb-5 processor_additional" +
+                        "configuration-item rounded p-4 mt-1 mb-5 processor_additional_" +
                         index,
                       on: {
                         click: function($event) {
                           return _vm.additional_price_set(
                             4,
                             value.price,
-                            "processor_additional" + index
+                            "processor_additional_" + index
                           )
                         }
                       }
@@ -75106,14 +75125,14 @@ var render = function() {
                     "div",
                     {
                       class:
-                        "configuration-item rounded p-4 mt-1 mb-5 additional_ram" +
+                        "configuration-item rounded p-4 mt-1 mb-5 additional_ram_" +
                         index,
                       on: {
                         click: function($event) {
                           return _vm.additional_price_set(
                             1,
                             value.price,
-                            "additional_ram" + index
+                            "additional_ram_" + index
                           )
                         }
                       }
@@ -75184,14 +75203,14 @@ var render = function() {
                     "div",
                     {
                       class:
-                        "configuration-item rounded p-4 mt-1 mb-5 graphics_additional" +
+                        "configuration-item rounded p-4 mt-1 mb-5 graphics_additional_" +
                         index,
                       on: {
                         click: function($event) {
                           return _vm.additional_price_set(
                             3,
                             value.price,
-                            "graphics_additional" + index
+                            "graphics_additional_" + index
                           )
                         }
                       }
@@ -75255,14 +75274,14 @@ var render = function() {
                     "div",
                     {
                       class:
-                        "configuration-item rounded p-4 mt-1 mb-5 storage_additional" +
+                        "configuration-item rounded p-4 mt-1 mb-5 storage_additional_" +
                         index,
                       on: {
                         click: function($event) {
                           return _vm.additional_price_set(
                             2,
                             value.price,
-                            "storage_additional" + index
+                            "storage_additional_" + index
                           )
                         }
                       }
@@ -75342,7 +75361,13 @@ var render = function() {
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "price-box-contents" }, [
               _c("h1", [
-                _vm._v("$" + _vm._s(_vm.unit_price) + " "),
+                _vm._v(
+                  "$" +
+                    _vm._s(
+                      parseFloat(_vm.unit_price) + parseFloat(_vm.grandPrice)
+                    ) +
+                    " "
+                ),
                 _c("span", [_vm._v("Your product price")])
               ]),
               _vm._v(" "),
@@ -75358,7 +75383,11 @@ var render = function() {
                   },
                   attrs: { type: "submit" }
                 },
-                [_vm._v("Add to basket")]
+                [
+                  _vm._v(
+                    "\n                            Add to basket\n                        "
+                  )
+                ]
               )
             ])
           ])
@@ -75415,11 +75444,11 @@ var staticRenderFns = [
         staticStyle: { height: "calc(3.9em + 0.75rem + -19px)" }
       },
       [
-        _c("option", [_vm._v(" Backlit Keyboard - US English ")]),
+        _c("option", [_vm._v(" Backlit Keyboard - US English")]),
         _vm._v(" "),
-        _c("option", [_vm._v(" Backlit Keyboard - Arabic ")]),
+        _c("option", [_vm._v(" Backlit Keyboard - Arabic")]),
         _vm._v(" "),
-        _c("option", [_vm._v(" Backlit Keyboard - British ")])
+        _c("option", [_vm._v(" Backlit Keyboard - British")])
       ]
     )
   },
@@ -98716,8 +98745,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var CONFIG = {
   // http://apple.devcorn.xyz/
-  API_BASE_URL: 'http://127.0.0.1:8000' // API_BASE_URL: "http://apple.devcorn.xyz",
-
+  // API_BASE_URL: 'http://127.0.0.1:8000',
+  API_BASE_URL: "http://apple.devcorn.xyz"
 };
 /* harmony default export */ __webpack_exports__["default"] = (CONFIG);
 

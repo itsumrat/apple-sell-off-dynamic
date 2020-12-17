@@ -9,152 +9,24 @@
     				</div>
     				<div class="category-content">
     					<ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
-							<li class="nav-item">
-							    <a class="nav-link active" id="macbookpro-tab" data-toggle="pill" href="#macbookpro" role="tab" aria-controls="macbookpro" aria-selected="true">MacBook Pro</a>
-							</li>
-							<li class="nav-item">
-							    <a class="nav-link" id="macbookair-tab" data-toggle="pill" href="#macbookair" role="tab" aria-controls="macbookair" aria-selected="false">MacBook Air</a>
-							</li>
-							<li class="nav-item">
-							    <a class="nav-link" id="imac-tab" data-toggle="pill" href="#imac" role="tab" aria-controls="imac" aria-selected="false">iMac</a>
-							</li>
-							<li class="nav-item">
-							    <a class="nav-link" id="mac-tab" data-toggle="pill" href="#mac" role="tab" aria-controls="mac" aria-selected="false">Mac</a>
+							<li class="nav-item" v-for="(value, index) in categories_product">
+							    <a :class="index == 0 ? 'nav-link active' : 'nav-link'" :id="value.mc_slug+'-tab'" data-toggle="pill" :href="'#'+value.mc_slug" role="tab" :aria-controls="value.mc_slug" aria-selected="true">{{ value.mc_name }}</a>
 							</li>
 						</ul>
 						<div class="tab-content" id="pills-tabContent">
-							<div class="tab-pane fade show active" id="macbookpro" role="tabpanel" aria-labelledby="macbookpro-tab">
+							<div v-for="(value, index) in categories_product" :class="index == 0 ? 'tab-pane fade show active' : 'tab-pane fade'" :id="value.mc_slug" role="tabpanel" :aria-labelledby="value.mc_slug+'-tab'">
 								<div class="row">
-									<div class="col-lg-4">
+									<div v-for="(data_value, key) in value.product" v-if="key < 3" class="col-lg-4">
 										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
+
+                                            <router-link :to="{name: 'product-details', params: {id: data_value.id}}">
+											<img :src="'/uploads/product/'+data_value.feature_image">
 											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
+												<h2>{{ data_value.name }}</h2>
+												<p>${{ data_value.stock_product.unit_price }}</p>
 											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="macbookair" role="tabpanel" aria-labelledby="macbookair-tab">
-								<div class="row">
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="imac" role="tabpanel" aria-labelledby="imac-tab">
-								<div class="row">
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="mac" role="tabpanel" aria-labelledby="mac-tab">
-								<div class="row">
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="item">
-											<img :src="baseUrlPath + '/frontend/img/macbookpro.png'">
-											<div class="caption">
-												<h2>MacBook Pro 2020</h2>
-												<p>$535</p>
-											</div>
-											<a href="#" class="icon--shop"></a>
+                                            </router-link>
+<!--											<a href="#" class="icon&#45;&#45;shop"></a>-->
 										</div>
 									</div>
 								</div>
@@ -171,6 +43,7 @@
 
 export default {
     name: "Category",
+    props : ['categories_product'],
     data() {
     return {
       baseUrlPath: null

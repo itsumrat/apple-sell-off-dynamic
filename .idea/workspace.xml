@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cadc137b-c566-44d5-ac5b-1c55aecfc76e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/backend/faq/edit_faq_category.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/backend/faq/faq_category.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/backend/general_setting.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/backend/home_page_setting.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/FrontEndController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FrontEndController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebController/Backend/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebController/Backend/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/Backend/MainCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Backend/MainCategory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/Backend/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Backend/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_06_095655_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_06_095655_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/frontend/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/product/ProductDetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/product/ProductDetails.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/HomeContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/HomeContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/AboutHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/AboutHome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/AudioCollection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/AudioCollection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/Category.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/HighLights.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/HighLights.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/ShopNow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/ShopNow.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/Subscription.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/Subscription.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/home/Suggestion.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/home/Suggestion.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/pages/Support.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/pages/Support.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/constant/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/constant/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/partial/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/partial/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/product/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/product/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/product/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/product/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +197,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../largeIT/razi_journal" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -184,26 +227,52 @@
       <workItem from="1607875609944" duration="9325000" />
       <workItem from="1607887236113" duration="631000" />
       <workItem from="1607923065536" duration="87000" />
-      <workItem from="1607950895287" duration="143000" />
+      <workItem from="1607950895287" duration="374000" />
+      <workItem from="1608099875703" duration="21345000" />
+      <workItem from="1608184496865" duration="52000" />
+      <workItem from="1608207350716" duration="1873000" />
+      <workItem from="1608220998872" duration="8071000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="138" key="FileChooserDialogImpl" timestamp="1607923154071">
+    <state x="463" y="138" key="FileChooserDialogImpl" timestamp="1608228541543">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1607923154071" />
+    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1608228541543" />
+    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1608184553303" />
+    <state x="201" y="103" width="1030" height="596" key="dock-window-1" timestamp="1608108571021">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="201" y="103" width="1030" height="596" key="dock-window-1/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1608108571021" />
     <state x="391" y="101" width="583" height="566" key="find.popup" timestamp="1607682333242">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="391" y="101" width="583" height="566" key="find.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1607682333242" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1607801980867">
+    <state x="339" y="172" key="run.anything.popup" timestamp="1608228051744">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1607801980867" />
+    <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1608228051744" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1608228939675">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1608228939675" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1608207358004" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -212,6 +281,11 @@
           <url>file://$PROJECT_DIR$/resources/js/components/product/ProductDetails.vue</url>
           <line>225</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/backend/home_page_setting.blade.php</url>
+          <line>169</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

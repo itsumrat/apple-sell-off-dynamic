@@ -14,4 +14,8 @@ class MainCategory extends Model
     {
         return $this->hasMany('App\Model\Backend\SubCategory', 'main_category_id');
     }
+
+    public function product() {
+        return $this->hasMany('App\Model\Backend\Product', 'main_category_id')->take(4);
+    }
 }

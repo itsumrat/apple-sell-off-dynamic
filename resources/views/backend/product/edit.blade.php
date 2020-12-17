@@ -598,6 +598,10 @@
                                     @endfor
                                 </select>
                             </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="is_suggestable" class="form-check-input" id="is_suggestable" value="1" @if($product->is_suggestable == 1) checked @endif>
+                                <label class="form-check-label" for="is_suggestable">Check Here for Suggest this product.</label>
+                            </div>
                             {{-- <div class="form-group">
                                 <label for="tag">
                                     Prduct Tag

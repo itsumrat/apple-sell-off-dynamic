@@ -13,10 +13,10 @@
                 <div class="col-lg-12">
                     <div class="social-links">
                         <ul>
-                            <li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-pinterest-square"></i></a></li>
+                            <li><a :href="home_page_settings.instagram_url"><i class="fab fa-instagram-square"></i></a></li>
+                            <li><a :href="home_page_settings.facebook_url"><i class="fab fa-facebook-square"></i></a></li>
+                            <li><a :href="home_page_settings.twitter_url"><i class="fab fa-twitter-square"></i></a></li>
+                            <li><a :href="home_page_settings.pinterest_url"><i class="fab fa-pinterest-square"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -28,6 +28,7 @@
 
 <script>
 export default {
+    props : ['home_page_settings'],
     name: 'Subscription',
     data() {
     return {
@@ -38,7 +39,7 @@ export default {
   mounted() {
     this.baseUrlPath = axios.defaults.baseURL;
   },
-        
+
 };
 </script>
 

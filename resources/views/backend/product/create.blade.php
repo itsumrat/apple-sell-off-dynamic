@@ -59,41 +59,41 @@
                             </div> --}}
 
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="unit_price">
                                         Unit Price
                                     </label>
                                     <input class="form-control" name="unit_price" id="unit_price" placeholder="Unit Price" type="number" required="">
                                     </input>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12" style="display: none;">
                                     <label for="purchase_price">
                                         Purchase Price
                                     </label>
-                                    <input class="form-control" name="purchase_price" id="purchase_price" placeholder="Purchase Price" type="number">
+                                    <input class="form-control" value="0" name="purchase_price" id="purchase_price" placeholder="Purchase Price" type="number">
                                     </input>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row"  style="display: none;">
                                 <div class="form-group col-md-4">
                                     <label for="tax">
                                         Tax
                                     </label>
-                                    <input class="form-control" name="tax" id="tax" placeholder="Tax" type="number">
+                                    <input class="form-control" value="0" name="tax" id="tax" placeholder="Tax" type="number">
                                     </input>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="discount">
                                         Discount
                                     </label>
-                                    <input class="form-control" name="discount" id="discount" placeholder="Discount" type="number">
+                                    <input class="form-control" value="0" name="discount" id="discount" placeholder="Discount" type="number">
                                     </input>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="stock_quantity">
                                         Stock Quantity
                                     </label>
-                                    <input class="form-control" name="stock_quantity" id="stock_quantity" placeholder="Stock Quantity" type="number">
+                                    <input class="form-control" value="0" name="stock_quantity" id="stock_quantity" placeholder="Stock Quantity" type="number">
                                     </input>
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="product_type_id">
                                     Product Type
                                 </label>
@@ -415,6 +415,10 @@
                                         <option value="{{ $i }}" {{ $i == $c ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
                                 </select>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="is_suggestable" class="form-check-input" id="is_suggestable" value="1">
+                                <label class="form-check-label" for="is_suggestable">Check Here for Suggest this product.</label>
                             </div>
                             {{-- <div class="form-group">
                                 <label for="tag">

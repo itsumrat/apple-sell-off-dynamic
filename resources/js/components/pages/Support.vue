@@ -16,8 +16,8 @@
 		        <div class="col-lg-9 col-xs-12">
 		            <div class="tab-content" id="v-pills-tabContent">
 		                <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-		                    <h3>Need help with a purchase or assistance with your Mac?</h3>
-		                    <p>Our team are available from 9 am till 5 pm, Monday to Friday and 10 am till 4 pm on a Saturday to assist with any query you may have. Please get in touch and we will do our utmost to ensure we respond quickly and correctly.</p>
+		                    <h3>{{ general_setting.support_title }}</h3>
+		                    <p>{{ general_setting.support_description }}</p>
 		                    <div class="row">
 		                        <div class="col-lg-8">
 		                            <div class="email-form">
@@ -55,19 +55,17 @@
 		                        <div class="col-lg-4">
 		                            <div class="contact-info">
 		                                <h5>Send A Message</h5>
-		                                <b style="font-weight: 500">Email</b>: <a href="mailto:sales@appleselloff.com">sales@appleselloff.com</a>
-		                                <b style="font-weight: 500">Phone</b>: <a href="tel:+44 (0) 0000000000">+44 (0) 000 0000 000</a>
+		                                <b style="font-weight: 500">Email</b>: <a href="#">{{ general_setting.tech_support_email }}</a>
+		                                <b style="font-weight: 500">Phone</b>: <a href="#">{{ general_setting.tech_support_phone }}</a>
 		                                <h6>Technical Support</h6>
-		                                <b style="font-weight: 500">Email</b>: <a href="mailto:sales@appleselloff.com">sales@appleselloff.com</a>
-		                                <b style="font-weight: 500">Phone</b>: <a href="tel:+44 (0) 0000000000">+44 (0) 000 0000 000</a>
+		                                <b style="font-weight: 500">Email</b>: <a href="#">{{ general_setting.cus_support_email }}</a>
+		                                <b style="font-weight: 500">Phone</b>: <a href="#">{{ general_setting.cus_support_phone }}</a>
 		                                <h6>Customer Support</h6>
-		                                <b style="font-weight: 500">Email</b>: <a href="mailto:customerservice@applselloff.com">customerservice@applselloff.com</a>
+		                                <b style="font-weight: 500">Email</b>: <a href="#">{{ general_setting.email }}</a>
 		                                <h6>Address</h6>
 		                                <address>
-		                                    MacFinder (MacRefresh Ltd.) <br>
-		                                    Appleselloff (reApp Ltd.) Unit C11 <br>
-		                                    Argall Avenue Leyton Industrial Village E10 7QP United Kingdom<br>Appleselloff is part of reApp Ltd group. Company registration number 11706397 (England & Wales) VAT Number: GB ?????????
-		                                </address>
+		                                    {{ general_setting.address }}
+                                        </address>
 		                            </div>
 		                        </div>
 		                    </div>
@@ -191,3 +189,26 @@
 		</section>
 	</div>
 </template>
+<script>
+export default {
+    name: "Support",
+    data() {
+        return {
+            general_setting : {},
+        };
+    },
+    methods : {
+        getGeneralSetting () {
+            const _this = this;
+            axios.get(`/api/general_setting`)
+                .then((response) => {
+                    _this.general_setting = response.data;
+                });
+        },
+    },
+
+    created() {
+        this.getGeneralSetting();
+    },
+}
+</script>

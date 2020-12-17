@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', 'WebController\Backend\ProductController');
     Route::get('deleteImageGallery/{proId}/{imgId}', 'WebController\Backend\ProductController@deleteImageGallery')->name('deleteImageGallery');
 
+    Route::resource('general_setting', 'WebController\Backend\GeneralSettingController');
+    Route::resource('faqs_category', 'WebController\Backend\FaqCategoryController');
+    Route::resource('home_page_setting', 'WebController\Backend\HomePageSettingController');
     Route::resource('colors', 'WebController\Backend\ColorController');
     Route::resource('sizes', 'WebController\Backend\SizeController');
     Route::resource('rams', 'WebController\Backend\RamController');

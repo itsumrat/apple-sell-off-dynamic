@@ -1940,6 +1940,42 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
+  data: function data() {
+    return {
+      suggested_product: {},
+      home_page_settings: {},
+      categories_product: {}
+    };
+  },
+  methods: {
+    getHomePageSetting: function getHomePageSetting() {
+      var _this = this;
+
+      axios.get("/api/home_page_setting").then(function (response) {
+        _this.home_page_settings = response.data;
+        console.log(_this.home_page_settings);
+      });
+    },
+    getSuggestedProduct: function getSuggestedProduct() {
+      var _this = this;
+
+      axios.get("/api/suggested_product").then(function (response) {
+        _this.suggested_product = response.data;
+      });
+    },
+    getCateagoriesProduct: function getCateagoriesProduct() {
+      var _this = this;
+
+      axios.get("/api/categories_product").then(function (response) {
+        _this.categories_product = response.data;
+      });
+    }
+  },
+  created: function created() {
+    this.getHomePageSetting();
+    this.getSuggestedProduct();
+    this.getCateagoriesProduct();
+  },
   components: {
     HomeSlider: _home_HomeSlider_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     HighLights: _home_HighLights_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2440,12 +2476,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['home_page_settings'],
   name: 'AboutHome',
   data: function data() {
     return {
@@ -2513,6 +2545,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['home_page_settings'],
   name: 'AudioCollection',
   data: function data() {
     return {
@@ -2576,136 +2609,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Category",
+  props: ['categories_product'],
   data: function data() {
     return {
       baseUrlPath: null
@@ -2766,6 +2672,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['home_page_settings'],
   data: function data() {
     return {
       baseUrlPath: null
@@ -2882,6 +2789,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['home_page_settings'],
   name: 'ShopNow'
 });
 
@@ -2925,6 +2833,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['home_page_settings'],
   name: 'Subscription',
   data: function data() {
     return {
@@ -3002,128 +2911,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['suggested_product'],
   name: 'Suggestion',
   data: function data() {
     return {
@@ -3132,6 +2921,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.baseUrlPath = axios.defaults.baseURL;
+  },
+  computed: {
+    chunkedItems: function chunkedItems() {
+      return _.chunk(this.suggested_product, 4);
+    }
   }
 });
 
@@ -4544,6 +4338,229 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.baseUrlPath = axios.defaults.baseURL;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Support.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Support.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Support",
+  data: function data() {
+    return {
+      general_setting: {}
+    };
+  },
+  methods: {
+    getGeneralSetting: function getGeneralSetting() {
+      var _this = this;
+
+      axios.get("/api/general_setting").then(function (response) {
+        _this.general_setting = response.data;
+      });
+    }
+  },
+  created: function created() {
+    this.getGeneralSetting();
   }
 });
 
@@ -11419,6 +11436,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .carousel-control-prev-icon, .carousel-control-next-icon{\n        background-image: none;\n    }\n    span.carousel-control-prev-icon, span.carousel-control-next-icon {\n        font-size: 32px;\n    }\n    .carousel-control-prev i.fas.fa-angle-left, .carousel-control-next i.fas.fa-angle-right {\n        border: 2px solid #e6e6e6;\n        color: #00cfd5;\n        padding: 4px 10px;\n        opacity: 0.9;\n    } */\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\na[data-v-7710e84e]:hover {\n    color: #0056b3;\n    text-decoration: none;\n}\n", ""]);
 
 // exports
 
@@ -65489,6 +65525,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/Checkout.vue?vue&type=style&index=0&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/Checkout.vue?vue&type=style&index=0&lang=css& ***!
@@ -66259,19 +66325,27 @@ var render = function() {
     [
       _c("section", { attrs: { id: "slider" } }, [_c("HomeSlider")], 1),
       _vm._v(" "),
-      _c("HighLights"),
+      _c("HighLights", {
+        attrs: { home_page_settings: _vm.home_page_settings }
+      }),
       _vm._v(" "),
-      _c("Category"),
+      _c("Category", { attrs: { categories_product: _vm.categories_product } }),
       _vm._v(" "),
-      _c("ShopNow"),
+      _c("ShopNow", { attrs: { home_page_settings: _vm.home_page_settings } }),
       _vm._v(" "),
-      _c("AudioCollection"),
+      _c("AudioCollection", {
+        attrs: { home_page_settings: _vm.home_page_settings }
+      }),
       _vm._v(" "),
-      _c("AboutHome"),
+      _c("AboutHome", {
+        attrs: { home_page_settings: _vm.home_page_settings }
+      }),
       _vm._v(" "),
-      _c("Suggestion"),
+      _c("Suggestion", { attrs: { suggested_product: _vm.suggested_product } }),
       _vm._v(" "),
-      _c("Subscription")
+      _c("Subscription", {
+        attrs: { home_page_settings: _vm.home_page_settings }
+      })
     ],
     1
   )
@@ -66865,27 +66939,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("section", { attrs: { id: "about-home" } }, [
+  return _c("div", [
+    _c(
+      "section",
+      {
+        style: {
+          "background-image":
+            "url(" + _vm.home_page_settings.fifth_sec_image + ")"
+        },
+        attrs: { id: "about-home" }
+      },
+      [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "offset-lg-5 col-lg-7" }, [
               _c("div", { staticClass: "about-home-content" }, [
                 _c("h1", [
-                  _vm._v("We combine luxury fashion  with innovative")
+                  _vm._v(_vm._s(_vm.home_page_settings.fifth_sec_heading))
                 ]),
                 _vm._v(" "),
                 _c("p", [
-                  _vm._v(
-                    "\n                            We combine luxury fashion with innovative performance\n                            technology to create outerwear that’s as useful as it is beautiful.\n                            Our raincoat collection boast a stylish minimalism,\n                            Olympic-level waterproof fabric, and incredible breathability\n                        "
-                  )
+                  _vm._v(_vm._s(_vm.home_page_settings.fifth_sec_title))
                 ]),
                 _vm._v(" "),
                 _c("a", { staticClass: "btn", attrs: { href: "#" } }, [
@@ -66895,10 +66969,11 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
-  }
-]
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66924,19 +66999,21 @@ var render = function() {
     _c("section", { attrs: { id: "audio-collection" } }, [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12" }, [
-            _c("div", { staticClass: "hovereffect" }, [
-              _c("img", {
-                staticClass: "img-responsive",
-                attrs: {
-                  src: _vm.baseUrlPath + "/frontend/img/speaker.jpg",
-                  alt: ""
-                }
-              }),
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "section-title" }, [
+              _c("h1", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.home_page_settings.four_sec_main_heading) +
+                    " "
+                )
+              ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("p", [
+                _vm._v(
+                  " " + _vm._s(_vm.home_page_settings.four_sec_main_title) + " "
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -66944,13 +67021,16 @@ var render = function() {
             _c("div", { staticClass: "hovereffect" }, [
               _c("img", {
                 staticClass: "img-responsive",
-                attrs: {
-                  src: _vm.baseUrlPath + "/frontend/img/accessories.jpg",
-                  alt: ""
-                }
+                attrs: { src: _vm.home_page_settings.four_sec_image_1, alt: "" }
               }),
               _vm._v(" "),
-              _vm._m(2)
+              _c("div", { staticClass: "overlay" }, [
+                _c("h2", [
+                  _vm._v(
+                    " " + _vm._s(_vm.home_page_settings.four_sect_title_1) + " "
+                  )
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -66958,13 +67038,33 @@ var render = function() {
             _c("div", { staticClass: "hovereffect" }, [
               _c("img", {
                 staticClass: "img-responsive",
-                attrs: {
-                  src: _vm.baseUrlPath + "/frontend/img/amplifier.jpg",
-                  alt: ""
-                }
+                attrs: { src: _vm.home_page_settings.four_sec_image_2, alt: "" }
               }),
               _vm._v(" "),
-              _vm._m(3)
+              _c("div", { staticClass: "overlay" }, [
+                _c("h2", [
+                  _vm._v(
+                    " " + _vm._s(_vm.home_page_settings.four_sect_title_2) + " "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12" }, [
+            _c("div", { staticClass: "hovereffect" }, [
+              _c("img", {
+                staticClass: "img-responsive",
+                attrs: { src: _vm.home_page_settings.four_sec_image_3, alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "overlay" }, [
+                _c("h2", [
+                  _vm._v(
+                    " " + _vm._s(_vm.home_page_settings.four_sect_title_3) + " "
+                  )
+                ])
+              ])
             ])
           ])
         ])
@@ -66972,48 +67072,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("div", { staticClass: "section-title" }, [
-        _c("h1", [_vm._v("audio collection")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "We combine luxury fashion with innovative performance technology to create outerwear that’s as useful as it is beautiful. Our raincoat collection boast a stylish minimalism, Olympic-level waterproof fabric, and incredible breathability to create"
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "overlay" }, [
-      _c("h2", [_vm._v("Speakers")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "overlay" }, [
-      _c("h2", [_vm._v("Accessories")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "overlay" }, [
-      _c("h2", [_vm._v("Power Amplifiers")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -67043,7 +67102,33 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "category-content" }, [
-              _vm._m(1),
+              _c(
+                "ul",
+                {
+                  staticClass: "nav nav-pills nav-fill",
+                  attrs: { id: "pills-tab", role: "tablist" }
+                },
+                _vm._l(_vm.categories_product, function(value, index) {
+                  return _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        class: index == 0 ? "nav-link active" : "nav-link",
+                        attrs: {
+                          id: value.mc_slug + "-tab",
+                          "data-toggle": "pill",
+                          href: "#" + value.mc_slug,
+                          role: "tab",
+                          "aria-controls": value.mc_slug,
+                          "aria-selected": "true"
+                        }
+                      },
+                      [_vm._v(_vm._s(value.mc_name))]
+                    )
+                  ])
+                }),
+                0
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -67051,295 +67136,79 @@ var render = function() {
                   staticClass: "tab-content",
                   attrs: { id: "pills-tabContent" }
                 },
-                [
-                  _c(
+                _vm._l(_vm.categories_product, function(value, index) {
+                  return _c(
                     "div",
                     {
-                      staticClass: "tab-pane fade show active",
+                      class:
+                        index == 0
+                          ? "tab-pane fade show active"
+                          : "tab-pane fade",
                       attrs: {
-                        id: "macbookpro",
+                        id: value.mc_slug,
                         role: "tabpanel",
-                        "aria-labelledby": "macbookpro-tab"
+                        "aria-labelledby": value.mc_slug + "-tab"
                       }
                     },
                     [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(3),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(4),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade",
-                      attrs: {
-                        id: "macbookair",
-                        role: "tabpanel",
-                        "aria-labelledby": "macbookair-tab"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(5),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(6),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(7),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade",
-                      attrs: {
-                        id: "imac",
-                        role: "tabpanel",
-                        "aria-labelledby": "imac-tab"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(8),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(9),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(10),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade",
-                      attrs: {
-                        id: "mac",
-                        role: "tabpanel",
-                        "aria-labelledby": "mac-tab"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(11),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(12),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-4" }, [
-                          _c("div", { staticClass: "item" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  _vm.baseUrlPath +
-                                  "/frontend/img/macbookpro.png"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(13),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "icon--shop",
-                              attrs: { href: "#" }
-                            })
-                          ])
-                        ])
-                      ])
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        _vm._l(value.product, function(data_value, key) {
+                          return key < 3
+                            ? _c("div", { staticClass: "col-lg-4" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "item" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "product-details",
+                                            params: { id: data_value.id }
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          attrs: {
+                                            src:
+                                              "/uploads/product/" +
+                                              data_value.feature_image
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "caption" }, [
+                                          _c("h2", [
+                                            _vm._v(_vm._s(data_value.name))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("p", [
+                                            _vm._v(
+                                              "$" +
+                                                _vm._s(
+                                                  data_value.stock_product
+                                                    .unit_price
+                                                )
+                                            )
+                                          ])
+                                        ])
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            : _vm._e()
+                        }),
+                        0
+                      )
                     ]
                   )
-                ]
+                }),
+                0
               )
             ])
           ])
@@ -67355,211 +67224,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "section-title" }, [
       _c("h1", [_vm._v("shop by category")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass: "nav nav-pills nav-fill",
-        attrs: { id: "pills-tab", role: "tablist" }
-      },
-      [
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link active",
-              attrs: {
-                id: "macbookpro-tab",
-                "data-toggle": "pill",
-                href: "#macbookpro",
-                role: "tab",
-                "aria-controls": "macbookpro",
-                "aria-selected": "true"
-              }
-            },
-            [_vm._v("MacBook Pro")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "macbookair-tab",
-                "data-toggle": "pill",
-                href: "#macbookair",
-                role: "tab",
-                "aria-controls": "macbookair",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("MacBook Air")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "imac-tab",
-                "data-toggle": "pill",
-                href: "#imac",
-                role: "tab",
-                "aria-controls": "imac",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("iMac")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "mac-tab",
-                "data-toggle": "pill",
-                href: "#mac",
-                role: "tab",
-                "aria-controls": "mac",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("Mac")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption" }, [
-      _c("h2", [_vm._v("MacBook Pro 2020")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("$535")])
     ])
   }
 ]
@@ -67591,24 +67255,27 @@ var render = function() {
           _c("div", { staticClass: "col-lg-3 col-3" }, [
             _c("div", { staticClass: "highlights-item" }, [
               _c("img", {
-                attrs: { src: _vm.baseUrlPath + "/frontend/img/delivery.png" }
+                attrs: {
+                  src:
+                    _vm.baseUrlPath +
+                    "/" +
+                    _vm.home_page_settings.first_sec_image_1
+                }
               }),
               _vm._v(" "),
-              _c("h5", [_vm._v("Delivery")]),
+              _c("h5", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.home_page_settings.first_sect_heading_1) +
+                    " "
+                )
+              ]),
               _vm._v(" "),
-              _c("p", [_vm._v("Free Shipping for all UK orders")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-3" }, [
-            _c("div", { staticClass: "highlights-item" }, [
-              _c("img", {
-                attrs: { src: _vm.baseUrlPath + "/frontend/img/value.png" }
-              }),
-              _vm._v(" "),
-              _c("h5", [_vm._v("value")]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Competitive Pricing")])
+              _c("p", [
+                _vm._v(
+                  " " + _vm._s(_vm.home_page_settings.first_sect_title_1) + " "
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -67616,25 +67283,80 @@ var render = function() {
             _c("div", { staticClass: "highlights-item" }, [
               _c("img", {
                 attrs: {
-                  src: _vm.baseUrlPath + "/frontend/img/reliability.png"
+                  src:
+                    _vm.baseUrlPath +
+                    "/" +
+                    _vm.home_page_settings.first_sec_image_2
                 }
               }),
               _vm._v(" "),
-              _c("h5", [_vm._v("reliability")]),
+              _c("h5", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.home_page_settings.first_sect_heading_2) +
+                    " "
+                )
+              ]),
               _vm._v(" "),
-              _c("p", [_vm._v("Quality Apple Products")])
+              _c("p", [
+                _vm._v(
+                  " " + _vm._s(_vm.home_page_settings.first_sect_title_2) + " "
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-3 col-3" }, [
             _c("div", { staticClass: "highlights-item" }, [
               _c("img", {
-                attrs: { src: _vm.baseUrlPath + "/frontend/img/choice.png" }
+                attrs: {
+                  src:
+                    _vm.baseUrlPath +
+                    "/" +
+                    _vm.home_page_settings.first_sec_image_3
+                }
               }),
               _vm._v(" "),
-              _c("h5", [_vm._v("choice")]),
+              _c("h5", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.home_page_settings.first_sect_heading_3) +
+                    " "
+                )
+              ]),
               _vm._v(" "),
-              _c("p", [_vm._v("Wide Range of Apple Products")])
+              _c("p", [
+                _vm._v(
+                  " " + _vm._s(_vm.home_page_settings.first_sect_title_3) + " "
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-3" }, [
+            _c("div", { staticClass: "highlights-item" }, [
+              _c("img", {
+                attrs: {
+                  src:
+                    _vm.baseUrlPath +
+                    "/" +
+                    _vm.home_page_settings.first_sec_image_4
+                }
+              }),
+              _vm._v(" "),
+              _c("h5", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.home_page_settings.first_sect_heading_4) +
+                    " "
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  " " + _vm._s(_vm.home_page_settings.first_sect_title_4) + " "
+                )
+              ])
             ])
           ])
         ])
@@ -67804,22 +67526,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("section", { attrs: { id: "shop-now" } }, [
+  return _c("div", [
+    _c(
+      "section",
+      {
+        style: {
+          "background-image":
+            "url(" + _vm.home_page_settings.third_sec_image + ")"
+        },
+        attrs: { id: "shop-now" }
+      },
+      [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-lg-7 col-sm-12" }, [
               _c("div", { staticClass: "shop-now-content" }, [
                 _c("p", [
-                  _vm._v("Refresh Your Mac "),
-                  _c("span", [_vm._v("Upgrade to the latest Apple devices")])
+                  _vm._v(
+                    _vm._s(_vm.home_page_settings.third_sec_heading) + " "
+                  ),
+                  _c("span", [
+                    _vm._v(_vm._s(_vm.home_page_settings.third_sec_title))
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("a", { staticClass: "btn", attrs: { href: "store.php" } }, [
@@ -67829,10 +67557,11 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
-  }
-]
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -67854,64 +67583,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("section", { attrs: { id: "subscription" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "social-links" }, [
+              _c("ul", [
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.home_page_settings.instagram_url } },
+                    [_c("i", { staticClass: "fab fa-instagram-square" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.home_page_settings.facebook_url } },
+                    [_c("i", { staticClass: "fab fa-facebook-square" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.home_page_settings.twitter_url } },
+                    [_c("i", { staticClass: "fab fa-twitter-square" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.home_page_settings.pinterest_url } },
+                    [_c("i", { staticClass: "fab fa-pinterest-square" })]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("section", { attrs: { id: "subscription" } }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
-              _c("div", { staticClass: "subscribe-box" }, [
-                _c("p", [
-                  _vm._v("Join our newsletter for the latest Apple stock")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control subscribe-input",
-                  attrs: { type: "email", placeholder: "Enter Your Email Here" }
-                }),
-                _vm._v(" "),
-                _c("button", { staticClass: "btn subscribe-btn" }, [
-                  _vm._v("Subscribe")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-12" }, [
-              _c("div", { staticClass: "social-links" }, [
-                _c("ul", [
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fab fa-instagram-square" })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fab fa-facebook-square" })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fab fa-twitter-square" })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fab fa-pinterest-square" })
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
+    return _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
+      _c("div", { staticClass: "subscribe-box" }, [
+        _c("p", [_vm._v("Join our newsletter for the latest Apple stock")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control subscribe-input",
+          attrs: { type: "email", placeholder: "Enter Your Email Here" }
+        }),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn subscribe-btn" }, [
+          _vm._v("Subscribe")
         ])
       ])
     ])
@@ -67923,10 +67658,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -67987,244 +67722,69 @@ var render = function() {
             _c(
               "div",
               { staticClass: "carousel-inner", attrs: { role: "listbox" } },
-              [
-                _c("div", { staticClass: "carousel-item active" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "card mb-2" }, [
-                        _c("img", {
-                          staticClass: "card-img-top",
-                          attrs: {
-                            src:
-                              _vm.baseUrlPath + "/frontend/img/suggestion.png",
-                            alt: "Card image cap"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm._m(2)
-                      ])
-                    ]),
-                    _vm._v(" "),
+              _vm._l(_vm.chunkedItems, function(chunk, index) {
+                return _c(
+                  "div",
+                  {
+                    class: index == 0 ? "carousel-item active" : "carousel-item"
+                  },
+                  [
                     _c(
                       "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(3)
+                      { staticClass: "row" },
+                      _vm._l(chunk, function(value) {
+                        return _c("div", { staticClass: "col-md-3" }, [
+                          _c(
+                            "div",
+                            { staticClass: "card mb-2" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "product-details",
+                                      params: { id: value.id }
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "card-img-top",
+                                    attrs: {
+                                      src:
+                                        "/uploads/product/" +
+                                        value.feature_image,
+                                      alt: "Card image cap"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c("p", { staticClass: "card-text" }, [
+                                      _vm._v(_vm._s(value.name)),
+                                      _c("span", [
+                                        _vm._v(
+                                          "$" +
+                                            _vm._s(
+                                              value.stock_product.unit_price
+                                            )
+                                        )
+                                      ])
+                                    ])
+                                  ])
+                                ]
+                              )
+                            ],
+                            1
+                          )
                         ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(4)
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(5)
-                        ])
-                      ]
+                      }),
+                      0
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "card mb-2" }, [
-                        _c("img", {
-                          staticClass: "card-img-top",
-                          attrs: {
-                            src:
-                              _vm.baseUrlPath + "/frontend/img/suggestion.png",
-                            alt: "Card image cap"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm._m(6)
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(7)
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(8)
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(9)
-                        ])
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "card mb-2" }, [
-                        _c("img", {
-                          staticClass: "card-img-top",
-                          attrs: {
-                            src:
-                              _vm.baseUrlPath + "/frontend/img/suggestion.png",
-                            alt: "Card image cap"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm._m(10)
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(11)
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(12)
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-3 clearfix d-none d-md-block" },
-                      [
-                        _c("div", { staticClass: "card mb-2" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src:
-                                _vm.baseUrlPath +
-                                "/frontend/img/suggestion.png",
-                              alt: "Card image cap"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(13)
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]
+                  ]
+                )
+              }),
+              0
             )
           ]
         )
@@ -68258,138 +67818,6 @@ var staticRenderFns = [
       _c("li", {
         attrs: { "data-target": "#multi-item-example", "data-slide-to": "2" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v('Apple 11" MacBook Air (Mid 2012) Intel Pentium III'),
-        _c("span", [_vm._v("$175.00")])
-      ])
     ])
   }
 ]
@@ -71868,815 +71296,728 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("section", { attrs: { id: "banner-support" } }),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-9 col-xs-12" }, [
+          _c(
+            "div",
+            { staticClass: "tab-content", attrs: { id: "v-pills-tabContent" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "tab-pane fade show active",
+                  attrs: {
+                    id: "contact",
+                    role: "tabpanel",
+                    "aria-labelledby": "contact-tab"
+                  }
+                },
+                [
+                  _c("h3", [_vm._v(_vm._s(_vm.general_setting.support_title))]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(_vm._s(_vm.general_setting.support_description))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-4" }, [
+                      _c("div", { staticClass: "contact-info" }, [
+                        _c("h5", [_vm._v("Send A Message")]),
+                        _vm._v(" "),
+                        _c("b", { staticStyle: { "font-weight": "500" } }, [
+                          _vm._v("Email")
+                        ]),
+                        _vm._v(": "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.general_setting.tech_support_email))
+                        ]),
+                        _vm._v(" "),
+                        _c("b", { staticStyle: { "font-weight": "500" } }, [
+                          _vm._v("Phone")
+                        ]),
+                        _vm._v(": "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.general_setting.tech_support_phone))
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("Technical Support")]),
+                        _vm._v(" "),
+                        _c("b", { staticStyle: { "font-weight": "500" } }, [
+                          _vm._v("Email")
+                        ]),
+                        _vm._v(": "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.general_setting.cus_support_email))
+                        ]),
+                        _vm._v(" "),
+                        _c("b", { staticStyle: { "font-weight": "500" } }, [
+                          _vm._v("Phone")
+                        ]),
+                        _vm._v(": "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.general_setting.cus_support_phone))
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("Customer Support")]),
+                        _vm._v(" "),
+                        _c("b", { staticStyle: { "font-weight": "500" } }, [
+                          _vm._v("Email")
+                        ]),
+                        _vm._v(": "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.general_setting.email))
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("Address")]),
+                        _vm._v(" "),
+                        _c("address", [
+                          _vm._v(
+                            "\n\t\t                                    " +
+                              _vm._s(_vm.general_setting.address) +
+                              "\n                                        "
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(3)
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(4)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("section", { attrs: { id: "banner-support" } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 page-title" }, [
-            _c("h1", [_vm._v("support")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-xs-12" }, [
-            _c(
-              "div",
-              {
-                staticClass: "nav flex-column support-page nav-pills",
-                attrs: {
-                  id: "v-pills-tab",
-                  role: "tablist",
-                  "aria-orientation": "vertical"
-                }
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link active",
-                    staticStyle: { padding: "1rem 1rem" },
-                    attrs: {
-                      id: "contact-tab",
-                      "data-toggle": "pill",
-                      href: "#contact",
-                      role: "tab",
-                      "aria-controls": "contact",
-                      "aria-selected": "true"
-                    }
-                  },
-                  [_vm._v("Contact")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    staticStyle: { padding: "1rem 1rem" },
-                    attrs: {
-                      id: "faq-tab",
-                      "data-toggle": "pill",
-                      href: "#faq",
-                      role: "tab",
-                      "aria-controls": "faq",
-                      "aria-selected": "false"
-                    }
-                  },
-                  [_vm._v("FAQs")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-9 col-xs-12" }, [
-            _c(
-              "div",
-              {
-                staticClass: "tab-content",
-                attrs: { id: "v-pills-tabContent" }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade show active",
-                    attrs: {
-                      id: "contact",
-                      role: "tabpanel",
-                      "aria-labelledby": "contact-tab"
-                    }
-                  },
-                  [
-                    _c("h3", [
-                      _vm._v(
-                        "Need help with a purchase or assistance with your Mac?"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Our team are available from 9 am till 5 pm, Monday to Friday and 10 am till 4 pm on a Saturday to assist with any query you may have. Please get in touch and we will do our utmost to ensure we respond quickly and correctly."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-lg-8" }, [
-                        _c("div", { staticClass: "email-form" }, [
-                          _c("h5", [_vm._v("Send A Message")]),
-                          _vm._v(" "),
-                          _c("form", [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "fullName" } }, [
-                                _vm._v("Your name*")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  id: "fullName",
-                                  placeholder: "Full name"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "email" } }, [
-                                _vm._v("Email address*")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "email",
-                                  id: "email",
-                                  placeholder: "Email address"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "contactNo" } }, [
-                                _vm._v("Contact no")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  id: "contactNo",
-                                  placeholder: "Contact no"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "enquiryType" } }, [
-                                _vm._v("Enquiry Type")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  staticClass: "form-control",
-                                  attrs: { id: "enquiryType" }
-                                },
-                                [
-                                  _c("option", [_vm._v("Enquiry type")]),
-                                  _vm._v(" "),
-                                  _c("option", [_vm._v("Sales")]),
-                                  _vm._v(" "),
-                                  _c("option", [_vm._v("Technical")]),
-                                  _vm._v(" "),
-                                  _c("option", [_vm._v("Administration")])
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "message" } }, [
-                                _vm._v("Message*")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  id: "message",
-                                  rows: "5",
-                                  placeholder: "Enter message here"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              { staticClass: "btn", attrs: { type: "submit" } },
-                              [_vm._v("Submit")]
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-lg-4" }, [
-                        _c("div", { staticClass: "contact-info" }, [
-                          _c("h5", [_vm._v("Send A Message")]),
-                          _vm._v(" "),
-                          _c("b", { staticStyle: { "font-weight": "500" } }, [
-                            _vm._v("Email")
-                          ]),
-                          _vm._v(": "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "mailto:sales@appleselloff.com" }
-                            },
-                            [_vm._v("sales@appleselloff.com")]
-                          ),
-                          _vm._v(" "),
-                          _c("b", { staticStyle: { "font-weight": "500" } }, [
-                            _vm._v("Phone")
-                          ]),
-                          _vm._v(": "),
-                          _c(
-                            "a",
-                            { attrs: { href: "tel:+44 (0) 0000000000" } },
-                            [_vm._v("+44 (0) 000 0000 000")]
-                          ),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v("Technical Support")]),
-                          _vm._v(" "),
-                          _c("b", { staticStyle: { "font-weight": "500" } }, [
-                            _vm._v("Email")
-                          ]),
-                          _vm._v(": "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "mailto:sales@appleselloff.com" }
-                            },
-                            [_vm._v("sales@appleselloff.com")]
-                          ),
-                          _vm._v(" "),
-                          _c("b", { staticStyle: { "font-weight": "500" } }, [
-                            _vm._v("Phone")
-                          ]),
-                          _vm._v(": "),
-                          _c(
-                            "a",
-                            { attrs: { href: "tel:+44 (0) 0000000000" } },
-                            [_vm._v("+44 (0) 000 0000 000")]
-                          ),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v("Customer Support")]),
-                          _vm._v(" "),
-                          _c("b", { staticStyle: { "font-weight": "500" } }, [
-                            _vm._v("Email")
-                          ]),
-                          _vm._v(": "),
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "mailto:customerservice@applselloff.com"
-                              }
-                            },
-                            [_vm._v("customerservice@applselloff.com")]
-                          ),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v("Address")]),
-                          _vm._v(" "),
-                          _c("address", [
-                            _vm._v(
-                              "\n\t                                    MacFinder (MacRefresh Ltd.) "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n\t                                    Appleselloff (reApp Ltd.) Unit C11 "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n\t                                    Argall Avenue Leyton Industrial Village E10 7QP United Kingdom"
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "Appleselloff is part of reApp Ltd group. Company registration number 11706397 (England & Wales) VAT Number: GB ?????????\n\t                                "
-                            )
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade",
-                    attrs: {
-                      id: "faq",
-                      role: "tabpanel",
-                      "aria-labelledby": "faq-tab"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "accordion" }, [
-                      _c("div", { staticClass: "accordion-item" }, [
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              id: "accordion-button-1",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "accordion-title" }, [
-                              _vm._v("Product information")
-                            ]),
-                            _c("span", {
-                              staticClass: "icon",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "accordion-content" }, [
-                          _c("h6", [_vm._v("Q: What is included in the box?")]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "All of our products are delivered with an original Apple charger where possible or stated in the sale description. Desktop computers are usually delivered without a keyboard, a mouse or trackpad, unless otherwise stated in the description. If any other accessories are included this will be listed in the product description of each individual product."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: Will there be any scratches on the screen?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We usually avoid selling items with scratches on the screen, unless the product is “sold as is” at a discounted price and clearly stated in the sale. Devices that are listed as New, Unopened and Very Good Condition will not have any defect to the screen. Scratches and defects to both the body and screen of the product will be detailed in the description product page."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v("Q: What does the different grades mean?")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Please take a look at our grading system here."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: Is it safe to buy a used or refurbished product?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Apple products are widely known for their quality and reliability and the products we source are always in good working condition, unless otherwise is specified. Every computer or laptop product purchased is accompanied with a “peace of mind” 12 month warranty."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: I had a look on your website and saw that I can get the same product for cheaper on eBay. Why is this?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "However, as we are a business we are unable to compete with the prices you can get at an online marketplace such as eBay or from a friend, as our prices also covers shipping, warranty as well as other business expenses."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v("Q: What is VAT Margin Scheme?")]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "All prices in our onlinestore have VAT included (where applicable). However, some of our refurbished products are sold with no deductible VAT (VAT margin scheme). You can see which product have no deductible VAT under each product in our onlinestore, the products that have a deductible VAT component to the price will say “incl. 20% VAT” whereas the products that has no deductible VAT will say “0% VAT”. If you are purchasing devices as a business and looking to get VAT deducted from the price, please ensure that the devices you are purchasing has deductible VAT before placing the order to avoid misunderstandings. You can read more about the VAT Margin Scheme here: https://www.gov.uk/vat-margin-schemes/overview."
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "accordion-item" }, [
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              id: "accordion-button-2",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "accordion-title" }, [
-                              _vm._v("Warranty and return policy")
-                            ]),
-                            _c("span", {
-                              staticClass: "icon",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "accordion-content" }, [
-                          _c("h6", [
-                            _vm._v("Q: How long is the warranty valid?")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "All products have a minimum of 12 months warranty. There is an option to buy an extended warranty at checkout, where you will be able to select up to an additional 18 months on top of your existing warranty. Please note that you will not be able to buy extended warranty after the purchase has been completed."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: If I drop my device and it is damaged, will this be covered by the warranty?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v("No, physical Warranty and return policy")
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v("Q: How long is the warranty valid?")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "All products have a minimum of 12 months warranty. There is an option to buy an extended warranty at checkout, where you will be able to select up to an additional 18 months on top of your existing warranty. Please note that you will not be able to buy extended warranty after the purchase has been completed."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: If I drop my device and it is damaged, will this be covered by the warranty?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "No, physical defects of functionality issues caused by external damage and accidents are not covered by the warranty. You can read more about what our warranty covers here."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: I have lost my receipt, how can I see when my warranty will expire?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "If you provide us with details of who made the purchase and the serial number of the product, we will be able to re-send you a copy of your invoice and tell you how long your warranty is valid."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: My product will not turn on, can I get a repair covered by the warranty?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Before raising a warranty claim, please contact us with the issue you are having and we will offer you support via email or over the phone. If this does not solve the problem it may be caused by a hardware issue, which is covered by the warranty. To raise a warranty claim please click here. To read about what our warranty covers, please click here."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v("Q: How do I return a product?")]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Our returns policy, entitles you to return an item in its original condition with all the accessories and packaging within 14 days for a full refund. The product must be returned in the same condition as you received it. For more information please see our General terms and conditions. If you do wish to return a product you must first contact our customer service and then send it back via courier within the two-week period to the following address:"
-                            )
-                          ]),
-                          _vm._v(
-                            "\n\t                                reApp Ltd"
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n\t                                Unit C11"
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n\t                                Argall Avenue"
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n\t                                Leyton Industrial Village"
-                          ),
-                          _c("br"),
-                          _vm._v("\n\t                                E10 7QP"),
-                          _c("br"),
-                          _vm._v(
-                            "\n\t                                United Kingdom\n\t                                "
-                          ),
-                          _c("h6", { staticClass: "mt-3" }, [
-                            _vm._v(
-                              "Q: Is there anything I should know before I complete my purchase?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "If you haven’t done so already, please take a look at our terms and conditions here. defects caused by external damage and accidents are not covered by the warranty. You can read more about what our warranty covers here."
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "accordion-item" }, [
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              id: "accordion-button-3",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "accordion-title" }, [
-                              _vm._v("Payment")
-                            ]),
-                            _c("span", {
-                              staticClass: "icon",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "accordion-content" }, [
-                          _c("h6", [
-                            _vm._v("Q: What payment options do you offer?")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We accept payment via debit/credit card, PayPal, direct bank transfer or invoice. Trusted third parties are used to secure all payments."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: My credit card is not accepted, what is the problem?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We accept Visa, Visa Debit-, Visa Electron-, MasterCard- and Maestro. If you have any issues when using one of the cards mentioned above, please try to use another browser or contact your bank to check your daily limit"
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "accordion-item" }, [
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              id: "accordion-button-4",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "accordion-title" }, [
-                              _vm._v("Delivery")
-                            ]),
-                            _c("span", {
-                              staticClass: "icon",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "accordion-content" }, [
-                          _c("h6", [
-                            _vm._v(
-                              "Q: I have just purchased a product from your website, when will I receive it?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "If an order is placed before 11 am on a weekday the item will be dispatched from our workshop the same day, unless it is a bespoke order with upgrade kits that are not in stock and needs to be ordered from our suppliers. You will be notified if by email if this is the case. Orders placed after 11 am will be dispatched the following working day. We use DPD's fully tracked service, so unless there are any delays with DPD you will receive your device within 1-3 business days after it has been dispatched."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: My package was damaged upon arrival. What do I do?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Customer is obliged to inspect the delivery in presence of the courier or within receiving the product from Collection Point. If the package or its content arrives damaged or opened, please reject the package and ask the courier to take it back to sender. The courier will then sign a protocol which states the package has been delivered damaged and is being returned. Please email us and inform us that the package is being returned due to damage upon arrival. Please remember to include your Purchase ID along with detailed photographs of the packaging and the damage."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Once the package has been received by us in our warehouse will inspect the item and offer a replacement or refund."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: It has been 5 days since I placed my order but I have not yet received the product. Can you please let me know where it is and when I will receive it?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "If you are unable to track your package using the tracking number provided in your order confirmation email or the tracking information has still not been updated since dispatch, please contact us and we will raise a claim with DPD on your behalf."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v("Q: How much does the shipping cost?")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We offer free fast shipping to all UK mainland addresses, however oversize large parcels to Northern Ireland or the Scottish Highlands and Islands may incur additional charges."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: If I buy a product now can I collect it in person today?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We do not offer personal collection. All purchased items will be sent via tracked with signature delivery services."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: I was not at home when my package was attempted delivered, what happens now?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "DPD will leave you an attempted delivery note with the current location of your parcel and how to get it. The driver may have taken it back to your nearest DPD depot, delivered it to your Collection Point, or left it with a neighbour. If your device has been returned to us, we will inform you, however we will not be able to cover the cost of a second delivery."
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "accordion-item" }, [
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              id: "accordion-button-5",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "accordion-title" }, [
-                              _vm._v("Technical information")
-                            ]),
-                            _c("span", {
-                              staticClass: "icon",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "accordion-content" }, [
-                          _c("h6", [
-                            _vm._v(
-                              "Q: I have a problem with a product that I bought from Appleselloff. Is there anything I can do to diagnose and solve the problem myself?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Apple and other Mac forums have online support pages with information on how you can diagnose your device. Simply type the issue you are experiencing into your search engine preferable Google, and usually an article from Apple’s support page or Mac forums will appear."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: The screen on my iPad/iPhone is broken. Can I send it to you for a repair?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Yes, however the cost will not be covered by our warranty. We will provide you with a quote after the initial examination. Please note that if you decide to have a repair conducted by an unauthorised service provider, your Appleselloff warranty will be void."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: Do you repair products out of warranty or items that are not bought from Appleselloff?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Yes we do provide repair for out of warranty or items that are not bought from Appleselloff. However, if you would like our service providers to have a look at your device after the warranty has expired, you are welcome to contact Appleselloff Support directly, and ask them for an inspection and repair quote."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: What does Appleselloff do with my personal information?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Appleselloff respects your privacy. The information you provide us with is only used for the purpose of the service we provide. We do not sell, rent, or share any of your personal information. If you have requested to receive our newsletter or notifications of new devices, we will use your email address to send you exclusive offers, and you can unsubscribe at any time. Please see our Privacy policy for more information."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _vm._v(
-                              "Q: What programs are included when I buy a product from Appleselloff?"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "We only provide the original Apple software that is included on Macs. The product will be pre-installed with a clean operating system. In addition, Apple provides a range of free software that can be downloaded via the App Store such as: Pages, Numbers, Keynote, GarageBand and iMovie can be installed after you have received your device."
-                            )
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
+    return _c("div", { staticClass: "col-12 page-title" }, [
+      _c("h1", [_vm._v("support")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-3 col-xs-12" }, [
       _c(
-        "section",
+        "div",
         {
-          staticStyle: { "margin-top": "12rem" },
-          attrs: { id: "subscription" }
+          staticClass: "nav flex-column support-page nav-pills",
+          attrs: {
+            id: "v-pills-tab",
+            role: "tablist",
+            "aria-orientation": "vertical"
+          }
         },
         [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
-                _c("div", { staticClass: "subscribe-box" }, [
-                  _c("p", [
-                    _vm._v("Join our newsletter for the latest Apple stock")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control subscribe-input",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Enter Your Email Here"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("button", { staticClass: "btn subscribe-btn" }, [
-                    _vm._v("Subscribe")
-                  ])
-                ])
+          _c(
+            "a",
+            {
+              staticClass: "nav-link active",
+              staticStyle: { padding: "1rem 1rem" },
+              attrs: {
+                id: "contact-tab",
+                "data-toggle": "pill",
+                href: "#contact",
+                role: "tab",
+                "aria-controls": "contact",
+                "aria-selected": "true"
+              }
+            },
+            [_vm._v("Contact")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              staticStyle: { padding: "1rem 1rem" },
+              attrs: {
+                id: "faq-tab",
+                "data-toggle": "pill",
+                href: "#faq",
+                role: "tab",
+                "aria-controls": "faq",
+                "aria-selected": "false"
+              }
+            },
+            [_vm._v("FAQs")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-8" }, [
+      _c("div", { staticClass: "email-form" }, [
+        _c("h5", [_vm._v("Send A Message")]),
+        _vm._v(" "),
+        _c("form", [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "fullName" } }, [_vm._v("Your name*")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", id: "fullName", placeholder: "Full name" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v("Email address*")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "email",
+                id: "email",
+                placeholder: "Email address"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "contactNo" } }, [
+              _vm._v("Contact no")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "contactNo",
+                placeholder: "Contact no"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "enquiryType" } }, [
+              _vm._v("Enquiry Type")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              { staticClass: "form-control", attrs: { id: "enquiryType" } },
+              [
+                _c("option", [_vm._v("Enquiry type")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Sales")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Technical")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Administration")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "message" } }, [_vm._v("Message*")]),
+            _vm._v(" "),
+            _c("textarea", {
+              staticClass: "form-control",
+              attrs: {
+                id: "message",
+                rows: "5",
+                placeholder: "Enter message here"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+            _vm._v("Submit")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "tab-pane fade",
+        attrs: { id: "faq", role: "tabpanel", "aria-labelledby": "faq-tab" }
+      },
+      [
+        _c("div", { staticClass: "accordion" }, [
+          _c("div", { staticClass: "accordion-item" }, [
+            _c(
+              "button",
+              { attrs: { id: "accordion-button-1", "aria-expanded": "false" } },
+              [
+                _c("span", { staticClass: "accordion-title" }, [
+                  _vm._v("Product information")
+                ]),
+                _c("span", {
+                  staticClass: "icon",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "accordion-content" }, [
+              _c("h6", [_vm._v("Q: What is included in the box?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "All of our products are delivered with an original Apple charger where possible or stated in the sale description. Desktop computers are usually delivered without a keyboard, a mouse or trackpad, unless otherwise stated in the description. If any other accessories are included this will be listed in the product description of each individual product."
+                )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("div", { staticClass: "social-links" }, [
-                  _c("ul", [
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-instagram-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-facebook-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-twitter-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-pinterest-square" })
-                      ])
+              _c("h6", [
+                _vm._v("Q: Will there be any scratches on the screen?")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We usually avoid selling items with scratches on the screen, unless the product is “sold as is” at a discounted price and clearly stated in the sale. Devices that are listed as New, Unopened and Very Good Condition will not have any defect to the screen. Scratches and defects to both the body and screen of the product will be detailed in the description product page."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [_vm._v("Q: What does the different grades mean?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Please take a look at our grading system here.")
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v("Q: Is it safe to buy a used or refurbished product?")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Apple products are widely known for their quality and reliability and the products we source are always in good working condition, unless otherwise is specified. Every computer or laptop product purchased is accompanied with a “peace of mind” 12 month warranty."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: I had a look on your website and saw that I can get the same product for cheaper on eBay. Why is this?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "However, as we are a business we are unable to compete with the prices you can get at an online marketplace such as eBay or from a friend, as our prices also covers shipping, warranty as well as other business expenses."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [_vm._v("Q: What is VAT Margin Scheme?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "All prices in our onlinestore have VAT included (where applicable). However, some of our refurbished products are sold with no deductible VAT (VAT margin scheme). You can see which product have no deductible VAT under each product in our onlinestore, the products that have a deductible VAT component to the price will say “incl. 20% VAT” whereas the products that has no deductible VAT will say “0% VAT”. If you are purchasing devices as a business and looking to get VAT deducted from the price, please ensure that the devices you are purchasing has deductible VAT before placing the order to avoid misunderstandings. You can read more about the VAT Margin Scheme here: https://www.gov.uk/vat-margin-schemes/overview."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "accordion-item" }, [
+            _c(
+              "button",
+              { attrs: { id: "accordion-button-2", "aria-expanded": "false" } },
+              [
+                _c("span", { staticClass: "accordion-title" }, [
+                  _vm._v("Warranty and return policy")
+                ]),
+                _c("span", {
+                  staticClass: "icon",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "accordion-content" }, [
+              _c("h6", [_vm._v("Q: How long is the warranty valid?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "All products have a minimum of 12 months warranty. There is an option to buy an extended warranty at checkout, where you will be able to select up to an additional 18 months on top of your existing warranty. Please note that you will not be able to buy extended warranty after the purchase has been completed."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: If I drop my device and it is damaged, will this be covered by the warranty?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("No, physical Warranty and return policy")]),
+              _vm._v(" "),
+              _c("h6", [_vm._v("Q: How long is the warranty valid?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "All products have a minimum of 12 months warranty. There is an option to buy an extended warranty at checkout, where you will be able to select up to an additional 18 months on top of your existing warranty. Please note that you will not be able to buy extended warranty after the purchase has been completed."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: If I drop my device and it is damaged, will this be covered by the warranty?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "No, physical defects of functionality issues caused by external damage and accidents are not covered by the warranty. You can read more about what our warranty covers here."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: I have lost my receipt, how can I see when my warranty will expire?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "If you provide us with details of who made the purchase and the serial number of the product, we will be able to re-send you a copy of your invoice and tell you how long your warranty is valid."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: My product will not turn on, can I get a repair covered by the warranty?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Before raising a warranty claim, please contact us with the issue you are having and we will offer you support via email or over the phone. If this does not solve the problem it may be caused by a hardware issue, which is covered by the warranty. To raise a warranty claim please click here. To read about what our warranty covers, please click here."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [_vm._v("Q: How do I return a product?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Our returns policy, entitles you to return an item in its original condition with all the accessories and packaging within 14 days for a full refund. The product must be returned in the same condition as you received it. For more information please see our General terms and conditions. If you do wish to return a product you must first contact our customer service and then send it back via courier within the two-week period to the following address:"
+                )
+              ]),
+              _vm._v("\n\t\t                                reApp Ltd"),
+              _c("br"),
+              _vm._v("\n\t\t                                Unit C11"),
+              _c("br"),
+              _vm._v("\n\t\t                                Argall Avenue"),
+              _c("br"),
+              _vm._v(
+                "\n\t\t                                Leyton Industrial Village"
+              ),
+              _c("br"),
+              _vm._v("\n\t\t                                E10 7QP"),
+              _c("br"),
+              _vm._v(
+                "\n\t\t                                United Kingdom\n\t\t                                "
+              ),
+              _c("h6", { staticClass: "mt-3" }, [
+                _vm._v(
+                  "Q: Is there anything I should know before I complete my purchase?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "If you haven’t done so already, please take a look at our terms and conditions here. defects caused by external damage and accidents are not covered by the warranty. You can read more about what our warranty covers here."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "accordion-item" }, [
+            _c(
+              "button",
+              { attrs: { id: "accordion-button-3", "aria-expanded": "false" } },
+              [
+                _c("span", { staticClass: "accordion-title" }, [
+                  _vm._v("Payment")
+                ]),
+                _c("span", {
+                  staticClass: "icon",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "accordion-content" }, [
+              _c("h6", [_vm._v("Q: What payment options do you offer?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We accept payment via debit/credit card, PayPal, direct bank transfer or invoice. Trusted third parties are used to secure all payments."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: My credit card is not accepted, what is the problem?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We accept Visa, Visa Debit-, Visa Electron-, MasterCard- and Maestro. If you have any issues when using one of the cards mentioned above, please try to use another browser or contact your bank to check your daily limit"
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "accordion-item" }, [
+            _c(
+              "button",
+              { attrs: { id: "accordion-button-4", "aria-expanded": "false" } },
+              [
+                _c("span", { staticClass: "accordion-title" }, [
+                  _vm._v("Delivery")
+                ]),
+                _c("span", {
+                  staticClass: "icon",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "accordion-content" }, [
+              _c("h6", [
+                _vm._v(
+                  "Q: I have just purchased a product from your website, when will I receive it?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "If an order is placed before 11 am on a weekday the item will be dispatched from our workshop the same day, unless it is a bespoke order with upgrade kits that are not in stock and needs to be ordered from our suppliers. You will be notified if by email if this is the case. Orders placed after 11 am will be dispatched the following working day. We use DPD's fully tracked service, so unless there are any delays with DPD you will receive your device within 1-3 business days after it has been dispatched."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v("Q: My package was damaged upon arrival. What do I do?")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Customer is obliged to inspect the delivery in presence of the courier or within receiving the product from Collection Point. If the package or its content arrives damaged or opened, please reject the package and ask the courier to take it back to sender. The courier will then sign a protocol which states the package has been delivered damaged and is being returned. Please email us and inform us that the package is being returned due to damage upon arrival. Please remember to include your Purchase ID along with detailed photographs of the packaging and the damage."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Once the package has been received by us in our warehouse will inspect the item and offer a replacement or refund."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: It has been 5 days since I placed my order but I have not yet received the product. Can you please let me know where it is and when I will receive it?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "If you are unable to track your package using the tracking number provided in your order confirmation email or the tracking information has still not been updated since dispatch, please contact us and we will raise a claim with DPD on your behalf."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [_vm._v("Q: How much does the shipping cost?")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We offer free fast shipping to all UK mainland addresses, however oversize large parcels to Northern Ireland or the Scottish Highlands and Islands may incur additional charges."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: If I buy a product now can I collect it in person today?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We do not offer personal collection. All purchased items will be sent via tracked with signature delivery services."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: I was not at home when my package was attempted delivered, what happens now?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "DPD will leave you an attempted delivery note with the current location of your parcel and how to get it. The driver may have taken it back to your nearest DPD depot, delivered it to your Collection Point, or left it with a neighbour. If your device has been returned to us, we will inform you, however we will not be able to cover the cost of a second delivery."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "accordion-item" }, [
+            _c(
+              "button",
+              { attrs: { id: "accordion-button-5", "aria-expanded": "false" } },
+              [
+                _c("span", { staticClass: "accordion-title" }, [
+                  _vm._v("Technical information")
+                ]),
+                _c("span", {
+                  staticClass: "icon",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "accordion-content" }, [
+              _c("h6", [
+                _vm._v(
+                  "Q: I have a problem with a product that I bought from Appleselloff. Is there anything I can do to diagnose and solve the problem myself?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Apple and other Mac forums have online support pages with information on how you can diagnose your device. Simply type the issue you are experiencing into your search engine preferable Google, and usually an article from Apple’s support page or Mac forums will appear."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: The screen on my iPad/iPhone is broken. Can I send it to you for a repair?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Yes, however the cost will not be covered by our warranty. We will provide you with a quote after the initial examination. Please note that if you decide to have a repair conducted by an unauthorised service provider, your Appleselloff warranty will be void."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: Do you repair products out of warranty or items that are not bought from Appleselloff?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Yes we do provide repair for out of warranty or items that are not bought from Appleselloff. However, if you would like our service providers to have a look at your device after the warranty has expired, you are welcome to contact Appleselloff Support directly, and ask them for an inspection and repair quote."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: What does Appleselloff do with my personal information?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Appleselloff respects your privacy. The information you provide us with is only used for the purpose of the service we provide. We do not sell, rent, or share any of your personal information. If you have requested to receive our newsletter or notifications of new devices, we will use your email address to send you exclusive offers, and you can unsubscribe at any time. Please see our Privacy policy for more information."
+                )
+              ]),
+              _vm._v(" "),
+              _c("h6", [
+                _vm._v(
+                  "Q: What programs are included when I buy a product from Appleselloff?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "We only provide the original Apple software that is included on Macs. The product will be pre-installed with a clean operating system. In addition, Apple provides a range of free software that can be downloaded via the App Store such as: Pages, Numbers, Keynote, GarageBand and iMovie can be installed after you have received your device."
+                )
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      { staticStyle: { "margin-top": "12rem" }, attrs: { id: "subscription" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
+              _c("div", { staticClass: "subscribe-box" }, [
+                _c("p", [
+                  _vm._v("Join our newsletter for the latest Apple stock")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control subscribe-input",
+                  attrs: { type: "email", placeholder: "Enter Your Email Here" }
+                }),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn subscribe-btn" }, [
+                  _vm._v("Subscribe")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12" }, [
+              _c("div", { staticClass: "social-links" }, [
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-instagram-square" })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-facebook-square" })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-twitter-square" })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-pinterest-square" })
                     ])
                   ])
                 ])
               ])
             ])
           ])
-        ]
-      )
-    ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -97236,9 +96577,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Suggestion.vue?vue&type=template&id=7710e84e& */ "./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&");
+/* harmony import */ var _Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Suggestion.vue?vue&type=template&id=7710e84e&scoped=true& */ "./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true&");
 /* harmony import */ var _Suggestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Suggestion.vue?vue&type=script&lang=js& */ "./resources/js/components/home/Suggestion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& */ "./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -97246,13 +96589,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Suggestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "7710e84e",
   null
   
 )
@@ -97278,19 +96621,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=style&index=0&id=7710e84e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_style_index_0_id_7710e84e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true& ***!
+  \************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suggestion.vue?vue&type=template&id=7710e84e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suggestion.vue?vue&type=template&id=7710e84e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/home/Suggestion.vue?vue&type=template&id=7710e84e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggestion_vue_vue_type_template_id_7710e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -97890,21 +97249,24 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/components/pages/Support.vue ***!
   \***************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Support_vue_vue_type_template_id_e0616bae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Support.vue?vue&type=template&id=e0616bae& */ "./resources/js/components/pages/Support.vue?vue&type=template&id=e0616bae&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Support.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Support.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Support_vue_vue_type_template_id_e0616bae___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Support_vue_vue_type_template_id_e0616bae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -97918,6 +97280,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/pages/Support.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Support.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/pages/Support.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Support.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Support.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Support_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -98743,10 +98119,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var main_url = window.location.href;
+main_url = main_url.slice(0, -1);
 var CONFIG = {
   // http://apple.devcorn.xyz/
   // API_BASE_URL: 'http://127.0.0.1:8000',
-  API_BASE_URL: "http://apple.devcorn.xyz"
+  API_BASE_URL: window.location.origin // API_BASE_URL: "http://apple.devcorn.xyz",
+
 };
 /* harmony default export */ __webpack_exports__["default"] = (CONFIG);
 

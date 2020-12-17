@@ -125,7 +125,7 @@ class ProductController extends Controller
                     ]);
 
 
-                if (count($request->additional_ram_id) > 0 && count($request->additional_ram_price) > 0) {
+                if (!empty($request->additional_ram_id) && !empty($request->additional_ram_price)) {
                     $additional_ram = array();
                     foreach ($request->additional_ram_id as $key => $value) {
                         if (isset($value) && isset($request->additional_ram_price[$key])) {
@@ -142,7 +142,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_ram);
                 }
 
-                if (count($request->additional_hard_drive_id) > 0 && count($request->additional_hard_drive_price) > 0) {
+                if (!empty($request->additional_hard_drive_id) && !empty($request->additional_hard_drive_price)) {
                     $additional_hard_drive = array();
                     foreach ($request->additional_hard_drive_id as $key => $value) {
                         if (isset($value) && isset($request->additional_hard_drive_price[$key])) {
@@ -159,7 +159,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_hard_drive);
                 }
 
-                if (count($request->additional_graphics_card_id) > 0 && count($request->additional_graphics_card_price) > 0) {
+                if (!empty($request->additional_graphics_card_id) && !empty($request->additional_graphics_card_price)) {
                     $additional_graphics_card = array();
                     foreach ($request->additional_graphics_card_id as $key => $value) {
                         if (isset($value) && isset($request->additional_graphics_card_price[$key])) {
@@ -176,7 +176,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_graphics_card);
                 }
 
-                if (count($request->additional_processor_id) > 0 && count($request->additional_processor_price) > 0) {
+                if (!empty($request->additional_processor_id) && !empty($request->additional_processor_price)) {
                     $additional_processor = array();
                     foreach ($request->additional_processor_id as $key => $value) {
                         if (isset($value) && isset($request->additional_processor_price[$key])) {
@@ -193,7 +193,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_processor);
                 }
 
-                if (count($request->box_item_name) > 0 && count($request->box_item_image) > 0) {
+                if (!empty($request->box_item_name) && !empty($request->box_item_image)) {
                     $box_items = array();
                     foreach ($request->box_item_image as $key => $value) {
                         if (isset($value) && isset($request->box_item_name[$key])) {
@@ -320,7 +320,7 @@ class ProductController extends Controller
                     ]);
 
 
-                if (count($request->additional_ram_id) > 0 && count($request->additional_ram_price) > 0) {
+                if (!empty($request->additional_ram_id) && !empty($request->additional_ram_price)) {
                     $additional_ram = array();
                     foreach ($request->additional_ram_id as $key => $value) {
                         if (isset($value) && isset($request->additional_ram_price[$key])) {
@@ -338,7 +338,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_ram);
                 }
 
-                if (count($request->additional_hard_drive_id) > 0 && count($request->additional_hard_drive_price) > 0) {
+                if (!empty($request->additional_hard_drive_id) && !empty($request->additional_hard_drive_price)) {
                     $additional_hard_drive = array();
                     foreach ($request->additional_hard_drive_id as $key => $value) {
                         if (isset($value) && isset($request->additional_hard_drive_price[$key])) {
@@ -356,7 +356,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_hard_drive);
                 }
 
-                if (count($request->additional_graphics_card_id) > 0 && count($request->additional_graphics_card_price) > 0) {
+                if (!empty($request->additional_graphics_card_id) && !empty($request->additional_graphics_card_price)) {
                     $additional_graphics_card = array();
                     foreach ($request->additional_graphics_card_id as $key => $value) {
                         if (isset($value) && isset($request->additional_graphics_card_price[$key])) {
@@ -374,7 +374,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_graphics_card);
                 }
 
-                if (count($request->additional_processor_id) > 0 && count($request->additional_processor_price) > 0) {
+                if (!empty($request->additional_processor_id) && !empty($request->additional_processor_price)) {
                     $additional_processor = array();
                     foreach ($request->additional_processor_id as $key => $value) {
                         if (isset($value) && isset($request->additional_processor_price[$key])) {
@@ -392,7 +392,7 @@ class ProductController extends Controller
                     ProductAddition::insert($additional_processor);
                 }
 
-                if (count($request->box_item_name) > 0 && count($request->box_item_image) > 0) {
+                if (!empty($request->box_item_name) && !empty($request->box_item_image)) {
                     $box_items = array();
                     foreach ($request->box_item_image as $key => $value) {
                         if (isset($value) && isset($request->box_item_name[$key])) {

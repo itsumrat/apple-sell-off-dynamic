@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->integer('update_user')->nullable();
             $table->integer('brand_id')->nullable();
             $table->string('year')->nullable();
+            $table->tinyInteger('is_suggestable')->default(0)->nullable();
             $table->string('slug')->nullable();
             $table->text('tag')->nullable();
             $table->text('product_description')->nullable();

@@ -28,143 +28,22 @@
               <!--Slides-->
               <div class="carousel-inner" role="listbox">
                 <!--First slide-->
-                <div class="carousel-item active">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
+                <div v-for="(chunk, index) in chunkedItems" :class="index == 0 ? 'carousel-item active' : 'carousel-item'">
+                    <div class="row">
+                        <div class="col-md-3" v-for="value in chunk">
+                            <div class="card mb-2">
+                                <router-link :to="{name: 'product-details', params: {id: value.id}}">
+                                    <img class="card-img-top" :src="'/uploads/product/'+value.feature_image" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ value.name }}<span>${{ value.stock_product.unit_price }}</span></p>
+                                    </div>
+                                </router-link>
+                            </div>
                         </div>
-                      </div>
                     </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <!--/.First slide-->
-
-                <!--Second slide-->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--/.Second slide-->
-
-                <!--Third slide-->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 clearfix d-none d-md-block">
-                      <div class="card mb-2">
-                        <img class="card-img-top" :src="baseUrlPath + '/frontend/img/suggestion.png'"
-                          alt="Card image cap">
-                        <div class="card-body">
-                          <p class="card-text">Apple 11" MacBook Air (Mid 2012) Intel Pentium III<span>$175.00</span></p>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                <!--/.Third slide-->
               </div>
               <!--/.Slides-->
             </div>
@@ -176,6 +55,7 @@
 
 <script>
 export default {
+    props : ['suggested_product'],
     name: 'Suggestion',
     data() {
     return {
@@ -186,10 +66,19 @@ export default {
   mounted() {
     this.baseUrlPath = axios.defaults.baseURL;
   },
-        
+
+  computed: {
+        chunkedItems () {
+            return _.chunk(this.suggested_product,4)
+        }
+    }
+
 };
 </script>
 
-<style>
-
+<style scoped>
+    a:hover {
+        color: #0056b3;
+        text-decoration: none;
+    }
 </style>

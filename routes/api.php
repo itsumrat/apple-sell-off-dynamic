@@ -45,6 +45,10 @@ Route::get('search-products/{search}', 'Api\HomePageController@searchProducts');
     Slider
 =======================*/
 Route::get('slider', 'Api\HomePageController@homeSlider');
+Route::get('home_page_setting', 'Api\FrontEndController@home_page_setting');
+Route::get('suggested_product', 'Api\FrontEndController@suggested_product');
+Route::get('categories_product', 'Api\FrontEndController@categories_product');
+Route::get('general_setting', 'Api\FrontEndController@general_setting');
 
 /*===============
 offer banner

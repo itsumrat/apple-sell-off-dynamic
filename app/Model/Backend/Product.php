@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $primaryKey = 'id';
     protected $fillable = [
-    	'name', 'product_type_id', 'main_category_id', 'size_id', 'processor_id', 'ram_id', 'harddrive_id', 'graphicscard_id', 'color_id', 'stock_status', 'condition', 'year', 'create_user', 'update_user', 'brand_id', 'slug', 'tag', 'product_description', 'product_specification', 'feature_image', 'status',
+    	'name', 'product_type_id', 'main_category_id', 'size_id', 'processor_id', 'ram_id', 'harddrive_id', 'graphicscard_id', 'color_id', 'stock_status', 'condition', 'year', 'is_suggestable', 'create_user', 'update_user', 'brand_id', 'slug', 'tag', 'product_description', 'product_specification', 'feature_image', 'status',
     ];
 
     public function mainCategory()
@@ -45,6 +45,11 @@ class Product extends Model
     public function stockProduct()
     {
     	return $this->hasOne('App\Model\Backend\ProductStock', 'product_id');
+    }
+
+    public function stock_product()
+    {
+        return $this->hasOne('App\Model\Backend\ProductStock', 'product_id');
     }
 
     public function stockEdit()

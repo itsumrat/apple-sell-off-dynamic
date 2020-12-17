@@ -187,6 +187,9 @@
                         @endcan
                         @can('category-list')
                         <a class="nav-link" href="{{ route('logo.index') }}">Logo</a>
+                        <a class="nav-link" href="{{ url('/faqs_category') }}">Faqs Category Settings</a>
+                        <a class="nav-link" href="{{ url('/home_page_setting') }}">Home Page Settings</a>
+                        <a class="nav-link" href="{{ url('/general_setting') }}">General Settings</a>
                         @endcan
                     </nav>
                 </div>

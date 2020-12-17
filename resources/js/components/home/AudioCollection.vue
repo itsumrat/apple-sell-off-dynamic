@@ -5,33 +5,33 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h1>audio collection</h1>
-                        <p>We combine luxury fashion with innovative performance technology to create outerwear that’s as useful as it is beautiful. Our raincoat collection boast a stylish minimalism, Olympic-level waterproof fabric, and incredible breathability to create</p>
+                        <h1> {{ home_page_settings.four_sec_main_heading }} </h1>
+                        <p> {{ home_page_settings.four_sec_main_title }} </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="hovereffect">
-                        <img class="img-responsive" :src="baseUrlPath + '/frontend/img/speaker.jpg'" alt="">
+                        <img class="img-responsive" :src="home_page_settings.four_sec_image_1" alt="">
                         <div class="overlay">
-                           <h2>Speakers</h2>
+                           <h2> {{ home_page_settings.four_sect_title_1 }} </h2>
                            <!-- <a class="info" href="#">link here</a> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="hovereffect">
-                        <img class="img-responsive" :src="baseUrlPath + '/frontend/img/accessories.jpg'" alt="">
+                        <img class="img-responsive" :src="home_page_settings.four_sec_image_2" alt="">
                         <div class="overlay">
-                           <h2>Accessories</h2>
+                            <h2> {{ home_page_settings.four_sect_title_2 }} </h2>
                            <!-- <a class="info" href="#">link here</a> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="hovereffect">
-                        <img class="img-responsive" :src="baseUrlPath + '/frontend/img/amplifier.jpg'" alt="">
+                        <img class="img-responsive" :src="home_page_settings.four_sec_image_3" alt="">
                         <div class="overlay">
-                           <h2>Power Amplifiers</h2>
+                            <h2> {{ home_page_settings.four_sect_title_3 }} </h2>
                            <!-- <a class="info" href="#">link here</a> -->
                         </div>
                     </div>
@@ -44,6 +44,7 @@
 
 <script>
 export default {
+    props : ['home_page_settings'],
     name: 'AudioCollection',
     data() {
     return {
@@ -54,7 +55,7 @@ export default {
   mounted() {
     this.baseUrlPath = axios.defaults.baseURL;
   },
-        
+
 };
 </script>
 

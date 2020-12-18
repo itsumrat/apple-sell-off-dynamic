@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Model\Backend\FaqsCategory;
+use App\Model\Backend\FaqsSetting;
 use App\Model\Backend\GeneralSetting;
 use App\Model\Backend\MainCategory;
 use App\Model\Backend\Product;
@@ -37,6 +39,11 @@ class FrontEndController extends Controller
     public function general_setting()
     {
         return response()->json(GeneralSetting::first());
+    }
+
+    public function faqs_setting()
+    {
+        return response()->json(FaqsCategory::with('faqs_setting')->get());
     }
 
     public function suggested_product()

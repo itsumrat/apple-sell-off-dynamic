@@ -14,4 +14,8 @@ class FaqsCategory extends Model
             'name' => 'required'
         ];
     }
+
+    public function faqs_setting() {
+        return $this->hasMany('App\Model\Backend\FaqsSetting', 'faqs_category_id');
+    }
 }

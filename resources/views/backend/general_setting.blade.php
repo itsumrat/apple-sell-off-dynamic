@@ -85,6 +85,36 @@
                                         {!! Form::textarea('support_description', $data->support_description , $attributes = ['class'=>'form-control', 'rows' => 3]) !!}
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('', 'Privacy Policy:') !!}
+                                        {!! Form::textarea('privacy_policy', $data->privacy_policy , $attributes = ['class'=>'form-control', 'id' => 'privacy_policy' , 'rows' => 5]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('', 'Acceptable Communication:') !!}
+                                        {!! Form::textarea('acceptable_communication', $data->acceptable_communication , $attributes = ['class'=>'form-control', 'id' => 'acceptable_communication' , 'rows' => 5]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('', 'Acceptable Use:') !!}
+                                        {!! Form::textarea('acceptable_use', $data->acceptable_use , $attributes = ['class'=>'form-control', 'id' => 'acceptable_use' , 'rows' => 5]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('', 'Cookie :') !!}
+                                        {!! Form::textarea('cookie', $data->cookie , $attributes = ['class'=>'form-control', 'id' => 'cookie' , 'rows' => 5]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('', 'Warranty & Return :') !!}
+                                        {!! Form::textarea('warranty_and_return', $data->warranty_and_return , $attributes = ['class'=>'form-control', 'id' => 'warranty_and_return' , 'rows' => 5]) !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,6 +129,27 @@
 @endsection
 @section('script')
     <script>
+        tinymce.init({
+            selector: 'textarea#acceptable_communication',
+            height : '300px',
+        });
+        tinymce.init({
+            selector: 'textarea#acceptable_use',
+            height : '300px',
+        });
+        tinymce.init({
+            selector: 'textarea#cookie',
+            height : '300px',
+        });
+        tinymce.init({
+            selector: 'textarea#warranty_and_return',
+            height : '300px',
+        });
+        tinymce.init({
+            selector: 'textarea#privacy_policy',
+            height : '300px',
+        });
+
         function previewImage(input, id) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

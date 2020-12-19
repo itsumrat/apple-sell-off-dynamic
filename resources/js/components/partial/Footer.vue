@@ -55,13 +55,11 @@
                         <div class="footer-contents">
                             <h5>Policies</h5>
                             <ul>
-                                <li><a href="#">Communication</a></li>
-                                <li><a href="#">Acceptable Use</a></li>
-                                <li><a href="#">Cookie</a></li>
+                                <li><router-link :to="{name: 'policy'}">Communication</router-link></li>
+                                <li><router-link :to="{name: 'policy'}">Acceptable Use</router-link></li>
+                                <li><router-link :to="{name: 'policy'}">Cookie </router-link></li>
                                 <li><router-link :to="{name: 'policy'}">Privacy</router-link></li>
-                                <li>
-                                    <a href="#">Warranty & Returns</a>
-                                </li>
+                                <li><router-link :to="{name: 'policy'}">Warranty & Returns</router-link> </li>
                             </ul>
                         </div>
                     </div>

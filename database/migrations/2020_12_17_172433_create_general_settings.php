@@ -24,6 +24,11 @@ class CreateGeneralSettings extends Migration
             $table->text('address');
             $table->text('support_title');
             $table->text('support_description');
+            $table->text('privacy_policy');
+            $table->text('acceptable_communication');
+            $table->text('acceptable_use');
+            $table->text('cookie');
+            $table->text('warranty_and_return');
             $table->timestamps();
         });
     }

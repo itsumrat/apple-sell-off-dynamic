@@ -4167,176 +4167,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Policy',
   data: function data() {
     return {
-      baseUrlPath: null
+      baseUrlPath: null,
+      general_setting: {}
     };
   },
+  methods: {
+    getGeneralSetting: function getGeneralSetting() {
+      var _this = this;
+
+      axios.get("/api/general_setting").then(function (response) {
+        _this.general_setting = response.data;
+      });
+    }
+  },
   mounted: function mounted() {
+    this.getGeneralSetting();
     this.baseUrlPath = axios.defaults.baseURL;
   }
 });
@@ -4526,8 +4375,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6255,8 +6102,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Store",
@@ -6270,7 +6115,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       graphicscards: "",
       colors: "",
       allproducts: null,
-      baseUrlPath: null
+      baseUrlPath: null,
+      category: [],
+      size: [],
+      year: '',
+      price: [],
+      processor: [],
+      ram: [],
+      hard_drive: [],
+      graphics_card: [],
+      color: [],
+      condition: [],
+      stock: [],
+      amount_from: 20,
+      amount_to: 33000
     };
   },
   mounted: function mounted() {
@@ -6290,80 +6148,181 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     // allproducts show
     loadProduct: function loadProduct() {
+      var _this2 = this;
+
       var _this = this;
 
-      axios.get("/api/appleproducts").then(function (response) {
-        _this.allproducts = response.data;
+      axios.get('/api/appleproducts?category=' + _this.category + '&size=' + _this.size + '&year=' + _this.year + '&price=' + _this.price + '&processor=' + _this.processor + '&ram=' + _this.ram + '&hard_drive=' + _this.hard_drive + '&graphics_card=' + _this.graphics_card + '&color=' + _this.color + '&amount_from=' + _this.amount_from + '&amount_to=' + _this.amount_to + '&condition=' + _this.condition + '&stock=' + _this.stock).then(function (response) {
+        _this2.allproducts = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
+    filterAdd: function filterAdd(event, type, value) {
+      var _this = this;
+
+      if (type == 'category') {
+        if (event.target.checked) {
+          _this.category.push(value);
+        } else {
+          var category = _this.category.indexOf(value);
+
+          _this.category.splice(category, 1);
+        }
+      }
+
+      if (type == 'year') {
+        _this.year = value;
+      }
+
+      if (type == 'ram') {
+        if (event.target.checked) {
+          _this.ram.push(value);
+        } else {
+          var ram = _this.ram.indexOf(value);
+
+          _this.ram.splice(ram, 1);
+        }
+      }
+
+      if (type == 'size') {
+        if (event.target.checked) {
+          _this.size.push(value);
+        } else {
+          var size = _this.size.indexOf(value);
+
+          _this.size.splice(size, 1);
+        }
+      }
+
+      if (type == 'processor') {
+        if (event.target.checked) {
+          _this.processor.push(value);
+        } else {
+          var processor = _this.processor.indexOf(value);
+
+          _this.processor.splice(processor, 1);
+        }
+      }
+
+      if (type == 'hard_drive') {
+        if (event.target.checked) {
+          _this.hard_drive.push(value);
+        } else {
+          var hard_drive = _this.hard_drive.indexOf(value);
+
+          _this.hard_drive.splice(hard_drive, 1);
+        }
+      }
+
+      if (type == 'graphics_card') {
+        if (event.target.checked) {
+          _this.graphics_card.push(value);
+        } else {
+          var graphics_card = _this.graphics_card.indexOf(value);
+
+          _this.graphics_card.splice(graphics_card, 1);
+        }
+      }
+
+      if (type == 'color') {
+        if (event.target.checked) {
+          _this.color.push(value);
+        } else {
+          var color = _this.color.indexOf(value);
+
+          _this.color.splice(color, 1);
+        }
+      }
+
+      if (type == 'condition') {
+        if (event.target.checked) {
+          _this.condition.push(value);
+        } else {
+          var condition = _this.condition.indexOf(value);
+
+          _this.condition.splice(condition, 1);
+        }
+      }
+
+      if (type == 'stock') {
+        if (event.target.checked) {
+          _this.stock.push(value);
+        } else {
+          var stock = _this.stock.indexOf(value);
+
+          _this.stock.splice(stock, 1);
+        }
+      }
+
+      this.loadProduct();
+    },
     // main Category
     loadMainCategory: function loadMainCategory() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/main-category-menu").then(function (response) {
-        _this2.maincategory = response.data;
+        _this3.maincategory = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadSize: function loadSize() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/get-size-filter").then(function (response) {
-        _this3.sizes = response.data;
+        _this4.sizes = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadProcessor: function loadProcessor() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("/api/get-processor-filter").then(function (response) {
-        _this4.processors = response.data;
+        _this5.processors = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadRam: function loadRam() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get("/api/get-ram-filter").then(function (response) {
-        _this5.rams = response.data;
+        _this6.rams = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadHarddrive: function loadHarddrive() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("/api/get-harddrive-filter").then(function (response) {
-        _this6.harddrives = response.data;
+        _this7.harddrives = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadGraphicscard: function loadGraphicscard() {
-      var _this7 = this;
+      var _this8 = this;
 
       axios.get("/api/get-graphicscard-filter").then(function (response) {
-        _this7.graphicscards = response.data;
+        _this8.graphicscards = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     // size
     loadColors: function loadColors() {
-      var _this8 = this;
+      var _this9 = this;
 
       axios.get("/api/get-color-filter").then(function (response) {
-        _this8.colors = response.data;
+        _this9.colors = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -70133,1097 +70092,260 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("section", { attrs: { id: "banner-support" } }),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-9 col-xs-12" }, [
+          _c(
+            "div",
+            { staticClass: "tab-content", attrs: { id: "v-pills-tabContent" } },
+            [
+              _c("div", {
+                staticClass: "tab-pane fade show active",
+                attrs: {
+                  id: "communication",
+                  role: "tabpanel",
+                  "aria-labelledby": "communication-tab"
+                },
+                domProps: {
+                  innerHTML: _vm._s(
+                    _vm.general_setting.acceptable_communication
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "tab-pane fade",
+                attrs: {
+                  id: "use",
+                  role: "tabpanel",
+                  "aria-labelledby": "use-tab"
+                },
+                domProps: {
+                  innerHTML: _vm._s(_vm.general_setting.acceptable_use)
+                }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "tab-pane fade",
+                attrs: {
+                  id: "cookie",
+                  role: "tabpanel",
+                  "aria-labelledby": "cookie-tab"
+                },
+                domProps: { innerHTML: _vm._s(_vm.general_setting.cookie) }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "tab-pane fade",
+                attrs: {
+                  id: "privacy",
+                  role: "tabpanel",
+                  "aria-labelledby": "privacy-tab"
+                },
+                domProps: {
+                  innerHTML: _vm._s(_vm.general_setting.privacy_policy)
+                }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "tab-pane fade",
+                attrs: {
+                  id: "warranty",
+                  role: "tabpanel",
+                  "aria-labelledby": "warranty-tab"
+                },
+                domProps: {
+                  innerHTML: _vm._s(_vm.general_setting.warranty_and_return)
+                }
+              })
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("section", { attrs: { id: "banner-support" } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 page-title" }, [
-            _c("h1", [_vm._v("policy")])
-          ])
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 page-title" }, [
+          _c("h1", [_vm._v("policy")])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-3 col-xs-12" }, [
-            _c(
-              "div",
-              {
-                staticClass: "nav flex-column policy-page nav-pills",
-                attrs: {
-                  id: "v-pills-tab",
-                  role: "tablist",
-                  "aria-orientation": "vertical"
-                }
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link active",
-                    attrs: {
-                      id: "communication-tab",
-                      "data-toggle": "pill",
-                      href: "#communication",
-                      role: "tab",
-                      "aria-controls": "communication",
-                      "aria-selected": "true"
-                    }
-                  },
-                  [_vm._v("acceptable communication")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "use-tab",
-                      "data-toggle": "pill",
-                      href: "#use",
-                      role: "tab",
-                      "aria-controls": "use",
-                      "aria-selected": "false"
-                    }
-                  },
-                  [_vm._v("acceptable use")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "cookie-tab",
-                      "data-toggle": "pill",
-                      href: "#cookie",
-                      role: "tab",
-                      "aria-controls": "cookie",
-                      "aria-selected": "true"
-                    }
-                  },
-                  [_vm._v("cookie")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "privacy-tab",
-                      "data-toggle": "pill",
-                      href: "#privacy",
-                      role: "tab",
-                      "aria-controls": "privacy",
-                      "aria-selected": "false"
-                    }
-                  },
-                  [_vm._v("privacy")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "warranty-tab",
-                      "data-toggle": "pill",
-                      href: "#warranty",
-                      role: "tab",
-                      "aria-controls": "warranty",
-                      "aria-selected": "false"
-                    }
-                  },
-                  [_vm._v("warranty & return")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-9 col-xs-12" }, [
-            _c(
-              "div",
-              {
-                staticClass: "tab-content",
-                attrs: { id: "v-pills-tabContent" }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade show active",
-                    attrs: {
-                      id: "communication",
-                      role: "tabpanel",
-                      "aria-labelledby": "communication-tab"
-                    }
-                  },
-                  [
-                    _c("p", [
-                      _vm._v(
-                        "We always communicate with our customers in a polite, ethical and professional manner. We expect the same from our customers when they communicate with us over the phone, electronically (email) or in writing. While we understand that certain situations, such as a courier’s failure to deliver on time or a problem with our product may be stressful, it is also our duty to protect the safety and well-being of our staff. For this reason, our company has an Unacceptable Communication Policy which is set out below. Our staff will not tolerate communication from customers which we consider unacceptable, such as:"
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("ul", [
-                        _c("li", [
-                          _vm._v(
-                            "Threatening, coercive or intimidating approach to resolve a problem;"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _vm._v(
-                            "Aggressive, abusive or offensive language or behaviour;"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _vm._v(
-                            "unreasonable persistency, urgency or unjustified demands."
-                          )
-                        ])
-                      ]),
-                      _vm._v(
-                        "\n                        If a customer communicates with us in an unacceptable manner, the first action of our staff will be to give a warning and ask the customer to change their approach or language accordingly. If the customer continues in this unacceptable manner, employees will terminate the conversation (if over the phone) or not reply to any further written or electronic (email) communication."
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                        If the behaviour of the customer is extreme and it threatens the immediate safety and well-being of our staff, we will be forced to terminate communications without warning and if required, proceed by involving the police or taking legal action."
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade",
-                    attrs: {
-                      id: "use",
-                      role: "tabpanel",
-                      "aria-labelledby": "use-tab"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        PLEASE READ THE TERMS OF THIS POLICY CAREFULLY BEFORE USING THE SITE"
-                    ),
-                    _c("br"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("WHAT’S IN THESE TERMS?")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This acceptable use policy sets out the content standards that apply when you upload content to our site, make contact with other users on our site, link to our site, or interact with our site in any other way."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("WHO WE ARE AND HOW TO CONTACT US")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This website is operated by reApp Ltd trade under the names Appleselloff and Macselloff a company registered in England and Wales under number 11706397 whose registered office is at Unit C11, Argall Avenue, Leyton Industrial Village, E10 7QP."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v("BY USING OUR SITE YOU ACCEPT THESE TERMS")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "By using our site, you confirm that you accept the terms of this policy and that you agree to comply with them."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "If you do not agree to these terms, you must not use our site."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We recommend that you print a copy of these terms for future reference."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v("THERE ARE OTHER TERMS THAT MAY APPLY TO YOU")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Our Terms of website use also apply to your use of our site."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v("WE MAY MAKE CHANGES TO THE TERMS OF THIS POLICY")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We amend these terms from time to time. Every time you wish to use our site, please check these terms to ensure you understand the terms that apply at that time."
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade",
-                    attrs: {
-                      id: "cookie",
-                      role: "tabpanel",
-                      "aria-labelledby": "cookie-tab"
-                    }
-                  },
-                  [
-                    _c("h6", [_vm._v("INFORMATION ABOUT OUR USE OF COOKIES")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Our website uses cookies to distinguish you from other users of our website. This helps us to provide you with a good experience when you browse our website and also allows us to improve our site. By continuing to browse the site, you are agreeing to our use of cookies."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "A cookie is a small file of letters and numbers that we store on your browser or the hard drive of your computer if you agree. Cookies contain information that is transferred to your computer’s hard drive."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("We use the following cookies:")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This website uses cookies. We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Cookies are small text files that can be used by websites to make a user's experience more efficient."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "The law states that we can store cookies on your device if they are strictly necessary for the operation of this site. For all other types of cookies we need your permission."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This site uses different types of cookies. Some cookies are placed by third party services that appear on our pages."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Learn more about who we are, how you can contact us and how we process personal data in our Privacy Policy."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Your consent applies to the following domains: appleselloff.com"
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade",
-                    attrs: {
-                      id: "privacy",
-                      role: "tabpanel",
-                      "aria-labelledby": "privacy-tab"
-                    }
-                  },
-                  [
-                    _c("h6", [_vm._v("INTRODUCTION")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Welcome to Appleselloff privacy notice. reApp Ltd trade under the names Appleselloff and Macselloff a company registered in England and Wales under number 11706397 whose registered office is at Unit C11, Argall Avenue, Leyton Industrial Village, E10 7QP."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "reApp Ltd respects your privacy and is committed to protecting your personal data. This privacy notice will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This privacy notice is provided in a layered format so you can click through to the specific areas set out below. Please also use the Glossary to understand the meaning of some of the terms used in this privacy notice."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#who-we-are" } }, [
-                      _vm._v("IMPORTANT INFORMATION AND WHO WE ARE")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#data-collection" } }, [
-                      _vm._v("THE DATA WE COLLECT ABOUT YOU")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#personal-data-collection" } }, [
-                      _vm._v("HOW IS YOUR PERSONAL DATA COLLECTED")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#personal-data-use" } }, [
-                      _vm._v("HOW WE USE YOUR PERSONAL DATA")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#personal-data-disclosers" } }, [
-                      _vm._v("DISCLOSURES OF YOUR PERSONAL DATA")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#data-security" } }, [
-                      _vm._v("DATA SECURITY")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#data-retention" } }, [
-                      _vm._v("DATA RETENTION")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#legal-rights" } }, [
-                      _vm._v("YOUR LEGAL RIGHTS")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#glossary" } }, [
-                      _vm._v("GLOSSARY")
-                    ]),
-                    _c("br"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "who-we-are" } }, [
-                      _vm._v("1. IMPORTANT INFORMATION AND WHO WE ARE")
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("PURPOSE OF THIS PRIVACY NOTICE")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This privacy notice aims to give you information on how reApp Ltd collects and processes your personal data through your use of this website, including any data you may provide through this website when you sign up to our newsletter or purchase a product or service."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This website is not intended for children and we do not knowingly collect data relating to children."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "It is important that you read this privacy notice together with any other privacy notice or fair processing notice we may provide on specific occasions when we are collecting or processing personal data about you so that you are fully aware of how and why we are using your data. This privacy notice supplements the other notices and is not intended to override them."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("CONTROLLER")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "reApp Ltd is the controller and responsible for your personal data (collectively referred to as “reApp Ltd”, “we”, “us” or “our” in this privacy notice)."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "You have the right to make a complaint at any time to the Information Commissioner’s Office (ICO), the UK supervisory authority for data protection issues (www.ico.org.uk). We would, however, appreciate the chance to deal with your concerns before you approach the ICO so please contact us in the first instance."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v(
-                        "CHANGES TO THE PRIVACY NOTICE AND YOUR DUTY TO INFORM US OF CHANGES"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("This version was last updated in May 2020.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "It is important that the personal data we hold about you is accurate and current. Please keep us informed if your personal data changes during your relationship with us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("THIRD-PARTY LINKS")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "This website may include links to third-party websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements. When you leave our website, we encourage you to read the privacy notice of every website you visit."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "data-collection" } }, [
-                      _vm._v("2. THE DATA WE COLLECT ABOUT YOU")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Personal data, or personal information, means any information about an individual from which that person can be identified. It does not include data where the identity has been removed (anonymous data)."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Identity Data")]),
-                      _vm._v(
-                        " includes first name, maiden name, last name, username or similar identifier, title, date of birth and gender."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Contact Data")]),
-                      _vm._v(
-                        " includes billing address, delivery address, email address and telephone numbers."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Financial Data")]),
-                      _vm._v(" includes bank account and payment card details.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Transaction Data")]),
-                      _vm._v(
-                        " includes details about payments to and from you and other details of products and services you have purchased from us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Technical Data")]),
-                      _vm._v(
-                        " includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform and other technology on the devices you use to access this website."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Profile Data")]),
-                      _vm._v(
-                        " includesyour username and password, purchases or orders made by you, your interests, preferences, feedback and survey responses."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Usage Data")]),
-                      _vm._v(
-                        " includes information about how you use our website, products and services."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Marketing and Communications Data")]),
-                      _vm._v(
-                        " includes your preferences in receiving marketing from us and our third parties and your communication preferences."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("We also collect, use and share "),
-                      _c("b", [_vm._v("Aggregated Data")]),
-                      _vm._v(
-                        " such as statistical or demographic data for any purpose. Aggregated Data may be derived from your personal data but is not considered personal data in law as this data does not directly or indirectly reveal your identity. For example, we may aggregate your Usage Data to calculate the percentage of users accessing a specific website feature. However, if we combine or connect Aggregated Data with your personal data so that it can directly or indirectly identify you, we treat the combined data as personal data which will be used in accordance with this privacy notice."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("We do not collect any "),
-                      _c("b", [_vm._v("Special Categories of Personal Data")]),
-                      _vm._v(
-                        " about you (this includes details about your race or ethnicity, religious or philosophical beliefs, sex life, sexual orientation, political opinions, trade union membership, information about your health and genetic and biometric data). Nor do we collect any information about criminal convictions and offences."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("IF YOU FAIL TO PROVIDE PERSONAL DATA")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Where we need to collect personal data by law, or under the terms of a contract we have with you and you fail to provide that data when requested, we may not be able to perform the contract we have or are trying to enter into with you (for example, to provide you with goods or services). In this case, we may have to cancel a product or service you have with us but we will notify you if this is the case at the time."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "personal-data-collection" } }, [
-                      _vm._v("3. HOW IS YOUR PERSONAL DATA COLLECTED?")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We use different methods to collect data from and about you including through:"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Direct interactions.")]),
-                      _vm._v(
-                        " You may give us your Identity, Contact and Financial Data by filling in forms or by corresponding with us by post, phone, email or otherwise. This includes personal data you provide when you:"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            apply for our products or services;"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            create an account on our website;"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            subscribe to our service or publications;"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            request marketing to be sent to you;"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            enter a competition, promotion or survey; or"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n                            give us some feedback."
-                      ),
-                      _c("br")
-                    ]),
-                    _c("p", [
-                      _c("b", [
-                        _vm._v("Automated technologies or interactions.")
-                      ]),
-                      _vm._v(
-                        " As you interact with our website, we may automatically collect Technical Data about your equipment, browsing actions and patterns. We collect this personal data by using cookies and other similar technologies. Please see our \n                        "
-                      ),
-                      _c("ul", [_vm._v("cookie policy")]),
-                      _vm._v("\n                        for further details.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [
-                        _vm._v("Third parties or publicly available sources.")
-                      ]),
-                      _vm._v(
-                        " We may receive personal data about you from various third parties as set out below:"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v("Technical Data from the following parties:")
-                    ]),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("(a)")]),
-                    _vm._v(
-                      " analytics providers such as Google based outside the EU;"
-                    ),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("(b)")]),
-                    _vm._v(" advertising networks; and"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("(c)")]),
-                    _vm._v(" search information providers."),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Contact, Financial and Transaction Data from providers of technical, payment and delivery services."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "personal-data-use" } }, [
-                      _vm._v("4. HOW WE USE YOUR PERSONAL DATA")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Where we need to perform the contract we are about to enter into or have entered into with you."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Where it is necessary for our legitimate interests and your interests and fundamental rights do not override those interests."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Where we need to comply with a legal or regulatory obligation."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Generally we do not rely on consent as a legal basis for processing your personal data other than in relation to sending third party direct marketing communications to you via email or text message. You have the right to withdraw consent to marketing at any time by Contacting us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("MARKETING")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We strive to provide you with choices regarding certain personal data uses, particularly around marketing and advertising."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("PROMOTIONAL OFFERS FROM US")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We may use your Identity, Contact, Technical, Usage and Profile Data to form a view on what we think you may want or need, or what may be of interest to you. This is how we decide which products, services and offers may be relevant for you (we call this marketing)."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "You will receive marketing communications from us if you have requested information from us or purchased from us or if you provided us with your details when you entered a competition or registered for a promotion and, in each case, you have not opted out of receiving that marketing."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("OPTING OUT")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "You can ask us to stop sending you marketing messages at any time by logging into the website and checking or unchecking relevant boxes to adjust your marketing preferences or by following the opt-out links on any marketing message sent to you or by contacting us at any time."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Where you opt out of receiving these marketing messages, this will not apply to personal data provided to us as a result of a product/service purchase, warranty registration, product/service experience or other transactions."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("COOKIES")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "You can set your browser to refuse all or some browser cookies, or to alert you when websites set or access cookies. If you disable or refuse cookies, please note that some parts of this website may become inaccessible or not function properly. For more information about the cookies we use, please see our Cookie Policy."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("CHANGE OF PURPOSE")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We will only use your personal data for the purposes for which we collected it, unless we reasonably consider that we need to use it for another reason and that reason is compatible with the original purpose. If you wish to get an explanation as to how the processing for the new purpose is compatible with the original purpose, please contact us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "If we need to use your personal data for an unrelated purpose, we will notify you and we will explain the legal basis which allows us to do so."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Please note that we may process your personal data without your knowledge or consent, in compliance with the above rules, where this is required or permitted by law."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "personal-data-disclosers" } }, [
-                      _vm._v("5. DISCLOSURES OF YOUR PERSONAL DATA")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We may have to share your personal data with the parties set out below for the purposes set out in the table in paragraph 4 above."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We may seek to acquire other businesses or merge with them. If a change happens to our business, then the new owners may use your personal data in the same way as set out in this privacy notice."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "data-security" } }, [
-                      _vm._v("6. DATA SECURITY")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know. They will only process your personal data on our instructions and they are subject to a duty of confidentiality."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We have put in place procedures to deal with any suspected personal data breach and will notify you and any applicable regulator of a breach where we are legally required to do so."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "data-retention" } }, [
-                      _vm._v("7. DATA RETENTION")
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v("HOW LONG WILL YOU USE MY PERSONAL DATA FOR?")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We will only retain your personal data for as long as necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, accounting, or reporting requirements."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "To determine the appropriate retention period for personal data, we consider the amount, nature, and sensitivity of the personal data, the potential risk of harm from unauthorised use or disclosure of your personal data, the purposes for which we process your personal data and whether we can achieve those purposes through other means, and the applicable legal requirements."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "legal-rights" } }, [
-                      _vm._v("8. YOUR LEGAL RIGHTS")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Under certain circumstances, you have rights under data protection laws in relation to your personal data. These rights include:"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Request access to your personal data.")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("Request correction of your personal data.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Request erasure of your personal data.")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("Object to processing of your personal data.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Request restriction of processing your personal data."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("Request transfer of your personal data.")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Right to withdraw consent.")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "If you wish to exercise any of the rights set out above, please contact us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("NO FEE USUALLY REQUIRED")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "You will not have to pay a fee to access your personal data (or to exercise any of the other rights). However, we may charge a reasonable fee if your request is clearly unfounded, repetitive or excessive. Alternatively, we may refuse to comply with your request in these circumstances."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("WHAT WE MAY NEED FROM YOU")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We may need to request specific information from you to help us confirm your identity and ensure your right to access your personal data (or to exercise any of your other rights). This is a security measure to ensure that personal data is not disclosed to any person who has no right to receive it. We may also contact you to ask you for further information in relation to your request to speed up our response."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("TIME LIMIT TO RESPOND")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "We try to respond to all legitimate requests within one month. Occasionally it may take us longer than a month if your request is particularly complex or you have made a number of requests. In this case, we will notify you and keep you updated."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", { attrs: { id: "glossary" } }, [
-                      _vm._v("9.GLOSSARY")
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("LAWFUL BASIS")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Legitimate Interest")]),
-                      _vm._v(
-                        " means the interest of our business in conducting and managing our business to enable us to give you the best service/product and the best and most secure experience. We make sure we consider and balance any potential impact on you (both positive and negative) and your rights before we process your personal data for our legitimate interests. We do not use your personal data for activities where our interests are overridden by the impact on you (unless we have your consent or are otherwise required or permitted to by law). You can obtain further information about how we assess our legitimate interests against any potential impact on you in respect of specific activities by contacting us"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Performance of Contract")]),
-                      _vm._v(
-                        " means processing your data where it is necessary for the performance of a contract to which you are a party or to take steps at your request before entering into such a contract."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [
-                        _vm._v("Comply with a legal or regulatory obligation")
-                      ]),
-                      _vm._v(
-                        " means processing your personal data where it is necessary for compliance with a legal or regulatory obligation that we are subject to."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("THIRD PARTIES")]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("EXTERNAL THIRD PARTIES")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Service providers who provide IT and system administration services."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Professional advisers including lawyers, bankers, auditors and insurers who provide consultancy, banking, legal, insurance and accounting services."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "HM Revenue & Customs, regulators and other authorities based in the United Kingdom."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("YOUR LEGAL RIGHTS")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("You have the right to:")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Request access")]),
-                      _vm._v(
-                        " to your personal data (commonly known as a “data subject access request”). This enables you to receive a copy of the personal data we hold about you and to check that we are lawfully processing it."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Request correction")]),
-                      _vm._v(
-                        " of the personal data that we hold about you. This enables you to have any incomplete or inaccurate data we hold about you corrected, though we may need to verify the accuracy of the new data you provide to us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Request erasure")]),
-                      _vm._v(
-                        " of your personal data. This enables you to ask us to delete or remove personal data where there is no good reason for us continuing to process it. You also have the right to ask us to delete or remove your personal data where you have successfully exercised your right to object to processing (see below), where we may have processed your information unlawfully or where we are required to erase your personal data to comply with local law. Note, however, that we may not always be able to comply with your request of erasure for specific legal reasons which will be notified to you, if applicable, at the time of your request."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Object to processing")]),
-                      _vm._v(
-                        " of your personal data where we are relying on a legitimate interest (or those of a third party) and there is something about your particular situation which makes you want to object to processing on this ground as you feel it impacts on your fundamental rights and freedoms. You also have the right to object where we are processing your personal data for direct marketing purposes. In some cases, we may demonstrate that we have compelling legitimate grounds to process your information which override your rights and freedoms."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Request restriction")]),
-                      _vm._v(
-                        " of processing of your personal data. This enables you to ask us to suspend the processing of your personal data in the following scenarios: (a) if you want us to establish the data’s accuracy; (b) where our use of the data is unlawful but you do not want us to erase it; (c) where you need us to hold the data even if we no longer require it as you need it to establish, exercise or defend legal claims; or (d) you have objected to our use of your data but we need to verify whether we have overriding legitimate grounds to use it."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Request the transfer")]),
-                      _vm._v(
-                        " of your personal data to you or to a third party. We will provide to you, or a third party you have chosen, your personal data in a structured, commonly used, machine-readable format. Note that this right only applies to automated information which you initially provided consent for us to use or where we used the information to perform a contract with you."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _c("b", [_vm._v("Withdraw consent at any time")]),
-                      _vm._v(
-                        " where we are relying on consent to process your personal data. However, this will not affect the lawfulness of any processing carried out before you withdraw your consent. If you withdraw your consent, we may not be able to provide certain products or services to you. We will advise you if this is the case at the time you withdraw your consent."
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade",
-                    attrs: {
-                      id: "warranty",
-                      role: "tabpanel",
-                      "aria-labelledby": "warranty-tab"
-                    }
-                  },
-                  [
-                    _c("p", [
-                      _vm._v(
-                        "At Appleselloff we always strive to deliver great products and an even greater costumer experience. However, sometimes technical malfunction might lead to an unexpected and unwanted outcome. Our warranty and return policy has been developed for just such occasions in order to guarantee the satisfaction of our customers."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "All products found in our web shop have been thoroughly inspected and approved by Apple-certified technicians. Therefore, we proudly provide 12 month warranty on everything we sell. The length of the warranty is determined by a number of factors, the most important one being the age of the product. Simply put, there is an inverse relationship between a product’s age and the length of the warranty, i.e. the older the product, the shorter warranty we are able to provide. Furthermore, for a small additional fee, we provide the possibility of extending the warranty by up to an additional 18 months."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("RETURN POLICY")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Our returns policy, which is in addition to the warranty, entitles you to return an item bought within 14 days for a full refund. The product must be returned in the same condition as you received it. The two-week long ‘purchase on approval’ period commences when either you, or a third party designated by you takes physical possession of the product."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "If you would like to return a product for a full refund, must send it back in the exact same condition as you received it via post within the two-week period."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Please note that if any new external damage is found during the inspection, such as liquid damage or a cracked screen, we will be unable to issue a refund."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("WHAT IS COVERED BY OUR WARRANTY?")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "Our warranty covers hardware failures and other innate defects that were not discovered by our technicians. The warranty does not cover defects caused by the misuse of the product. The term ‘misuse’ encompasses, but is not limited to: water damages, external damages caused by, e.g. dropping or crushing the product, and any other damages caused by the ‘abnormal’ use of the product. Software/programs are not covered by the warranty. If a customer opens the device against Apple’s instructions, the warranty will not cover any issues. If the customer send a device or accessory back for a warranty claim or replacement by post the customer has to bear the shipping costs of this. If a faulty product is returned to us for a warranty claim inspection and the issue is not covered by the warranty, the customer will be charged a service and administration fee of £50."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _vm._v(
-                        "HOW DO YOU RETURN A DAMAGED PRODUCT COVERED BY OUR WARRANTY?"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "If you experience problems with a product purchased from us which is still covered by our warranty, you simply raise a warranty claim in your account with us describing the issue you are experiencing. You will then need to send the product in to our workshop for an inspection and repairs if need be. If our technicians are unable to repair the product within a period of two weeks we reserve the right to replace the product with an equivalent or superior product. The replacement product has to be approved by the customer before we replace it. If you have any questions in regards to our warranty policy, please do not hesitate to contact us."
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h6", [_vm._v("EXTENDED WARRANTY")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "As mentioned above it’s possible to extend the warranty for a small fee. The warranty can be extended to cover as much as an additional 18 months. The extended warranty is an add-on which you can select when you order the product through our onlinestore. Please note that it is not possible to buy extended warranty after the purchase of the device has been made."
-                      )
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-3 col-xs-12" }, [
       _c(
-        "section",
+        "div",
         {
-          staticStyle: { "margin-top": "12rem" },
-          attrs: { id: "subscription" }
+          staticClass: "nav flex-column policy-page nav-pills",
+          attrs: {
+            id: "v-pills-tab",
+            role: "tablist",
+            "aria-orientation": "vertical"
+          }
         },
         [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
-                _c("div", { staticClass: "subscribe-box" }, [
-                  _c("p", [
-                    _vm._v("Join our newsletter for the latest Apple stock")
+          _c(
+            "a",
+            {
+              staticClass: "nav-link active",
+              attrs: {
+                id: "communication-tab",
+                "data-toggle": "pill",
+                href: "#communication",
+                role: "tab",
+                "aria-controls": "communication",
+                "aria-selected": "true"
+              }
+            },
+            [_vm._v("acceptable communication")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "use-tab",
+                "data-toggle": "pill",
+                href: "#use",
+                role: "tab",
+                "aria-controls": "use",
+                "aria-selected": "false"
+              }
+            },
+            [_vm._v("acceptable use")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "cookie-tab",
+                "data-toggle": "pill",
+                href: "#cookie",
+                role: "tab",
+                "aria-controls": "cookie",
+                "aria-selected": "true"
+              }
+            },
+            [_vm._v("cookie")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "privacy-tab",
+                "data-toggle": "pill",
+                href: "#privacy",
+                role: "tab",
+                "aria-controls": "privacy",
+                "aria-selected": "false"
+              }
+            },
+            [_vm._v("privacy")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "warranty-tab",
+                "data-toggle": "pill",
+                href: "#warranty",
+                role: "tab",
+                "aria-controls": "warranty",
+                "aria-selected": "false"
+              }
+            },
+            [_vm._v("warranty & return")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      { staticStyle: { "margin-top": "12rem" }, attrs: { id: "subscription" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-8 offset-lg-2" }, [
+              _c("div", { staticClass: "subscribe-box" }, [
+                _c("p", [
+                  _vm._v("Join our newsletter for the latest Apple stock")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control subscribe-input",
+                  attrs: { type: "email", placeholder: "Enter Your Email Here" }
+                }),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn subscribe-btn" }, [
+                  _vm._v("Subscribe")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12" }, [
+              _c("div", { staticClass: "social-links" }, [
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-instagram-square" })
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control subscribe-input",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Enter Your Email Here"
-                    }
-                  }),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-facebook-square" })
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn subscribe-btn" }, [
-                    _vm._v("Subscribe")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("div", { staticClass: "social-links" }, [
-                  _c("ul", [
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-instagram-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-facebook-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-twitter-square" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fab fa-pinterest-square" })
-                      ])
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-twitter-square" })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fab fa-pinterest-square" })
                     ])
                   ])
                 ])
               ])
             ])
           ])
-        ]
-      )
-    ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -71672,11 +70794,35 @@ var render = function() {
               _c("h5", [_vm._v("Policies")]),
               _vm._v(" "),
               _c("ul", [
-                _vm._m(4),
+                _c(
+                  "li",
+                  [
+                    _c("router-link", { attrs: { to: { name: "policy" } } }, [
+                      _vm._v("Communication")
+                    ])
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _vm._m(5),
+                _c(
+                  "li",
+                  [
+                    _c("router-link", { attrs: { to: { name: "policy" } } }, [
+                      _vm._v("Acceptable Use")
+                    ])
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _vm._m(6),
+                _c(
+                  "li",
+                  [
+                    _c("router-link", { attrs: { to: { name: "policy" } } }, [
+                      _vm._v("Cookie ")
+                    ])
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c(
                   "li",
@@ -71688,7 +70834,15 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm._m(7)
+                _c(
+                  "li",
+                  [
+                    _c("router-link", { attrs: { to: { name: "policy" } } }, [
+                      _vm._v("Warranty & Returns")
+                    ])
+                  ],
+                  1
+                )
               ])
             ])
           ])
@@ -71699,7 +70853,7 @@ var render = function() {
     _c("section", { attrs: { id: "footer-bottom" } }, [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(8),
+          _vm._m(4),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-4" }, [
             _c("img", {
@@ -71809,36 +70963,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Communication")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Acceptable Use")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Cookie")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Warranty & Returns")])
     ])
   },
   function() {
@@ -74530,6 +73654,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "category", mainCat.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74541,9 +73670,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(mainCat.mc_name) +
-                              "\n\t                  "
+                              "\n\t\t                  "
                           )
                         ]
                       )
@@ -74568,7 +73697,12 @@ var render = function() {
                         attrs: {
                           type: "checkbox",
                           value: "",
-                          id: "defaultCheck1"
+                          id: "defaultCheck2"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "size", size.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74576,13 +73710,13 @@ var render = function() {
                         "label",
                         {
                           staticClass: "form-check-label",
-                          attrs: { for: "defaultCheck1" }
+                          attrs: { for: "defaultCheck2" }
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(size.size) +
-                              " inch\n\t                  "
+                              " inch\n\t\t                  "
                           )
                         ]
                       )
@@ -74594,9 +73728,65 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _vm._m(5),
+              _c("div", { staticClass: "year-filter" }, [
+                _c("h5", [_vm._v("year")]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2021)
+                      }
+                    }
+                  },
+                  [_vm._v("2021")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2020)
+                      }
+                    }
+                  },
+                  [_vm._v("2020")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2019)
+                      }
+                    }
+                  },
+                  [_vm._v("2019")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2018)
+                      }
+                    }
+                  },
+                  [_vm._v("2018")]
+                ),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
-              _vm._m(6),
+              _vm._m(5),
               _vm._v(" "),
               _c(
                 "div",
@@ -74612,6 +73802,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "processor",
+                              processor.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74623,9 +73822,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(processor.processors_type) +
-                              "\n\t                  "
+                              "\n\t\t                  "
                           )
                         ]
                       )
@@ -74651,6 +73850,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "ram", ram.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74662,9 +73866,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(ram.ram_size) +
-                              " GB\n\t                  "
+                              " GB\n\t\t                  "
                           )
                         ]
                       )
@@ -74690,6 +73894,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "harddrive",
+                              harddrive.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74701,9 +73914,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(harddrive.hard_drive_size) +
-                              " GB SSD\n\t                  "
+                              " GB SSD\n\t\t                  "
                           )
                         ]
                       )
@@ -74729,6 +73942,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "graphics_card",
+                              graphicscard.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74740,9 +73962,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(graphicscard.graphics_card_size) +
-                              "\n\t                  "
+                              "\n\t\t                  "
                           )
                         ]
                       )
@@ -74768,6 +73990,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "color", color.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74779,9 +74006,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n\t\t                  " +
                               _vm._s(color.color_name) +
-                              "\n\t                  "
+                              "\n\t\t                  "
                           )
                         ]
                       )
@@ -74802,9 +74029,9 @@ var render = function() {
           staticStyle: { "margin-left": "0px", "margin-right": "0px" }
         },
         [
-          _vm._m(7),
+          _vm._m(6),
           _vm._v(" "),
-          _vm._m(8),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "desktop-filter col-lg-3" }, [
             _c("div", {}, [
@@ -74817,17 +74044,7 @@ var render = function() {
                 _c("br"),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(9),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    staticClass: "mb-2",
-                    attrs: { src: _vm.baseUrlPath + "/frontend/img/close.png" }
-                  })
-                ]),
-                _c("br"),
-                _vm._v(" "),
-                _vm._m(10),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("a", { attrs: { href: "#" } }, [
                   _c("img", {
@@ -74840,9 +74057,130 @@ var render = function() {
                 _c("hr")
               ]),
               _vm._v(" "),
-              _vm._m(11),
+              _c("div", { staticClass: "stock-filter" }, [
+                _c("h5", [_vm._v("stock status")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", value: "", id: "defaultCheck1" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "stock", 1)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                 In Stock\n                             "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", value: "", id: "defaultCheck1" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "stock", 2)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                 Coming Soon\n                             "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
-              _vm._m(12),
+              _c("div", { staticClass: "condition-filter" }, [
+                _c("h5", [_vm._v("Condition")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", value: "", id: "defaultCheck1" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "condition", 1)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [_vm._v(" New ")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", value: "", id: "defaultCheck1" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "condition", 2)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [_vm._v(" Used Used ")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", value: "", id: "defaultCheck1" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "condition", 0)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [_vm._v(" Approved Used ")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -74858,6 +74196,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "category", mainCat.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74869,9 +74212,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(mainCat.mc_name) +
-                              "\n\t                  "
+                              "\n                             "
                           )
                         ]
                       )
@@ -74896,7 +74239,12 @@ var render = function() {
                         attrs: {
                           type: "checkbox",
                           value: "",
-                          id: "defaultCheck1"
+                          id: "defaultCheck2"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "size", size.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74904,13 +74252,13 @@ var render = function() {
                         "label",
                         {
                           staticClass: "form-check-label",
-                          attrs: { for: "defaultCheck1" }
+                          attrs: { for: "defaultCheck2" }
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(size.size) +
-                              " inch\n\t                  "
+                              " inch\n                             "
                           )
                         ]
                       )
@@ -74922,9 +74270,145 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _vm._m(13),
+              _c("div", { staticClass: "year-filter" }, [
+                _c("h5", [_vm._v("year")]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2021)
+                      }
+                    }
+                  },
+                  [_vm._v("2021")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2020)
+                      }
+                    }
+                  },
+                  [_vm._v("2020")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2019)
+                      }
+                    }
+                  },
+                  [_vm._v("2019")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        return _vm.filterAdd($event, "year", 2018)
+                      }
+                    }
+                  },
+                  [_vm._v("2018")]
+                ),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
-              _vm._m(14),
+              _c("div", { staticClass: "price-filter" }, [
+                _c("h5", [_vm._v("Price ($)")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "clearfix" }, [
+                    _c("div", { staticClass: "form-group clearfix" }, [
+                      _c("div", { staticClass: "amount-box" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.amount_from,
+                                  expression: "amount_from"
+                                }
+                              ],
+                              attrs: {
+                                type: "text",
+                                id: "amount-from",
+                                value: ""
+                              },
+                              domProps: { value: _vm.amount_from },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.amount_from = $event.target.value
+                                  },
+                                  function($event) {
+                                    return _vm.loadProduct()
+                                  }
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.amount_to,
+                                  expression: "amount_to"
+                                }
+                              ],
+                              attrs: {
+                                type: "text",
+                                id: "amount-to",
+                                value: ""
+                              },
+                              domProps: { value: _vm.amount_to },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.amount_to = $event.target.value
+                                  },
+                                  function($event) {
+                                    return _vm.loadProduct()
+                                  }
+                                ]
+                              }
+                            })
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -74940,6 +74424,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "processor",
+                              processor.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74951,9 +74444,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(processor.processors_type) +
-                              "\n\t                  "
+                              "\n                             "
                           )
                         ]
                       )
@@ -74979,6 +74472,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "ram", ram.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -74990,9 +74488,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(ram.ram_size) +
-                              " GB\n\t                  "
+                              " GB\n                             "
                           )
                         ]
                       )
@@ -75018,6 +74516,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "hard_drive",
+                              harddrive.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -75029,9 +74536,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(harddrive.hard_drive_size) +
-                              " GB SSD\n\t                  "
+                              " GB SSD\n                             "
                           )
                         ]
                       )
@@ -75057,6 +74564,15 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd(
+                              $event,
+                              "graphics_card",
+                              graphicscard.id
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -75068,9 +74584,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(graphicscard.graphics_card_size) +
-                              "\n\t                  "
+                              "\n                             "
                           )
                         ]
                       )
@@ -75096,6 +74612,11 @@ var render = function() {
                           type: "checkbox",
                           value: "",
                           id: "defaultCheck1"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.filterAdd($event, "color", color.id)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -75107,9 +74628,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n\t                  " +
+                            "\n                                 " +
                               _vm._s(color.color_name) +
-                              "\n\t                  "
+                              "\n                             "
                           )
                         ]
                       )
@@ -75215,7 +74736,7 @@ var render = function() {
                           },
                           [
                             _c("div", { staticClass: "modal-content" }, [
-                              _vm._m(15, true),
+                              _vm._m(10, true),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -75306,7 +74827,7 @@ var render = function() {
                                                 ])
                                               ]),
                                               _vm._v(" "),
-                                              _vm._m(16, true)
+                                              _vm._m(11, true)
                                             ]
                                           ),
                                           _vm._v(" "),
@@ -75409,7 +74930,7 @@ var staticRenderFns = [
         _c(
           "label",
           { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  In Stock\n\t                  ")]
+          [_vm._v("\n\t\t                  In Stock\n\t\t                  ")]
         )
       ]),
       _vm._v(" "),
@@ -75422,7 +74943,11 @@ var staticRenderFns = [
         _c(
           "label",
           { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  Coming Soon\n\t                  ")]
+          [
+            _vm._v(
+              "\n\t\t                  Coming Soon\n\t\t                  "
+            )
+          ]
         )
       ]),
       _vm._v(" "),
@@ -75445,7 +74970,7 @@ var staticRenderFns = [
         _c(
           "label",
           { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  New\n\t                  ")]
+          [_vm._v("\n\t\t                  New\n\t\t                  ")]
         )
       ]),
       _vm._v(" "),
@@ -75458,27 +74983,13 @@ var staticRenderFns = [
         _c(
           "label",
           { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  Approved Used\n\t                  ")]
+          [
+            _vm._v(
+              "\n\t\t                  Approved Used\n\t\t                  "
+            )
+          ]
         )
       ]),
-      _vm._v(" "),
-      _c("hr")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "year-filter" }, [
-      _c("h5", [_vm._v("year")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2021")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2013")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2017")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2018")]),
       _vm._v(" "),
       _c("hr")
     ])
@@ -75590,147 +75101,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticStyle: { "font-size": "15px" } }, [
-      _vm._v("STATUS: "),
-      _c("b", [_vm._v("Coming Soon")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "stock-filter" }, [
-      _c("h5", [_vm._v("stock status")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-check" }, [
-        _c("input", {
-          staticClass: "form-check-input",
-          attrs: { type: "checkbox", value: "", id: "defaultCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  In Stock\n\t                  ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-check" }, [
-        _c("input", {
-          staticClass: "form-check-input",
-          attrs: { type: "checkbox", value: "", id: "defaultCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  Coming Soon\n\t                  ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("hr")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "condition-filter" }, [
-      _c("h5", [_vm._v("Condition")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-check" }, [
-        _c("input", {
-          staticClass: "form-check-input",
-          attrs: { type: "checkbox", value: "", id: "defaultCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  New\n\t                  ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-check" }, [
-        _c("input", {
-          staticClass: "form-check-input",
-          attrs: { type: "checkbox", value: "", id: "defaultCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-          [_vm._v("\n\t                  Approved Used\n\t                  ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("hr")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "year-filter" }, [
-      _c("h5", [_vm._v("year")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2021")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2013")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2017")]),
-      _vm._v(" "),
-      _c("button", { attrs: { type: "submit" } }, [_vm._v("2018")]),
-      _vm._v(" "),
-      _c("hr")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "price-filter" }, [
-      _c("h5", [_vm._v("Price ($)")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _c("div", { staticClass: "form-group clearfix" }, [
-            _c("div", { attrs: { id: "slider-container" } })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "clearfix" }, [
-          _c("div", { staticClass: "form-group clearfix" }, [
-            _c("div", { staticClass: "amount-box" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm-6" }, [
-                  _c("input", {
-                    attrs: {
-                      type: "text",
-                      id: "amount-from",
-                      onkeypress: "return isNumberKey(event)",
-                      value: "200"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-6" }, [
-                  _c("input", {
-                    attrs: {
-                      type: "tel",
-                      id: "amount-to",
-                      onkeypress: "return isNumberKey(event)",
-                      value: "33000"
-                    }
-                  })
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr")
+    return _c("li", [
+      _c("div", { staticClass: "form-group clearfix" }, [
+        _c("div", { attrs: { id: "slider-container" } })
+      ])
     ])
   },
   function() {

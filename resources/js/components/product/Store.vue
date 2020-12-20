@@ -13,9 +13,9 @@
 		         <div class="col-lg-3" style="margin-top: 70px;">
 		            <div class="refineby">
 		               <span style="font-size: 14px;">Refine By</span>
-		               <a href="#">Clear All</a><br><br>
+		               <a href="javascript:;">Clear All</a><br><br>
 		               <span style="font-size: 15px;">STATUS: <b>In Stock</b></span>
-		               <a href="#"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"></a><br>
+		               <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(mainCat.id, 'category', 1)"></a><br>
 		               <hr>
 		            </div>
 		            <div class="stock-filter">
@@ -175,10 +175,59 @@
 		      <div class="desktop-filter col-lg-3">
 		         <div class="">
                      <div class="refineby">
-                         <span style="font-size: 14px;">Refine By</span>
-                         <a href="#">Clear All</a><br><br>
-                         <span style="font-size: 15px;">STATUS: <b>In Stock</b></span>
-                         <a href="#"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"></a><br>
+                         <span style="font-size: 14px;">Refine By</span> <a href="javascript:;" @click="clearAll()">Clear All</a><br><br>
+                         <div v-for="(mainCat, index) in maincategory" v-if="refineBy(mainCat.id, 'category')">
+                             <span style="font-size: 15px;">Category : <b>{{ mainCat.mc_name }}</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(mainCat.id, 'category', 1)"></a><br>
+                         </div>
+                         <div v-for="(size, index) in sizes" v-if="refineBy(size.id, 'size')">
+                             <span style="font-size: 15px;">Size : <b>{{ size.size }} inch</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(size.id, 'size', 1)"></a><br>
+                         </div>
+                         <div v-if="year != ''">
+                             <span style="font-size: 15px;">Year : <b>{{ year }}</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(0, 'year', 1)"></a><br>
+                         </div>
+                         <div v-if="refineBy(1, 'stock')">
+                             <span style="font-size: 15px;">Stock : <b>In Stock</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(1, 'stock', 1)"></a><br>
+                         </div>
+                         <div v-if="refineBy(2, 'stock')">
+                             <span style="font-size: 15px;">Stock : <b>Comming Soon</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(2, 'stock', 1)"></a><br>
+                         </div>
+                        <div v-if="refineBy(1, 'condition')">
+                            <span style="font-size: 15px;">Condition : <b>New</b></span>
+                            <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(1, 'condition', 1)"></a><br>
+                        </div>
+                         <div v-if="refineBy(2, 'condition')">
+                            <span style="font-size: 15px;">Condition : <b>Used Used</b></span>
+                            <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(2, 'condition', 1)"></a><br>
+                        </div>
+                         <div v-if="refineBy(0, 'condition')">
+                            <span style="font-size: 15px;">Condition : <b>Approved Used</b></span>
+                            <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(0, 'condition', 1)"></a><br>
+                        </div>
+                         <div v-for="(processor, key) in processors" v-if="refineBy(processor.id, 'processor')">
+                             <span style="font-size: 15px;">Processor : <b>{{ processor.processors_type }}</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(processor.id, 'processor', 1)"></a><br>
+                         </div>
+                         <div v-for="(ram, key) in rams" v-if="refineBy(ram.id, 'ram')">
+                             <span style="font-size: 15px;">RAM : <b>{{ ram.ram_size }} GB</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(ram.id, 'ram', 1)"></a><br>
+                         </div>
+                         <div v-for="(harddrive, key) in harddrives" v-if="refineBy(harddrive.id, 'hard_drive')">
+                             <span style="font-size: 15px;">Hard Drive : <b>{{ harddrive.hard_drive_size }} GB SSD</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(harddrive.id, 'hard_drive', 1)"></a><br>
+                         </div>
+                         <div v-for="(graphicscard, key) in graphicscards" v-if="refineBy(graphicscard.id, 'graphics_card')">
+                             <span style="font-size: 15px;">Graphics Card : <b>{{ graphicscard.graphics_card_size }}</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(graphicscard.id, 'graphics_card', 1)"></a><br>
+                         </div>
+                         <div v-for="(color, key) in colors" v-if="refineBy(color.id, 'color')">
+                             <span style="font-size: 15px;">Color : <b>{{ color.color_name }}</b></span>
+                             <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'" @click="refineBy(color.id, 'color', 1)"></a><br>
+                         </div>
                          <hr>
                      </div>
                      <div class="stock-filter">
@@ -338,7 +387,7 @@
 			                />
 		                  <div class="overlay">
 		                     <div class="text">
-		                        <a href="#" class="btn" data-toggle="modal" :data-target="'#exampleModalCenter' + product.id">Quick View</a>
+		                        <a href="javascript:;" class="btn" data-toggle="modal" :data-target="'#exampleModalCenter' + product.id">Quick View</a>
 		                     </div>
 		                  </div>
 		               </div>
@@ -449,9 +498,9 @@ export default {
     methods: {
         // add to cart option
         ...mapActions({
-          addProduct: "cart/addProduct",
-          removeProduct: "cart/removeProduct",
-    }),
+              addProduct: "cart/addProduct",
+              removeProduct: "cart/removeProduct",
+        }),
 
     // allproducts show
     loadProduct() {
@@ -464,6 +513,148 @@ export default {
               console.error(error);
           });
     },
+
+        clearAll() {
+            const _this = this;
+            _this.category = [];
+            _this.size = [];
+            _this.year = '';
+            _this.price = [];
+            _this.processor = [];
+            _this.ram = [];
+            _this.hard_drive = [];
+            _this.graphics_card = [];
+            _this.color = [];
+            _this.condition = [];
+            _this.stock = [];
+            _this.amount_from = 20;
+            _this.amount_to = 33000;
+        },
+
+        refineBy(id, type, clean = 0){
+            const _this = this;
+            if(type == 'category') {
+                var category = _this.category.indexOf(id);
+                if (clean == 1) {
+                    _this.category.splice(category, id);
+                } else {
+                    if (category != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'year') {
+                var year = _this.year.indexOf(value);
+                if (clean == 1) {
+                    _this.year.splice(year, id);
+                } else {
+                    if (year != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'ram') {
+                var ram = _this.ram.indexOf(id);
+                if (clean == 1) {
+                    _this.ram.splice(ram, id);
+                } else {
+                    if (ram != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'size') {
+                var size = _this.size.indexOf(id);
+                if (clean == 1) {
+                    _this.size.splice(size, id);
+                } else {
+                    if (size != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'processor') {
+                var processor = _this.processor.indexOf(id);
+                if (clean == 1) {
+                    _this.processor.splice(processor, id);
+                } else {
+                    if (processor != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'hard_drive') {
+                var hard_drive = _this.hard_drive.indexOf(id);
+                if (clean == 1) {
+                    _this.hard_drive.splice(hard_drive, id);
+                } else {
+                    if (hard_drive != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'graphics_card') {
+                var graphics_card = _this.graphics_card.indexOf(id);
+                if (clean == 1) {
+                    _this.graphics_card.splice(graphics_card, id);
+                } else {
+                    if (graphics_card != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'color') {
+                var color = _this.color.indexOf(id);
+                if (clean == 1) {
+                    _this.color.splice(color, id);
+                } else {
+                    if (color != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'condition') {
+                var condition = _this.condition.indexOf(id);
+                if (clean == 1) {
+                    _this.condition.splice(condition, id);
+                } else {
+                    if (condition != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if(type == 'stock') {
+                var stock = _this.stock.indexOf(id);
+                if (clean == 1) {
+                    _this.stock.splice(stock, id);
+                } else {
+                    if (stock != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            _this.loadProduct();
+        },
 
     filterAdd(event, type, value) {
         const _this = this;

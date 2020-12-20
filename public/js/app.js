@@ -6102,6 +6102,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Store",
@@ -6157,6 +6206,170 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    clearAll: function clearAll() {
+      var _this = this;
+
+      _this.category = [];
+      _this.size = [];
+      _this.year = '';
+      _this.price = [];
+      _this.processor = [];
+      _this.ram = [];
+      _this.hard_drive = [];
+      _this.graphics_card = [];
+      _this.color = [];
+      _this.condition = [];
+      _this.stock = [];
+      _this.amount_from = 20;
+      _this.amount_to = 33000;
+    },
+    refineBy: function refineBy(id, type) {
+      var clean = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+      var _this = this;
+
+      if (type == 'category') {
+        var category = _this.category.indexOf(id);
+
+        if (clean == 1) {
+          _this.category.splice(category, id);
+        } else {
+          if (category != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'year') {
+        var year = _this.year.indexOf(value);
+
+        if (clean == 1) {
+          _this.year.splice(year, id);
+        } else {
+          if (year != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'ram') {
+        var ram = _this.ram.indexOf(id);
+
+        if (clean == 1) {
+          _this.ram.splice(ram, id);
+        } else {
+          if (ram != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'size') {
+        var size = _this.size.indexOf(id);
+
+        if (clean == 1) {
+          _this.size.splice(size, id);
+        } else {
+          if (size != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'processor') {
+        var processor = _this.processor.indexOf(id);
+
+        if (clean == 1) {
+          _this.processor.splice(processor, id);
+        } else {
+          if (processor != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'hard_drive') {
+        var hard_drive = _this.hard_drive.indexOf(id);
+
+        if (clean == 1) {
+          _this.hard_drive.splice(hard_drive, id);
+        } else {
+          if (hard_drive != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'graphics_card') {
+        var graphics_card = _this.graphics_card.indexOf(id);
+
+        if (clean == 1) {
+          _this.graphics_card.splice(graphics_card, id);
+        } else {
+          if (graphics_card != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'color') {
+        var color = _this.color.indexOf(id);
+
+        if (clean == 1) {
+          _this.color.splice(color, id);
+        } else {
+          if (color != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'condition') {
+        var condition = _this.condition.indexOf(id);
+
+        if (clean == 1) {
+          _this.condition.splice(condition, id);
+        } else {
+          if (condition != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (type == 'stock') {
+        var stock = _this.stock.indexOf(id);
+
+        if (clean == 1) {
+          _this.stock.splice(stock, id);
+        } else {
+          if (stock != -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      _this.loadProduct();
     },
     filterAdd: function filterAdd(event, type, value) {
       var _this = this;
@@ -73619,16 +73832,23 @@ var render = function() {
                   _vm._v("Refine By")
                 ]),
                 _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Clear All")]),
+                _c("a", { attrs: { href: "javascript:;" } }, [
+                  _vm._v("Clear All")
+                ]),
                 _c("br"),
                 _c("br"),
                 _vm._v(" "),
                 _vm._m(2),
                 _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
+                _c("a", { attrs: { href: "javascript:;" } }, [
                   _c("img", {
                     staticClass: "mb-2",
-                    attrs: { src: _vm.baseUrlPath + "/frontend/img/close.png" }
+                    attrs: { src: _vm.baseUrlPath + "/frontend/img/close.png" },
+                    on: {
+                      click: function($event) {
+                        return _vm.refineBy(_vm.mainCat.id, "category", 1)
+                      }
+                    }
                   })
                 ]),
                 _c("br"),
@@ -74035,27 +74255,362 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "desktop-filter col-lg-3" }, [
             _c("div", {}, [
-              _c("div", { staticClass: "refineby" }, [
-                _c("span", { staticStyle: { "font-size": "14px" } }, [
-                  _vm._v("Refine By")
-                ]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Clear All")]),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _vm._m(8),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    staticClass: "mb-2",
-                    attrs: { src: _vm.baseUrlPath + "/frontend/img/close.png" }
-                  })
-                ]),
-                _c("br"),
-                _vm._v(" "),
-                _c("hr")
-              ]),
+              _c(
+                "div",
+                { staticClass: "refineby" },
+                [
+                  _c("span", { staticStyle: { "font-size": "14px" } }, [
+                    _vm._v("Refine By")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "javascript:;" },
+                      on: {
+                        click: function($event) {
+                          return _vm.clearAll()
+                        }
+                      }
+                    },
+                    [_vm._v("Clear All")]
+                  ),
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm._l(_vm.maincategory, function(mainCat, index) {
+                    return _vm.refineBy(mainCat.id, "category")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Category : "),
+                            _c("b", [_vm._v(_vm._s(mainCat.mc_name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(mainCat.id, "category", 1)
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.sizes, function(size, index) {
+                    return _vm.refineBy(size.id, "size")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Size : "),
+                            _c("b", [_vm._v(_vm._s(size.size) + " inch")])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(size.id, "size", 1)
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm.year != ""
+                    ? _c("div", [
+                        _c("span", { staticStyle: { "font-size": "15px" } }, [
+                          _vm._v("Year : "),
+                          _c("b", [_vm._v(_vm._s(_vm.year))])
+                        ]),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(0, "year", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.refineBy(1, "stock")
+                    ? _c("div", [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(1, "stock", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.refineBy(2, "stock")
+                    ? _c("div", [
+                        _vm._m(9),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(2, "stock", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.refineBy(1, "condition")
+                    ? _c("div", [
+                        _vm._m(10),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(1, "condition", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.refineBy(2, "condition")
+                    ? _c("div", [
+                        _vm._m(11),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(2, "condition", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.refineBy(0, "condition")
+                    ? _c("div", [
+                        _vm._m(12),
+                        _vm._v(" "),
+                        _c("a", { attrs: { href: "javascript:;" } }, [
+                          _c("img", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              src: _vm.baseUrlPath + "/frontend/img/close.png"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.refineBy(0, "condition", 1)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.processors, function(processor, key) {
+                    return _vm.refineBy(processor.id, "processor")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Processor : "),
+                            _c("b", [_vm._v(_vm._s(processor.processors_type))])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(
+                                    processor.id,
+                                    "processor",
+                                    1
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.rams, function(ram, key) {
+                    return _vm.refineBy(ram.id, "ram")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("RAM : "),
+                            _c("b", [_vm._v(_vm._s(ram.ram_size) + " GB")])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(ram.id, "ram", 1)
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.harddrives, function(harddrive, key) {
+                    return _vm.refineBy(harddrive.id, "hard_drive")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Hard Drive : "),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(harddrive.hard_drive_size) + " GB SSD"
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(
+                                    harddrive.id,
+                                    "hard_drive",
+                                    1
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.graphicscards, function(graphicscard, key) {
+                    return _vm.refineBy(graphicscard.id, "graphics_card")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Graphics Card : "),
+                            _c("b", [
+                              _vm._v(_vm._s(graphicscard.graphics_card_size))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(
+                                    graphicscard.id,
+                                    "graphics_card",
+                                    1
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.colors, function(color, key) {
+                    return _vm.refineBy(color.id, "color")
+                      ? _c("div", [
+                          _c("span", { staticStyle: { "font-size": "15px" } }, [
+                            _vm._v("Color : "),
+                            _c("b", [_vm._v(_vm._s(color.color_name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("img", {
+                              staticClass: "mb-2",
+                              attrs: {
+                                src: _vm.baseUrlPath + "/frontend/img/close.png"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.refineBy(color.id, "color", 1)
+                                }
+                              }
+                            })
+                          ]),
+                          _c("br")
+                        ])
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _c("hr")
+                ],
+                2
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "stock-filter" }, [
                 _c("h5", [_vm._v("stock status")]),
@@ -74332,7 +74887,7 @@ var render = function() {
                 _c("h5", [_vm._v("Price ($)")]),
                 _vm._v(" "),
                 _c("ul", [
-                  _vm._m(9),
+                  _vm._m(13),
                   _vm._v(" "),
                   _c("li", { staticClass: "clearfix" }, [
                     _c("div", { staticClass: "form-group clearfix" }, [
@@ -74684,7 +75239,7 @@ var render = function() {
                             {
                               staticClass: "btn",
                               attrs: {
-                                href: "#",
+                                href: "javascript:;",
                                 "data-toggle": "modal",
                                 "data-target":
                                   "#exampleModalCenter" + product.id
@@ -74736,7 +75291,7 @@ var render = function() {
                           },
                           [
                             _c("div", { staticClass: "modal-content" }, [
-                              _vm._m(10, true),
+                              _vm._m(14, true),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -74827,7 +75382,7 @@ var render = function() {
                                                 ])
                                               ]),
                                               _vm._v(" "),
-                                              _vm._m(11, true)
+                                              _vm._m(15, true)
                                             ]
                                           ),
                                           _vm._v(" "),
@@ -75093,8 +75648,44 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticStyle: { "font-size": "15px" } }, [
-      _vm._v("STATUS: "),
+      _vm._v("Stock : "),
       _c("b", [_vm._v("In Stock")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticStyle: { "font-size": "15px" } }, [
+      _vm._v("Stock : "),
+      _c("b", [_vm._v("Comming Soon")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticStyle: { "font-size": "15px" } }, [
+      _vm._v("Condition : "),
+      _c("b", [_vm._v("New")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticStyle: { "font-size": "15px" } }, [
+      _vm._v("Condition : "),
+      _c("b", [_vm._v("Used Used")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticStyle: { "font-size": "15px" } }, [
+      _vm._v("Condition : "),
+      _c("b", [_vm._v("Approved Used")])
     ])
   },
   function() {

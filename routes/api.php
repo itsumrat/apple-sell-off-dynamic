@@ -40,7 +40,6 @@ Route::get('/product/{id}', 'Api\HomePageController@singleProduct');
 
 Route::get('search-products/{search}', 'Api\HomePageController@searchProducts');
 
-
 /*=====================
     Slider
 =======================*/

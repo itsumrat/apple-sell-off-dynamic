@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('frontend.home');
 // });
+Route::prefix('api')->group(function () {
+    //Customer Login
+    Route::post('/register', 'Customer\CustomerController@register');
+    Route::post('/login', 'Customer\CustomerController@login');
+    Route::get('/user_info', 'Customer\CustomerController@user_info');
+    Route::get('/logout', 'Customer\CustomerController@logout');
+});
+
 
 Route::get('admin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('vendor', 'Auth\LoginController@vedorLoginForm')->name('vedor.login');
@@ -84,6 +92,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('invoiceOrderPdf', 'Api\OrderPostController@invoiceOrderPdf')->name('invoiceOrderPdf');
 
 });
+
+
 
 Route::get('{any}', function () {
     return view('frontend.home');

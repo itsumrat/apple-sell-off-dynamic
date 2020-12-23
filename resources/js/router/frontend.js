@@ -1,6 +1,8 @@
 // import components
 import HomeContent from "../components/HomeContent.vue";
 import Login from "../components/pages/Login.vue";
+import Registration from "../components/pages/Registration.vue";
+import Profile from "../components/pages/Profile.vue";
 import Register from "../components/partial/Register.vue";
 import UserProfile from "../components/customer/UserProfile.vue";
 
@@ -33,7 +35,9 @@ export const routes = [
 	// customer realated
 	{ name: "home", path: "/", component: HomeContent },
 	{ name: "login", path: "/login", component: Login },
+	{ name: "register", path: "/register", component: Registration },
     { name: "sign-up", path: "/sign-up", component: Register },
+    { name: "my_profile", path: "/my_profile", component: Profile },
     { name: "user-profile", path: "/user-profile", component: UserProfile,
     	meta: {
 	      requiresAuth: true,

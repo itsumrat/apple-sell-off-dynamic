@@ -2,6 +2,11 @@
   <div>
     <div class="container">
       <div class="row">
+          <div class="col-12">
+              <div class="page-title">
+                  <h1>sign in</h1>
+              </div>
+          </div>
         <div class="col-md-6 offset-md-3 mt-2">
           <div class="card">
             <div class="card-header text-uppercase text-info">

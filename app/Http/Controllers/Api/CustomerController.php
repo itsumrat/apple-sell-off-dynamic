@@ -14,6 +14,7 @@ class CustomerController extends Controller
     public function customer()
     {
         $status   = 200;
+        dd($status);
         $customer = Auth::user()->load('customeraddress');
         return response()->json($customer, $status);
     }

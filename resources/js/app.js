@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 axios.defaults.headers.common = {
   "X-Requested-With": "XMLHttpRequest",
-  "X-CSRF-TOKEN": window.csrf_token,
+  // "X-CSRF-TOKEN": window.csrf_token,
   Authorization: "Bearer " + window.localStorage.getItem("eShop.token"),
   "Access-Control-Allow-Origin": "*",
 };

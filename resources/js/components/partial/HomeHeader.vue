@@ -25,11 +25,11 @@
                                     <ul class="dropdown-menu">
                                         <li><router-link :to="{name: 'my_profile'}">My Account</router-link></li>
                                         <li class="divider"></li>
-                                        <li><a href="#">Cart</a></li>
+                                        <li><router-link :to="{name: 'cart'}">Cart</router-link></li>
                                         <li class="divider"></li>
                                         <li><a href="#">Checkout</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#">Order Tracking</a></li>
+                                        <li><router-link :to="{name: 'order_tracking'}">Order Tracking</router-link></li>
                                         <li class="divider"></li>
                                         <li><a href="javascript:;" @click="logOut()">Logout</a></li>
                                     </ul>

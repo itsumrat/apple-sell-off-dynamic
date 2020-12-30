@@ -6,8 +6,8 @@ import modules from './modules';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  modules,
-  //strict: process.env.NODE_ENV !== 'production',
+    modules,
+    //strict: process.env.NODE_ENV !== 'production',
 });
 
 // Automatically run the init action for every module,

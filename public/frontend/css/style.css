@@ -552,7 +552,7 @@ html, body{
     color: #000;
     background-color: #fff;
     line-height: 0.974;
-    width: 205px;
+    width: 245px;
     margin: 0 auto;
     margin-right: 1rem;
 }
@@ -581,6 +581,7 @@ html, body{
     position: absolute;
     bottom: -8px;
     margin-left: 10px;
+    margin-right: 8px;
     opacity: 1;
     transition: 0.5s;
 }
@@ -679,7 +680,7 @@ html, body{
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 750px;
+    min-height: 850px;
     /*margin-bottom: 3rem;*/
     background-color: #fff;
 }
@@ -2144,4 +2145,15 @@ th p {
     .more-software div {
         padding-left: 2rem !important;
     }
+}
+
+.category-content .tab-content .item:hover {
+    background: #182f4e;
+}
+
+.cart_count {
+    border-radius: 50%;
+    padding: 1px 6px 1px 6px;
+    font-size: 14px;
+    margin: 0px 0px 0px -13px;
 }

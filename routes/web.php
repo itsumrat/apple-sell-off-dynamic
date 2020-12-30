@@ -20,8 +20,13 @@ Route::prefix('api')->group(function () {
     //Customer Login
     Route::post('/register', 'Customer\CustomerController@register');
     Route::post('/login', 'Customer\CustomerController@login');
+    Route::post('/update_profile', 'Customer\CustomerController@update_profile');
     Route::get('/user_info', 'Customer\CustomerController@user_info');
     Route::get('/logout', 'Customer\CustomerController@logout');
+    Route::post('/add_to_cart', 'Api\FrontEndController@add_to_cart');
+    Route::get('/cart_list', 'Api\FrontEndController@cart_list');
+    Route::get('/remove_cart_item/{id}', 'Api\FrontEndController@remove_cart_item');
+    Route::get('/increase_quantity/{id}/{type}', 'Api\FrontEndController@increase_quantity');
 });
 
 
@@ -32,8 +37,8 @@ Route::post('postLogin', 'Auth\LoginController@login')->name('postLogin');
 // Auth::routes(['verify' => false]);
 Auth::routes(['login' => false, 'register' => false, 'verify' => false]);
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-Route::group(['middleware' => ['auth']], function() {
-   	Route::resource('roles', 'WebController\Backend\RoleController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', 'WebController\Backend\RoleController');
     Route::resource('permissions', 'WebController\Backend\PermissionController');
     // user part
     Route::resource('users', 'WebController\Backend\UserController');
@@ -65,15 +70,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('graphicscards', 'WebController\Backend\GraphicsCardController');
     Route::resource('harddrives', 'WebController\Backend\HardDriveController');
 
-     //Slider
-     Route::resource('slider', 'WebController\Backend\SliderController');
-     Route::post('updateSliderStatus', 'WebController\Backend\SliderController@updateSliderStatus')->name('updateSliderStatus');
-     // logo
-     Route::resource('logo', 'WebController\Backend\LogoController');
-     Route::post('updatelogoStatus', 'WebController\Backend\LogoController@updatelogoStatus')->name('updatelogoStatus');
-     //offer Banner
-     Route::resource('offerbanner', 'WebController\Backend\OfferBannerController');
-     Route::post('updateOfferStatus', 'WebController\Backend\OfferBannerController@updateOfferStatus')->name('updateOfferStatus');
+    //Slider
+    Route::resource('slider', 'WebController\Backend\SliderController');
+    Route::post('updateSliderStatus', 'WebController\Backend\SliderController@updateSliderStatus')->name('updateSliderStatus');
+    // logo
+    Route::resource('logo', 'WebController\Backend\LogoController');
+    Route::post('updatelogoStatus', 'WebController\Backend\LogoController@updatelogoStatus')->name('updatelogoStatus');
+    //offer Banner
+    Route::resource('offerbanner', 'WebController\Backend\OfferBannerController');
+    Route::post('updateOfferStatus', 'WebController\Backend\OfferBannerController@updateOfferStatus')->name('updateOfferStatus');
 
     // order part start
     Route::resource('orders', 'WebController\Backend\OrderController');
@@ -94,7 +99,6 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-
 Route::get('{any}', function () {
     return view('frontend.home');
-})->where('any','.*');
+})->where('any', '.*');

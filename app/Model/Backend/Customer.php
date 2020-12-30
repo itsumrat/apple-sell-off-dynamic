@@ -21,10 +21,7 @@ class Customer extends Authenticatable
     public function validation()
     {
         return [
-            'name' => 'required',
             'email' => 'required|unique:customers',
-            'phone' => 'required',
-            'address' => 'required',
             'password' => 'required|confirmed|min:6',
         ];
     }

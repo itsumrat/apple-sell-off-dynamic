@@ -52,7 +52,7 @@
                             <!--Additional-->
                             <div v-for="(value, index) in product.additional_processor"
                                  :class="'configuration-item rounded p-4 mt-1 mb-5 processor_additional_'+index"
-                                 @click="additional_price_set(4, value.price, 'processor_additional_'+index)">
+                                 @click="additional_price_set(4, value.price, 'processor_additional_'+index, value.id)">
                                 <b>{{ value.processor.processors_type }}</b>
                                 <span style="float: right; margin: 18px -12px 0px 10px;">+{{ value.price }}$</span>
                             </div>
@@ -67,7 +67,7 @@
                             <!--Additional-->
                             <div v-for="(value, index) in product.additional_ram"
                                  :class="'configuration-item rounded p-4 mt-1 mb-5 additional_ram_'+index"
-                                 @click="additional_price_set(1, value.price, 'additional_ram_'+index)">
+                                 @click="additional_price_set(1, value.price, 'additional_ram_'+index, value.id)">
                                 <b>{{ value.ram.ram_size + ' ' + value.ram.ram_sign }} </b>
                                 <span style="float: right; margin: 18px -12px 0px 10px;">+{{ value.price }}$</span>
                             </div>
@@ -82,7 +82,7 @@
                             <!--Additional-->
                             <div v-for="(value, index) in product.additional_graphics_card"
                                  :class="'configuration-item rounded p-4 mt-1 mb-5 graphics_additional_'+index"
-                                 @click="additional_price_set(3, value.price, 'graphics_additional_'+index)">
+                                 @click="additional_price_set(3, value.price, 'graphics_additional_'+index, value.id)">
                                 <b>{{ value.graphics_card.graphics_card_size }} GB</b>
                                 <span style="float: right; margin: 18px -12px 0px 10px;">+{{ value.price }}$</span>
                             </div>
@@ -97,7 +97,7 @@
                             <!--Additional-->
                             <div v-for="(value, index) in product.additional_hard_drive"
                                  :class="'configuration-item rounded p-4 mt-1 mb-5 storage_additional_'+index"
-                                 @click="additional_price_set(2, value.price, 'storage_additional_'+index)">
+                                 @click="additional_price_set(2, value.price, 'storage_additional_'+index, value.id)">
                                 <b>{{ value.hard_drive.hard_drive_size }} GB</b>
                                 <span style="float: right; margin: 18px -12px 0px 10px;">+{{ value.price }}$</span>
                             </div>
@@ -144,7 +144,7 @@
                     <div class="col-12">
                         <div class="price-box-contents">
                             <h1>${{ parseFloat(unit_price) + parseFloat(grandPrice) }} <span>Your product price</span></h1>
-                            <button type="submit" class="btn mb-5"
+                            <button @click="addToCart(product)" type="submit" class="btn mb-5"
                                     style="border: 1px solid rgb(0, 119, 204);color: #fff;background: linear-gradient(rgb(66, 161, 236), rgb(0, 112, 201));">
                                 Add to basket
                             </button>
@@ -189,6 +189,21 @@ export default {
     },
 
     methods: {
+
+        addToCart(item) {
+            const _this = this;
+            item['price'] = parseFloat(_this.unit_price) + parseFloat(_this.grandPrice);
+            item['price_array'] = _this.price_array;
+            axios.post('/api/add_to_cart', item)
+                .then((response) => {
+                    this.$toasted.success("Product Added To Cart!");
+                    $('.cart_count').text(response.data.cart_count);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+
         loadProduct() {
             const _this = this;
             axios.get(`/api/product/${this.$route.params.id}`).then((response) => {
@@ -198,15 +213,15 @@ export default {
             });
         },
 
-        additional_price_set(device_type, price, id_class) {
-            console.log(id_class);
+        additional_price_set(device_type, price, id_class, id) {
             const _this = this;
             let findPrev = _this.price_array.findIndex(device => device.device_type === device_type);
             if (findPrev === -1) {
                 _this.price_array.push({
                     selected: id_class,
                     device_type: device_type,
-                    price: price
+                    price: price,
+                    id : id
                 });
             } else {
                 _this.price_array[findPrev].price = price;
@@ -234,6 +249,7 @@ export default {
         ...mapGetters({
             products: "cart/products",
         }),
+
         totalPrice() {
             let sum = 0;
             _.each(this.products, (p) => {

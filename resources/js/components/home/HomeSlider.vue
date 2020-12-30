@@ -21,8 +21,8 @@
         />
         <!-- <img src="img/slider1.jpg" class="d-block w-100" alt="slider 1"> -->
         <div class="slider-contents">
-          <h1>Apple macs <span>for you</span></h1>
-          <p>Choose a device that fits your needs and will last for years</p>
+          <h1>{{slider.slider_title}}</h1>
+          <p>{{ slider.slider_description }}</p>
           <a href="store.php" class="btn">shop now</a>
         </div>
       </div>

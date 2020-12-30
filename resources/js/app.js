@@ -31,7 +31,7 @@ Vue.use(Vuelidate);
 Vue.use(Toasted, {
   duration: 5000,
   size: "20",
-  position: "top-right",
+  position: "bottom-center",
   action: {
     text: "X",
     onClick: (e, toastObject) => {

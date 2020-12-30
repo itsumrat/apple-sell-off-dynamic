@@ -71,4 +71,11 @@ class CustomerController extends Controller
         Auth::guard('customer')->logout();
         return response()->json(['status' => 200, 'data' => false]);
     }
+
+    public function update_profile(Request $request) {
+        $data = Customer::findOrFail(Auth::guard('customer')->user()->id);
+        $data->fill($request->all())->save();
+
+        return response()->json(['status' => 200, 'data' => Auth::guard('customer')->user()]);
+    }
 }

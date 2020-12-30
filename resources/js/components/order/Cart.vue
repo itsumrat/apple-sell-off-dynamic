@@ -13,37 +13,37 @@
                                 class="table table-borderless text-sm"
                             >
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>S.total</th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>S.total</th>
+                                    <th></th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        v-for="(pro, index) in products"
-                                        :key="index"
-                                        class="product-cart-table"
-                                    >
-                                        <th scope="row">{{ ++index }}</th>
-                                        <td>
-                                            <img
-                                                :src="
+                                <tr
+                                    v-for="(pro, index) in products"
+                                    :key="index"
+                                    class="product-cart-table"
+                                >
+                                    <th scope="row">{{ ++index }}</th>
+                                    <td>
+                                        <img
+                                            :src="
                                                     baseUrlPath +
                                                         '/uploads/product/' +
                                                         pro.image
                                                 "
-                                                class="img img-fluid img-thumbnail"
-                                                width="50"
-                                                height="50"
-                                            />
-                                        </td>
-                                        <td>{{ pro.name }}</td>
-                                        <td>
+                                            class="img img-fluid img-thumbnail"
+                                            width="50"
+                                            height="50"
+                                        />
+                                    </td>
+                                    <td>{{ pro.name }}</td>
+                                    <td>
                                             <span class="text-black">
                                                 <a @click="removeFromCart(pro)">
                                                     <i
@@ -59,33 +59,33 @@
                                                     ></i>
                                                 </a>
                                             </span>
-                                        </td>
-                                        <td>{{ pro.price }}</td>
-                                        <td>{{ pro.price * pro.count }}</td>
-                                        <td>
-                                            <a
-                                                class="shopcart-remove"
-                                                @click="
+                                    </td>
+                                    <td>{{ pro.price }}</td>
+                                    <td>{{ pro.price * pro.count }}</td>
+                                    <td>
+                                        <a
+                                            class="shopcart-remove"
+                                            @click="
                                                     removeProductAll(pro.id)
                                                 "
-                                            >
-                                                <i
-                                                    class="fas fa-trash-alt fa-sm"
-                                                ></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-right">
-                                            <b>Total :</b>
-                                        </th>
-                                        <th>
-                                            <b>৳ {{ totalPrice }}</b>
-                                        </th>
-                                        <!-- <td>
-                                    <router-link :to="{ name: 'checkout' }">View Checkout</router-link>
-                                </td> -->
-                                    </tr>
+                                        >
+                                            <i
+                                                class="fas fa-trash-alt fa-sm"
+                                            ></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="text-right">
+                                        <b>Total :</b>
+                                    </th>
+                                    <th>
+                                        <b>৳ {{ totalPrice }}</b>
+                                    </th>
+                                    <!-- <td>
+                                <router-link :to="{ name: 'checkout' }">View Checkout</router-link>
+                            </td> -->
+                                </tr>
                                 </tbody>
                             </table>
                             <h5
@@ -102,7 +102,8 @@
                             <router-link
                                 :to="{ name: 'checkout' }"
                                 class="text-white p-1 bg-info"
-                                >Checkout</router-link
+                            >Checkout
+                            </router-link
                             >
                         </div>
                     </div>
@@ -112,8 +113,9 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import _ from "lodash";
+
 export default {
     name: "Cart",
     data() {
@@ -219,6 +221,7 @@ export default {
 tr.product-cart-table {
     border-bottom: 1px solid #f7f7f8;
 }
+
 .product-cart-table:last-child {
     border-bottom: none !important;
 }

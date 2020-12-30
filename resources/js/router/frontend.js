@@ -33,18 +33,19 @@ import OrderList from "../components/order/OrderList.vue";
 import OrderView from "../components/order/OrderView.vue";
 
 export const routes = [
-	// customer realated
-	{ name: "home", path: "/", component: HomeContent },
-	{ name: "login", path: "/login", component: Login },
-	{ name: "register", path: "/register", component: Registration },
-	{ name: "order_tracking", path: "/order_tracking", component: OrderTracking },
-    { name: "sign-up", path: "/sign-up", component: Register },
-    { name: "my_profile", path: "/my_profile", component: Profile },
-    { name: "user-profile", path: "/user-profile", component: UserProfile,
-    	meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
+    // customer realated
+    {name: "home", path: "/", component: HomeContent},
+    {name: "login", path: "/login", component: Login},
+    {name: "register", path: "/register", component: Registration},
+    {name: "order_tracking", path: "/order_tracking", component: OrderTracking},
+    {name: "sign-up", path: "/sign-up", component: Register},
+    {name: "my_profile", path: "/my_profile", component: Profile},
+    {
+        name: "user-profile", path: "/user-profile", component: UserProfile,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
     },
 
     {name: "store", path: "/store", component: Store},
@@ -53,48 +54,53 @@ export const routes = [
     {name: "policy", path: "/policy", component: Policy},
 
     //Category Route
-    { name: "subcategory", path: "/slug", component: SubCategory },
-    { name: "childcategory", path: "/slug", component: ChildCategory },
+    {name: "subcategory", path: "/slug", component: SubCategory},
+    {name: "childcategory", path: "/slug", component: ChildCategory},
 
     // product related
-    { name: "product-details", path: "/product/:id", component: ProductDetails },
+    {name: "product-details", path: "/product/:id", component: ProductDetails},
 
     // search product
 
-    { name: "searchProduct", path: "/search", component: SearchProduct },
+    {name: "searchProduct", path: "/search", component: SearchProduct},
 
     // order related
-    { name: "cart", path: "/cart", component: Cart },
-    { name: "checkout", path: "/checkout", component: Checkout,
-	    meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
-	},
-    { name: "payment", path: "/payment", component: Payment,
-	    meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
-	},
-    { name: "orderinvoice", path: "/invoice", component: OrderInvoice,
-	    meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
-	},
-    { name: "orderlist", path: "/my-order", component: OrderList,
-	    meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
-	},
-    { name: "vieworder", path: "/view-order/:id", component: OrderView,
-	    meta: {
-	      requiresAuth: true,
-	      is_customer: true,
-	    },
-	}
+    {name: "cart", path: "/cart", component: Cart},
+    {
+        name: "checkout", path: "/checkout", component: Checkout,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
+    },
+    {
+        name: "payment", path: "/payment", component: Payment,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
+    },
+    {
+        name: "orderinvoice", path: "/invoice", component: OrderInvoice,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
+    },
+    {
+        name: "orderlist", path: "/my-order", component: OrderList,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
+    },
+    {
+        name: "vieworder", path: "/view-order/:id", component: OrderView,
+        meta: {
+            requiresAuth: true,
+            is_customer: true,
+        },
+    }
 ]
 
 // :src="baseUrlPath + '/frontend/img/macbookpro.png'"

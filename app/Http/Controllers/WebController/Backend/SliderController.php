@@ -93,7 +93,7 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $data = Slider::find($id);
-        $slider_img = $data->slider_img;
+        $slider_image = $data->slider_img;
         if ($image = $request->file('slider_img')) {
             $slider_image = rand(10, 100) . time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('/uploads/slider/' . $slider_image);
@@ -103,7 +103,7 @@ class SliderController extends Controller
             Storage::delete('/uploads/slider/' . $oldFilename);
         }
         // Slider info update
-        $data = $data->update($request->except('slider_img') +
+        $data->update($request->except('slider_img') +
             [
                 'slider_img' => $slider_image,
             ]);

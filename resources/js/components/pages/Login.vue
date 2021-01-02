@@ -50,6 +50,22 @@
                             <button type="submit" class="btn">Register</button>
                         </form>
                     </div>
+
+                </div>
+
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="login-area">
+                        <h4>Order Tracking</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="loginEmail">Order ID</label>
+                                <input type="email" class="form-control" name="email" id="loginEmail">
+
+                            </div>
+                            <button type="submit" class="btn">Track Order</button>
+                        </form>
+                    </div>
                 </div>
 		    </div>
 		</div>

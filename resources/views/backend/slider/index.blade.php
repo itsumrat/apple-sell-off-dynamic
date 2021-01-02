@@ -42,6 +42,7 @@
                         </th>
                         <th>Image </th>
                         <th>Title</th>
+                        <th>Title2</th>
                         <th>
                             Description
                         </th>
@@ -60,6 +61,7 @@
                         </th>
                         <th>Image </th>
                         <th>Title</th>
+                        <th>Title2</th>
                         <th>
                             Description
                         </th>
@@ -82,6 +84,9 @@
                         </td>
                         <td>
                             {{ $slider->slider_title }}
+                        </td>
+                        <td>
+                            {{ $slider->slider_title2 }}
                         </td>
                         <td>
                             {{ $slider-> slider_description}}

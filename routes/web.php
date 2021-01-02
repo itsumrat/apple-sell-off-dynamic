@@ -27,6 +27,10 @@ Route::prefix('api')->group(function () {
     Route::get('/cart_list', 'Api\FrontEndController@cart_list');
     Route::get('/remove_cart_item/{id}', 'Api\FrontEndController@remove_cart_item');
     Route::get('/increase_quantity/{id}/{type}', 'Api\FrontEndController@increase_quantity');
+
+    Route::get('/customer_address', 'Customer\CustomerController@customer_address');
+    Route::post('/customer_address_store', 'Customer\CustomerController@customer_address_store');
+    Route::get('/address', 'Customer\CustomerController@address');
 });
 
 

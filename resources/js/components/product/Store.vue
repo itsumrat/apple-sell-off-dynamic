@@ -81,33 +81,33 @@
                             <button type="submit" @click="filterAdd($event, 'year', 2018)">2018</button>
                             <hr>
                         </div>
-                        <div class="price-filter">
-                            <h5>Price ($)</h5>
-                            <ul>
-                                <li>
-                                    <div class="form-group clearfix">
-                                        <div id="slider-container"></div>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="form-group clearfix">
-                                        <div class="amount-box">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input type="text" id="amount-from"
-                                                           onkeypress="return isNumberKey(event)" value="200">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="tel" id="amount-to"
-                                                           onkeypress="return isNumberKey(event)" value="33000">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <hr>
-                        </div>
+<!--                        <div class="price-filter">-->
+<!--                            <h5>Price ($)</h5>-->
+<!--                            <ul>-->
+<!--                                <li>-->
+<!--                                    <div class="form-group clearfix">-->
+<!--                                        <div id="slider-container"></div>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                                <li class="clearfix">-->
+<!--                                    <div class="form-group clearfix">-->
+<!--                                        <div class="amount-box">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    <input type="text" id="amount-from"-->
+<!--                                                           onkeypress="return isNumberKey(event)" value="200">-->
+<!--                                                </div>-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    <input type="tel" id="amount-to"-->
+<!--                                                           onkeypress="return isNumberKey(event)" value="33000">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                            <hr>-->
+<!--                        </div>-->
                         <div class="processor-filter">
                             <h5>processor type</h5>
                             <div v-for="(processor, key) in processors" :key="key" class="form-check">
@@ -547,14 +547,40 @@ export default {
         this.loadGraphicscard();
         this.loadColors();
         this.loadProduct();
+        this.sliderActive();
         this.baseUrlPath = axios.defaults.baseURL;
+
     },
+    // ready() {  },
     methods: {
         // add to cart option
         ...mapActions({
             addProduct: "cart/addProduct",
             removeProduct: "cart/removeProduct",
         }),
+
+        sliderActive() {
+            const _this = this;
+            var minValue = 1000;
+            var maxValue = 50000;
+            $("#slider-container").slider({
+                range: true,
+                min: minValue,
+                max: maxValue,
+                values: [_this.amount_from, _this.amount_to],
+                create: function () {
+                    $("#amount-from").val(_this.amount_from);
+                    $("#amount-to").val(_this.amount_to);
+                },
+                slide: function (event, ui) {
+                    $("#amount-from").val(ui.values[0]);
+                    $("#amount-to").val(ui.values[1]);
+
+                    _this.amount_from = $("#amount-from").val();
+                    _this.amount_to = $("#amount-to").val();
+                }
+            });
+        },
 
         addToCart(item) {
             const _this = this;

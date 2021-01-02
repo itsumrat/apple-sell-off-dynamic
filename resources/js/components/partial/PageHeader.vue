@@ -31,7 +31,7 @@
                             <router-link :to="{name: 'login'}">Sign In</router-link>
                         </li>
                         <li  v-if="UserInfo != false" class="dropdown account_menu">
-                            <a class="btn btn-lg btn-default dropdown-toggle" type="button" data-toggle="dropdown">MY
+                            <a class="dropdown-toggle" type="button" data-toggle="dropdown">MY
                                 ACCOUNT
                                 <span class="caret"></span>
                             </a>

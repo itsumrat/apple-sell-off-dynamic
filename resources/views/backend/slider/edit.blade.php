@@ -45,6 +45,13 @@
                                 </label>
                                 <input class="form-control" id="slider_title" value="{{$slider->slider_title}}" name="slider_title" type="text"/>
                             </div>
+
+                            <div class="form-group">
+                                <label for="slider_title2">
+                                    Title 2
+                                </label>
+                                <input class="form-control" id="slider_title2" value="{{$slider->slider_title2}}" name="slider_title2" type="text"/>
+                            </div>
                             <div class="form-group">
                                 <label for="slider_description">
                                 Description

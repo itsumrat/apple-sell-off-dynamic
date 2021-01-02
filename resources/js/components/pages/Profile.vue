@@ -19,7 +19,7 @@
                             <td @click="OpenTab('order')">Orders</td>
                         </tr>
                         <tr>
-                            <td>Addresses</td>
+                            <td @click="OpenTab('addresses')">Addresses</td>
                         </tr>
                         <tr>
                             <td @click="OpenTab('profile_edit')">Account Details</td>
@@ -41,6 +41,102 @@
                             </p>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-md-9 mt-2" v-if="active_tab == 'addresses'">
+                    <form @submit.prevent="customerAddress()">
+                        <div class="card">
+                            <div class="card-header text-uppercase text-info">Billing Address</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Name</label>
+                                        <input class="form-control" v-model="addresses.bname" placeholder="Name">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Email</label>
+                                        <input class="form-control" v-model="addresses.bemail" placeholder="Email">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Phone</label>
+                                        <input class="form-control" v-model="addresses.bphone" placeholder="Phone">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Country</label>
+                                        <select class="form-control" v-model="addresses.bregion_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.country" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Division</label>
+                                        <select class="form-control" v-model="addresses.bcity_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.division" v-if="value.country_id == addresses.bregion_id" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>District</label>
+                                        <select class="form-control" v-model="addresses.barea_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.district" v-if="value.division_id == addresses.bcity_id" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Address</label>
+                                        <textarea class="form-control" placeholder="Address" v-model="addresses.baddress"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card">
+                            <div class="card-header text-uppercase text-info">Shipping Address</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Name</label>
+                                        <input class="form-control" v-model="addresses.sname" placeholder="Name">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Email</label>
+                                        <input class="form-control" v-model="addresses.sphone" placeholder="Email">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Phone</label>
+                                        <input class="form-control" v-model="addresses.semail" placeholder="Phone">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Country</label>
+                                        <select class="form-control" v-model="addresses.sregion_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.country" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Division</label>
+                                        <select class="form-control" v-model="addresses.scity_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.division" v-if="value.country_id == addresses.sregion_id" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>District</label>
+                                        <select class="form-control" v-model="addresses.sarea_id">
+                                            <option value="">Select</option>
+                                            <option v-for="value in country.district" v-if="value.division_id == addresses.scity_id" :value="value.id">{{ value.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Address</label>
+                                        <textarea class="form-control" placeholder="Address" v-model="addresses.saddress"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
 
                 <div class="col-md-9 mt-2" v-if="active_tab == 'profile_edit'">
@@ -125,6 +221,26 @@ export default {
                 address : '',
             },
             active_tab : 'dashboard',
+
+            addresses : {
+                bname : '',
+                bphone : '',
+                bemail : '',
+                bregion_id : '',
+                bcity_id : '',
+                barea_id : '',
+                baddress : '',
+
+                sname : '',
+                sphone : '',
+                semail : '',
+                sregion_id : '',
+                scity_id : '',
+                sarea_id : '',
+                saddress : '',
+            },
+            country : {},
+            customer_address : {},
         }
     },
     methods: {
@@ -145,6 +261,29 @@ export default {
                 })
         },
 
+        customerAddress() {
+            const _this = this;
+            axios.post('/api/customer_address_store', _this.addresses)
+                .then((response) => {
+                    this.$toasted.success("Your profile has been Updated.");
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+
+        address() {
+            const _this = this;
+            axios.get('/api/address')
+            .then((response) => {
+                _this.country = response.data.data;
+                console.log(_this.country);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
         logOut() {
             const _this = this;
             axios.get('/api/logout', _this.form)
@@ -162,19 +301,17 @@ export default {
             const _this = this;
             axios.post('/api/update_profile', _this.UserInfo)
                 .then((response) => {
-                    this.$toasted.success("Your profile has been Updated.", {
-                        theme: "outline",
-                        position: "top-right",
-                        duration : 9000
-                    });
+                    this.$toasted.success("Your profile has been Updated.");
                 })
                 .catch((error) => {
                     console.log(error);
                 })
-        }
+        },
+
     },
     mounted() {
         this.User();
+        this.address();
     }
 };
 </script>

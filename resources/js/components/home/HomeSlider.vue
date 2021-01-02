@@ -21,7 +21,9 @@
         />
         <!-- <img src="img/slider1.jpg" class="d-block w-100" alt="slider 1"> -->
         <div class="slider-contents">
-          <h1>{{slider.slider_title}}</h1>
+          <h1>{{slider.slider_title}}
+                <span>{{slider.slider_title2}}</span>
+          </h1>
           <p>{{ slider.slider_description }}</p>
           <a href="store.php" class="btn">shop now</a>
         </div>

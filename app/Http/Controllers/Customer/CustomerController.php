@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Model\Backend\Customer;
+use App\Model\Backend\CustomerAddress;
+use App\Model\Country;
+use App\Model\District;
+use App\Model\Division;
 use Illuminate\Http\Request;
 use Hash;
 use Validator;
@@ -77,5 +81,32 @@ class CustomerController extends Controller
         $data->fill($request->all())->save();
 
         return response()->json(['status' => 200, 'data' => Auth::guard('customer')->user()]);
+    }
+
+    public function address() {
+        $data['country'] = Country::get();
+        $data['division'] = Division::get();
+        $data['district'] = District::get();
+
+        return response()->json(['status' => 200, 'data' => $data]);
+    }
+
+    public function customer_address() {
+        $data = CustomerAddress::with(['billing_country', 'billing_division', 'billing_district','shipping_country', 'shipping_division', 'shipping_district'])
+                                ->where('customer_id', Auth::guard('customer')->user()->id)
+                                ->first();
+
+        return response()->json(['status' => 200, 'data' => $data]);
+    }
+
+    public function customer_address_store(Request $request) {
+        $data = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)->first();
+        if (!$data) {
+            $data = new CustomerAddress;
+        }
+
+        $data->fill($request->all())->save();
+
+        return response()->json(['status' => 200, 'data' => $this->customer_address()]);
     }
 }

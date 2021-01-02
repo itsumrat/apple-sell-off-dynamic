@@ -33,7 +33,7 @@
         <form action="{{ route('products.store') }}" enctype="multipart/form-data" file="true" method="POST">
             @csrf
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -121,6 +121,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="feature_image">
@@ -257,39 +258,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="feature_image">
-                                        Box Items
-                                    </label>
-                                    <div id="box_item">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label> Name </label>
-                                                    <input class="form-control" name="box_item_name[]" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label> Image </label>
-                                                    <input class="form-control" name="box_item_image[]" type="file">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label> Action </label>
-                                                    <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group" style="display: none;">
@@ -420,6 +392,36 @@
                                 <input type="checkbox" name="is_suggestable" class="form-check-input" id="is_suggestable" value="1">
                                 <label class="form-check-label" for="is_suggestable">Check Here for Suggest this product.</label>
                             </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="feature_image">
+                                        Box Items
+                                    </label>
+                                    <div id="box_item">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label> Name </label>
+                                                    <input class="form-control" name="box_item_name[]" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label> Image </label>
+                                                    <input class="form-control" name="box_item_image[]" type="file">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label> Action </label>
+                                                    <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {{-- <div class="form-group">
                                 <label for="tag">
                                     Prduct Tag
@@ -464,10 +466,11 @@
 </script>
 <script>
     tinymce.init({
-     selector: 'textarea#product_description'
+     selector: 'textarea#product_description',
+        height: '400px',
    });
     tinymce.init({
-     selector: 'textarea#product_specification'
+     selector: 'textarea#product_specification',
    });
     $(document).ready(function(){
         $("#image_gallery").spartanMultiImagePicker({

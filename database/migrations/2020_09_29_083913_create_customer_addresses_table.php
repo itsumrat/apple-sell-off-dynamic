@@ -23,6 +23,7 @@ class CreateCustomerAddressesTable extends Migration
             $table->integer('bcity_id')->nullable();
             $table->integer('barea_id')->nullable();
             $table->string('baddress')->nullable();
+
             $table->string('sname')->nullable();
             $table->string('sphone')->nullable();
             $table->string('semail')->nullable();

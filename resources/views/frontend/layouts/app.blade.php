@@ -12,6 +12,7 @@
     <link href="{{ asset('frontend/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/fontawesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/jquery.fancybox.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css">
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat" rel="stylesheet">
 </head>
@@ -28,6 +29,7 @@
     <script src="{{ asset('frontend/js/fontawesome.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.fancybox.pack.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.waypoints.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
     <script src="{{ asset('frontend/js/script.js') }}"></script>
 
 </body>

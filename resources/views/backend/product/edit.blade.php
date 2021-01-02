@@ -652,10 +652,11 @@
 </script>
 <script>
     tinymce.init({
-     selector: 'textarea#product_description'
+     selector: 'textarea#product_description',
+        height: '400px',
    });
     tinymce.init({
-     selector: 'textarea#product_specification'
+     selector: 'textarea#product_specification',
    });
     $(document).ready(function(){
         $("#image_gallery").spartanMultiImagePicker({

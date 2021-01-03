@@ -31,6 +31,7 @@ Route::prefix('api')->group(function () {
     Route::get('/customer_address', 'Customer\CustomerController@customer_address');
     Route::post('/customer_address_store', 'Customer\CustomerController@customer_address_store');
     Route::get('/address', 'Customer\CustomerController@address');
+    Route::post('/confirm_order', 'Customer\CustomerController@confirm_order');
 });
 
 

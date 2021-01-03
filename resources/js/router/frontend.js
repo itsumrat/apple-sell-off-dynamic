@@ -68,10 +68,10 @@ export const routes = [
     {name: "cart", path: "/cart", component: Cart},
     {
         name: "checkout", path: "/checkout", component: Checkout,
-        meta: {
-            requiresAuth: true,
-            is_customer: true,
-        },
+        // meta: {
+        //     requiresAuth: true,
+        //     is_customer: true,
+        // },
     },
     {
         name: "payment", path: "/payment", component: Payment,

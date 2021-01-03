@@ -18,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('customer_id')->nullable();
             $table->bigInteger('order_no')->nullable();
             $table->integer('total_count')->nullable();
-            $table->float('total_price', 9, 2)->nullable();
-            $table->integer('shipping_charge')->nullable();
+            $table->decimal('total_price', 9, 2)->nullable();
+            $table->integer('shipping_charge')->default(0)->nullable();
             $table->integer('order_status')->default(0);
             $table->integer('order_tracking')->default(0);
             $table->timestamps();

@@ -54,7 +54,7 @@
                             <p>Total</p> ${{ cart_list.total }}
                             <div class="button-grp">
 <!--                                <a href="#" class="btn cart-update-btn">update cart</a>-->
-                                <a href="checkout.php" class="btn btn-block checkout-btn">proceed to checkout</a>
+                                <router-link to="checkout" class="btn btn-block checkout-btn">proceed to checkout</router-link>
                             </div>
                         </div>
                     </div>

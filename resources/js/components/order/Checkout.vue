@@ -4,9 +4,10 @@
         </section>
         <div class="container bg-white">
             <div class="card pt-3">
+                <form @submit.prevent="confirmOrder">
                 <div class="card-body">
                     <div class="row text-sm">
-                        <div class="col-md-5 order-md-3 mb-4 text-sm">
+                        <div class="col-md-4 order-md-3 mb-4 text-sm">
                             <div class="bg-light">
                                 <h4 class="d-flex justify-content-between align-items-center p-3 mb-2">
                                     <span class="text-info">Your cart</span>
@@ -17,122 +18,140 @@
                                 <li v-for="(pro, index) in cart_list.data" :key="index"
                                     class="list-group-item d-flex justify-content-between lh-condensed">
                                     <div>
-                                        <p class="my-0">{{ pro.name }} x {{ pro.quantity }}</p>
+                                        <p class="my-0">{{ pro.name }} <strong style="font-size: 12px;">x {{ pro.quantity }}</strong></p>
 <!--                                        <small class="text-muted">Brief description</small>-->
                                     </div>
                                     <span class="text-muted"> {{ pro.price * pro.quantity }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
-                                    <span>Total </span>
+                                    <strong>Total </strong>
                                     <strong> {{ cart_list.total }}</strong>
                                 </li>
                             </ul>
                             <div class="input-group">
-                                <button type="submit" disabled="" class="btn btn-block btn-light text-info">Proccess
+                                <button class="btn btn-block btn-light text-info">Proccess
                                     Continue
                                 </button>
                             </div>
                         </div>
-                        <div class="col-md-7 order-md-1 text-sm">
-                            <h4 class="mb-1 text-info">Delivery Information</h4>
-                            <form @submit.prevent="deliveryAddress">
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <div class="form-group">
-                                            <label class="form__label" for="bname">Name</label>
-                                            <input id="bname" class="form__input"
-                                                   v-model="customer.customeraddress ? customer.customeraddress.bname : customer.name"/>
+                        <div class="col-md-8 order-md-1 text-sm">
+                            <div class="card">
+                                <div class="card-header text-uppercase text-info">User Information</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label>Name</label>
+                                            <input class="form-control" v-model="UserInfo.name" placeholder="Name">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <div class="form-group">
-                                            <label class="form__label" for="phone">Phone</label>
-                                            <input id="phone" class="form__input"
-                                                   v-model="customer.customeraddress ? customer.customeraddress.bphone : customer.phone"
-                                                   type="text" placeholder="01728454112"/>
+                                        <div class="col-lg-4">
+                                            <label>Email</label>
+                                            <input class="form-control" v-model="UserInfo.email" placeholder="Email">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Phone</label>
+                                            <input class="form-control" v-model="UserInfo.phone" placeholder="Phone">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Address</label>
+                                            <textarea class="form-control" placeholder="Address" v-model="UserInfo.address"></textarea>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="mb-2">
-                                    <div class="form-group">
-                                        <label class="form__label" for="email">Email</label>
-                                        <input id="email" class="form__input"
-                                               v-model.trim="customer.customeraddress ? customer.customeraddress.bemail : customer.email"
-                                               placeholder="example@gmail.com"/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-2">
-                                        <div class="form-group" :class="{ 'form-group--error': $v.bregion.$error }">
-                                            <label class="form__label" for="bregion">Region</label>
-                                            <select class="form__input" v-model.trim="$v.bregion.$model" id="bregion">
-                                                <option value="">Choose...</option>
-                                                <option value="1">Dhaka</option>
-                                                <option value="2">Rajshahi</option>
-                                                <option value="3">Rangpur</option>
-                                                <option value="4">Khulna</option>
+                            </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-header text-uppercase text-info">Billing Address</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label>Name</label>
+                                            <input class="form-control" v-model="addresses.bname" placeholder="Name">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Email</label>
+                                            <input class="form-control" v-model="addresses.bemail" placeholder="Email">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Phone</label>
+                                            <input class="form-control" v-model="addresses.bphone" placeholder="Phone">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Country</label>
+                                            <select class="form-control" v-model="addresses.bregion_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.country" :value="value.id">{{ value.name }}</option>
                                             </select>
                                         </div>
-                                        <div class="error" v-if="!$v.bregion.required"><p>Region is required</p></div>
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <div class="form-group" :class="{ 'form-group--error': $v.bcity.$error }">
-                                            <label class="form__label" for="bcity">City</label>
-                                            <select @change="shippingCharge" class="form__input"
-                                                    v-model.trim="$v.bcity.$model" id="bcity">
-                                                <option value="">Choose...</option>
-                                                <option value="1">Dhaka</option>
-                                                <option value="2">Naogaon</option>
-                                                <option value="3">Bogura</option>
-                                                <option value="4">Nator</option>
+                                        <div class="col-lg-4">
+                                            <label>Division</label>
+                                            <select class="form-control" v-model="addresses.bcity_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.division" v-if="value.country_id == addresses.bregion_id" :value="value.id">{{ value.name }}</option>
                                             </select>
                                         </div>
-                                        <div class="error" v-if="!$v.bcity.required"><p>City is required</p></div>
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <div class="form-group">
-                                            <label class="form__label" for="barea">Area</label>
-                                            <select class="form__input" v-model.trim="$v.barea.$model" id="barea">
-                                                <option value="">Choose...</option>
-                                                <option value="1">Naogaon</option>
-                                                <option value="2">Bogura</option>
-                                                <option value="3">Nator</option>
+                                        <div class="col-lg-4">
+                                            <label>District</label>
+                                            <select class="form-control" v-model="addresses.barea_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.district" v-if="value.division_id == addresses.bcity_id" :value="value.id">{{ value.name }}</option>
                                             </select>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Address</label>
+                                            <textarea class="form-control" placeholder="Address" v-model="addresses.baddress"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-2">
-                                    <div class="form-group">
-                                        <label class="form__label" for="baddress">Address</label>
-                                        <input type="text" class="form__input"
-                                               v-model="customer.customeraddress ? customer.customeraddress.baddress : customer.address"
-                                               id="baddress" placeholder="House#45, Nikunja-2, Khilkhet, Dhaka-1229">
+                            </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-header text-uppercase text-info">Shipping Address</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label>Name</label>
+                                            <input class="form-control" v-model="addresses.sname" placeholder="Name">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Email</label>
+                                            <input class="form-control" v-model="addresses.sphone" placeholder="Email">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Phone</label>
+                                            <input class="form-control" v-model="addresses.semail" placeholder="Phone">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Country</label>
+                                            <select class="form-control" v-model="addresses.sregion_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.country" :value="value.id">{{ value.name }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Division</label>
+                                            <select class="form-control" v-model="addresses.scity_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.division" v-if="value.country_id == addresses.sregion_id" :value="value.id">{{ value.name }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>District</label>
+                                            <select class="form-control" v-model="addresses.sarea_id">
+                                                <option value="">Select</option>
+                                                <option v-for="value in country.district" v-if="value.division_id == addresses.scity_id" :value="value.id">{{ value.name }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Address</label>
+                                            <textarea class="form-control" placeholder="Address" v-model="addresses.saddress"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <hr class="mb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" v-model="same_address" class="custom-control-input"
-                                           id="same-address">
-                                    <label class="custom-control-label" for="same-address">Shipping address is the same
-                                        as my billing address</label>
-                                </div>
-                                <hr class="mb-1">
-                                <div class="row">
-                                    <div class="col mb-2">
-                                        <button class="button btn-block mt-4 text-md" type="submit"
-                                                :disabled="submitStatus === 'PENDING'">Save
-                                        </button>
-                                        <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
-                                        <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the form
-                                            correctly.</p>
-                                        <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -157,7 +176,10 @@ export default {
             baseUrlPath: null,
             submitStatus: null,
 
-            cart_list : {}
+            cart_list : {},
+            UserInfo : {},
+            country : {},
+            addresses : {},
         };
     },
     mixins: [validationMixin],
@@ -173,6 +195,8 @@ export default {
         }
     },
     mounted() {
+        this.User();
+        this.address();
         this.cartList();
         // this.setDefaults();
         // this.loadCustomer();
@@ -314,6 +338,47 @@ export default {
                     console.log(error);
                 })
         },
+
+        User() {
+            const _this = this;
+            axios.get('/api/user_info')
+            .then((response) => {
+                console.log(response.data.addresses);
+                _this.UserInfo = response.data.data;
+                _this.addresses = response.data.addresses;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
+        confirmOrder() {
+            const _this = this;
+            axios.post('/api/confirm_order', {
+                user_info : _this.UserInfo,
+                addresses : _this.addresses
+            })
+            .then((response) => {
+                this.$toasted.success("Your Order Is Placed Successfully!!");
+                this.$router.push({name: '/'});
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
+        address() {
+            const _this = this;
+            axios.get('/api/address')
+            .then((response) => {
+                _this.country = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
     },
 
     computed: {

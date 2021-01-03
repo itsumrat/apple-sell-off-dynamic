@@ -8,10 +8,14 @@ use App\Model\Backend\CustomerAddress;
 use App\Model\Country;
 use App\Model\District;
 use App\Model\Division;
+use App\Model\Order;
+use App\Model\OrderAddress;
+use App\Model\OrderProduct;
 use Illuminate\Http\Request;
 use Hash;
 use Validator;
 use Auth;
+use DB;
 
 class CustomerController extends Controller
 {
@@ -67,7 +71,8 @@ class CustomerController extends Controller
         if (!Auth::guard('customer')->check()) {
             return response()->json(['status' => 200, 'data' => false]);
         } else {
-            return response()->json(['status' => 200, 'data' => Auth::guard('customer')->user()]);
+            $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)->first();
+            return response()->json(['status' => 200, 'data' => Auth::guard('customer')->user(), 'addresses' => $addresses]);
         }
     }
 
@@ -106,7 +111,81 @@ class CustomerController extends Controller
         }
 
         $data->fill($request->all())->save();
-
         return response()->json(['status' => 200, 'data' => $this->customer_address()]);
+    }
+
+    public function confirm_order(Request $request) {
+        $requested_data = $request->all();
+        $requested_data['cart'] = \Cart::getContent()->toArray();
+        try {
+            DB::beginTransaction();
+
+            $order = new Order;
+            $order_array = [
+                'customer_id' => Auth::guard('customer')->check() ? Auth::guard('customer')->user()->id : null,
+                'order_no' => $this->order_id(),
+                'total_count' => \Cart::getTotalQuantity(),
+                'total_price' => \Cart::getTotal(),
+                'shipping_charge' => 0,
+                'order_status' => 0
+            ];
+            $order->fill($order_array)->save();
+
+            $order_address = new OrderAddress;
+            $order_address_array = array_merge($request->addresses, $request->user_info);
+            $order_address_array['order_id'] = $order->id;
+            $order_address->fill($order_address_array)->save();
+
+            $order_product = array();
+            foreach (\Cart::getContent() as $key => $value) {
+                $order_product [] = [
+                    'order_id' => $order->id,
+                    'product_id' => $value->attributes->product_id,
+                    'ram_id' => isset($value->attributes->ram) ? $value->attributes->ram : null,
+                    'hard_drive_id' => isset($value->attributes->hard_drive) ? $value->attributes->hard_drive : null,
+                    'graphics_card_id' => isset($value->attributes->graphics_card) ? $value->attributes->graphics_card : null,
+                    'processor_id' => isset($value->attributes->processor) ? $value->attributes->processor : null,
+                    'price' => $value->quantity * $value->price,
+                    'quantity' => $value->attributes->product_id,
+                ];
+            }
+            OrderProduct::insert($order_product);
+            \Cart::clear();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            dd($e);
+        }
+    }
+
+    public function order_id() {
+        $make_order_num = Order::latest()->first();
+        $year = date('y');
+        $month = date('m');
+
+        if (strlen(date('d')) == 1)
+            $date = '0'.date('d');
+        else
+            $date = date('d');
+
+        if (!empty($make_order_num)) {
+            $code_no = (int) $make_order_num->id + 1;
+
+            if (strlen($code_no) == 1)
+                $code_no = '00'.$code_no;
+
+            if (strlen($code_no) == 2)
+                $code_no = '00'.$code_no;
+
+            if (strlen($code_no) == 3)
+                $code_no = '0'.$code_no;
+        }
+        else
+            $code_no = 0001;
+
+        $make_product_num_code = $year . $month . $date . $code_no;
+
+        return $make_product_num_code;
     }
 }

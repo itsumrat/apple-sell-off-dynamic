@@ -34,7 +34,6 @@ Route::prefix('api')->group(function () {
     Route::post('/confirm_order', 'Customer\CustomerController@confirm_order');
 });
 
-
 Route::get('admin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('vendor', 'Auth\LoginController@vedorLoginForm')->name('vedor.login');
 Route::post('postLogin', 'Auth\LoginController@login')->name('postLogin');

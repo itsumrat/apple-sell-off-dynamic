@@ -55,8 +55,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $order = Order::with('orderItems.proName')
-                ->find($id);
+        $order = Order::with(['orderItems.product','orderItems.ram','orderItems.hard_drive','orderItems.graphics_card','orderItems.processor',
+            'address.billing_country','address.billing_division','address.billing_district',
+            'address.shipping_country','address.shipping_division','address.shipping_district'])
+            ->findOrFail($id);
 
         return view('backend.order.show', compact('order'));
     }

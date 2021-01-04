@@ -24,12 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="cadc137b-c566-44d5-ac5b-1c55aecfc76e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Customer/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Customer/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_14_110816_create_orders_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_14_110816_create_orders_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/order/Checkout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/order/Checkout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/pages/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/pages/Cart.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/frontend.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/frontend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebController/Backend/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebController/Backend/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/Backend/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Backend/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/OrderAddress.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/OrderAddress.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/OrderProduct.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/OrderProduct.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/order/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/order/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/order/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/order/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/backend/partial/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/partial/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -248,7 +249,9 @@
       <workItem from="1609518770328" duration="1786000" />
       <workItem from="1609605606415" duration="7634000" />
       <workItem from="1609645059055" duration="75000" />
-      <workItem from="1609686365805" duration="8554000" />
+      <workItem from="1609686365805" duration="9312000" />
+      <workItem from="1609736609733" duration="55000" />
+      <workItem from="1609771090583" duration="7820000" />
     </task>
     <servers />
   </component>
@@ -272,11 +275,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="138" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1608664343171" />
-    <state x="463" y="138" key="FileChooserDialogImpl" timestamp="1609645140960">
+    <state x="463" y="138" key="FileChooserDialogImpl" timestamp="1609736666695">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1609519781060" />
-    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1609645140960" />
+    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1609736666695" />
     <state x="201" y="103" width="1030" height="596" key="dock-window-1" timestamp="1608108571021">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -289,10 +292,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1609178660809" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1609697479361">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1609772623720">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1609697479361" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1609772623720" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1608207358004" />
   </component>
   <component name="XDebuggerManager">

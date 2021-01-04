@@ -126,7 +126,7 @@
                         @endcan
                     </nav>
                 </div>
-                {{-- <div class="sidenav-menu-heading">
+                <div class="sidenav-menu-heading">
                     Order Activities
                 </div>
                 <a aria-controls="collapseOrder" aria-expanded="false" class="nav-link collapsed" data-target="#collapseOrder" data-toggle="collapse" href="javascript:void(0);">
@@ -144,32 +144,32 @@
                         @can('order-list')
                         <a class="nav-link" href="{{ route('orders.index') }}">Order List</a>
                         @endcan
-                        @can('order-list')
-                        <a class="nav-link" href="{{ route('invoiceOrderPdf') }}">invoiceOrderPdf</a>
-                        @endcan
+{{--                        @can('order-list')--}}
+{{--                        <a class="nav-link" href="{{ route('invoiceOrderPdf') }}">invoiceOrderPdf</a>--}}
+{{--                        @endcan--}}
                     </nav>
                 </div>
-                <div class="sidenav-menu-heading">
-                    Offer Setting
-                </div>
-                <a aria-controls="collapseLocaiton" aria-expanded="false" class="nav-link collapsed" data-target="#collapseLocaiton" data-toggle="collapse" href="javascript:void(0);">
-                    <div class="nav-link-icon">
-                        <i class="fas fa-fw fa-cog"></i>
-                    </div>
-                    Offer Setting
-                    <div class="sidenav-collapse-arrow">
-                        <i class="fas fa-angle-down">
-                        </i>
-                    </div>
-                </a>
-                <div class="collapse" data-parent="#accordionSidenav" id="collapseLocaiton">
-                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavLayout">
-                        @can('category-list')
-                        <a class="nav-link" href="{{ route('offerbanner.index') }}">Offer</a>
-                        @endcan
+{{--                <div class="sidenav-menu-heading">--}}
+{{--                    Offer Setting--}}
+{{--                </div>--}}
+{{--                <a aria-controls="collapseLocaiton" aria-expanded="false" class="nav-link collapsed" data-target="#collapseLocaiton" data-toggle="collapse" href="javascript:void(0);">--}}
+{{--                    <div class="nav-link-icon">--}}
+{{--                        <i class="fas fa-fw fa-cog"></i>--}}
+{{--                    </div>--}}
+{{--                    Offer Setting--}}
+{{--                    <div class="sidenav-collapse-arrow">--}}
+{{--                        <i class="fas fa-angle-down">--}}
+{{--                        </i>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
+{{--                <div class="collapse" data-parent="#accordionSidenav" id="collapseLocaiton">--}}
+{{--                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavLayout">--}}
+{{--                        @can('category-list')--}}
+{{--                        <a class="nav-link" href="{{ route('offerbanner.index') }}">Offer</a>--}}
+{{--                        @endcan--}}
 
-                    </nav>
-                </div> --}}
+{{--                    </nav>--}}
+{{--                </div>--}}
                 <a aria-controls="collapseLocaiton" aria-expanded="false" class="nav-link collapsed" data-target="#collapseLocaiton" data-toggle="collapse" href="javascript:void(0);">
                     <div class="nav-link-icon">
                         <i class="fas fa-fw fa-cog"></i>

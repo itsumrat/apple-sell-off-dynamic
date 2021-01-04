@@ -9,6 +9,14 @@
                     # {{$order ? $order->order_no : '' }}
                     <br />
                     {{ date('d-M-Y', strtotime($order->created_at)) }}
+                    <br />
+                    {{ $order->address->name }}
+                    <br />
+                    {{ $order->address->phone }}
+                    <br />
+                    {{ $order->address->email }}
+                    <br />
+                    {{ $order->address->address }}
                 </div>
                 <div class="col-12 col-lg-auto text-center text-lg-right">
                 	<div class="h3 text-info">Order Status</div>
@@ -24,33 +32,99 @@
             </div>
         </div>
         <div class="card-body p-4 p-md-5">
-            <div class="table-responsive">
-                <table class="table table-borderless mb-0">
-                    <thead class="border-bottom">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-borderless mb-0">
+                        <thead class="border-bottom">
                         <tr class="small text-uppercase text-muted">
                             <th scope="col">Products</th>
+                            <th scope="col">Additional</th>
                             <th class="text-right" scope="col">Quantity</th>
                             <th class="text-right" scope="col">Rate</th>
                             <th class="text-right" scope="col">Amount</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($order->orderItems as $ord)
-                        <tr class="border-bottom">
-                            <td>
-                                <div class="font-weight-bold">{{ $ord->proName ? $ord->proName->name : '' }}</div>
-                            </td>
-                            <td class="text-right font-weight-bold">{{ $ord->count }}</td>
-                            <td class="text-right font-weight-bold">${{ $ord->unit_price }}</td>
-                            <td class="text-right font-weight-bold">${{ $ord->sub_price }}</td>
-                        </tr>
-                      @endforeach
+                        </thead>
+                        <tbody>
+                        @foreach($order->orderItems as $ord)
+                            <tr class="border-bottom">
+                                <td> <div class="font-weight-bold">{{ $ord->product->name }}</div> </td>
+                                <td>
+                                    {!! isset($ord->product->ram) ?? $ord->product->ram->ram_size .' '. $ord->product->ram->ram_sign .'<br>' !!}
+                                    {!! isset($ord->product->hard_drive) ?? $ord->product->hard_drive->hard_drive_size .' '. $ord->product->hard_drive->hard_drive_sign .'<br>' !!}
+                                    {!! isset($ord->product->graphics_card) ?? $ord->product->graphics_card->graphics_card_size .' '. $ord->product->graphics_card->graphics_card_sign .'<br>' !!}
+                                    {!! isset($ord->product->processor) ?? $ord->product->processor->processors_type .' '. $ord->product->processor->processors_sign .'<br>' !!}
+                                </td>
+                                <td class="text-right font-weight-bold">{{ $ord->quantity }}</td>
+                                <td class="text-right font-weight-bold">${{ $ord->price }}</td>
+                                <td class="text-right font-weight-bold">${{ $ord->quantity * $ord->price }}</td>
+                            </tr>
+                        @endforeach
                         <tr>
                             <td class="text-right pb-0" colspan="3"><div class="text-uppercase small font-weight-700 text-muted">Total Amount:</div></td>
                             <td class="text-right pb-0"><div class="h5 mb-0 font-weight-700 text-green">${{ $order->total_price }}</div></td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12">
+                    <br>
+                    <br>
+                </div>
+                <div class="col-lg-5">
+                    <h4>Billing Address</h4>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Name</th> <th>:</th> <td>{{ $order->address->bname }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th> <th>:</th> <td>{{ $order->address->bphone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th> <th>:</th> <td>{{ $order->address->bemail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Country</th> <th>:</th> <td>{{ $order->address->billing_country->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Division</th> <th>:</th> <td>{{ $order->address->billing_division->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>District</th> <th>:</th> <td>{{ $order->address->billing_division->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th> <th>:</th> <td>{{ $order->address->baddress }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-5">
+                    <h4>Shipping Address</h4>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Name</th> <th>:</th> <td>{{ $order->address->sname }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th> <th>:</th> <td>{{ $order->address->sphone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th> <th>:</th> <td>{{ $order->address->semail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Country</th> <th>:</th> <td>{{ $order->address->shipping_country->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Division</th> <th>:</th> <td>{{ $order->address->shipping_division->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>District</th> <th>:</th> <td>{{ $order->address->shipping_district->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th> <th>:</th> <td>{{ $order->address->saddress }}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="card-footer p-4 p-lg-5 border-top-0">

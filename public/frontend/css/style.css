@@ -680,13 +680,14 @@ html, body{
     background-image: url(../img/shop-now.jpg);
     background-position: center center;
     background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
     background-size: contain;
     min-height: 850px;
     margin-bottom: 3rem;
     background-color: #fff;
 }
 .shop-now-content {
-    margin-top: 24rem;
+    margin-top: 50%;
 }
 .shop-now-content p {
     font-size: 35px;
@@ -719,12 +720,20 @@ html, body{
 /*--------- iMac 27" ---------*/
 @media only screen and (min-width : 2200px) and (max-width : 2560px) {
     #shop-now {
-        height: 100%;
-        min-height: 100%;
-        margin-bottom: 6rem;
+        /*height: 100%;*/
+        /*min-height: 100%;*/
+        /*margin-bottom: 6rem;*/
+
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100% 100% !important;
+        min-height: 1000px;
+        margin-bottom: 3rem;
+        background-color: #fff;
     }
     .shop-now-content {
-        margin-top: 48rem;
+        /*margin-top: 48rem;*/
+        margin-top: 50%;
     }
     .shop-now-content p {
         font-size: 37px;
@@ -1870,16 +1879,21 @@ th p {
 }
 .product-item .text {
   position: absolute;
+    z-index: 9;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 .product-item .text .btn {
+    display: none;
     font-size: 13px;
     color: #fff;
     background-color: transparent;
     border: 1px solid #fff;
     border-radius: 32px;
+}
+.product-item:hover .text .btn {
+    display: inline-block;
 }
 .product-item .text .btn:hover {
     color: #000;

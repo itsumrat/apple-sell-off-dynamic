@@ -20,6 +20,9 @@ import $ from 'jquery';
 import ProductZoomer from 'vue-product-zoomer';
 Vue.use(ProductZoomer);
 import VueCarousel from 'vue-carousel';
+
+Vue.component('lingallery', Lingallery);
+import Lingallery from 'lingallery';
 Vue.use(VueCarousel);
 window.$ = window.jQuery = $;
 Vue.prototype.$ = $;

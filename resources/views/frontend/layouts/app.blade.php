@@ -22,7 +22,7 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    {{--  <script src="{{ asset('frontend/js/jquery-3.4.1.min.js') }}"></script>  --}}
+      <script src="{{ asset('frontend/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/popper.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('frontend/js/all.min.js') }}"></script>

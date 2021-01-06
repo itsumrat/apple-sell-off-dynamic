@@ -13,6 +13,7 @@ use App\Model\Backend\Product;
 use App\Model\Backend\Ram;
 use App\Model\Backend\Size;
 use App\Model\Backend\Slider;
+use App\Model\OrderProduct;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -96,7 +97,11 @@ class HomePageController extends Controller
 
     public function appleproducts(Request $request)
     {
-        $data = Product::when($request->category, function ($query) use ($request) {
+        $data = Product::with('mainCategory', 'proSize', 'proProcessor', 'proRam',
+            'proHarddrive', 'proGraphicscard', 'proColor', 'stockProduct', 'imageGalleryEdit')
+        ->whereHas("stockProduct", function (Builder $query) use ($request) {
+            return $query->whereBetween('product_stocks.unit_price', [$request->amount_from, $request->amount_to]);
+        })->when($request->category, function ($query) use ($request) {
             $query->whereIn('main_category_id', explode(",", $request->category));
         })->when($request->size, function ($query) use ($request) {
             $query->whereIn('size_id', explode(",", $request->size));
@@ -116,14 +121,21 @@ class HomePageController extends Controller
             $query->whereIn('stock_status', explode(",", $request->stock));
         })->when($request->condition, function ($query) use ($request) {
             $query->whereIn('condition', explode(",", $request->condition));
-        })->with('mainCategory', 'proSize', 'proProcessor', 'proRam',
-            'proHarddrive', 'proGraphicscard', 'proColor', 'stockProduct', 'imageGalleryEdit')
-            ->whereHas("stockProduct", function (Builder $query) use ($request) {
-                return $query->whereBetween('product_stocks.unit_price', [$request->amount_from, $request->amount_to]);
-            })
-            ->where('product_type_id', 1)
-            ->orderBy('id', 'DESC')
-            ->get();
+        })->when($request->product_filtering_option == 'best-selling', function ($query) use ($request) {
+            $query->whereIn('id', OrderProduct::limit(100)->get()->pluck('product_id')->unique()->toArray());
+        })->when($request->product_filtering_option == 'price-ascending', function ($query) use ($request) {
+            $query->orderBy('product_stocks.unit_price', 'ASC');
+        })->when($request->product_filtering_option == 'price-ascending', function ($query) use ($request) {
+            $query->orderBy('product_stocks.unit_price', 'DESC');
+        })->when($request->product_filtering_option == 'title-ascending', function ($query) use ($request) {
+            $query->orderBy('name', 'ASC');
+        })->when($request->product_filtering_option == 'title-descending', function ($query) use ($request) {
+            $query->orderBy('name', 'DESC');
+        })->when($request->product_filtering_option == 'created-descending', function ($query) use ($request) {
+            $query->orderBy('created_at', 'DESC');
+        })->when($request->product_filtering_option == 'created-ascending', function ($query) use ($request) {
+            $query->orderBy('created_at', 'ASC');
+        })->where('product_type_id', 1)->get();
 
         return response()->json($data, 200);
     }

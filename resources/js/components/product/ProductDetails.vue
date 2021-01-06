@@ -5,35 +5,37 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="product-detail-left">
                         <div class="product-slider">
-                            <div id="carousel" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div v-for="(galley, key) in product.image_gallery_edit" :key="key"
-                                         class="carousel-item" :class="{ active: key === 0 }"
-                                         :id="'carousel' + galley.id"><img v-if="galley.image_gallery != null"
-                                                                           :src="baseUrlPath + '/uploads/product/' + galley.image_gallery"
-                                                                           class="image" alt=""></div>
-                                </div>
-                            </div>
-                            <div class="clearfix">
-                                <div id="thumbcarousel" class="carousel slide" data-interval="false">
-                                    <div class="carousel-inner">
-                                        <div v-for="(galley, key) in product.image_gallery_edit" :key="key"
-                                             class="carousel-item" :class="{ active: key === 0 }">
-                                            <!-- <div data-target="#carousel" data-slide-to="0" class="thumb"><img v-if="galley.image_gallery === null" :src="baseUrlPath + '/frontend/img/macbookpro.png'" alt=""></div> -->
-                                            <div :data-target="'#carousel' + galley.id" data-slide-to="0" class="thumb">
-                                                <img v-if="galley.image_gallery != null"
-                                                     :src="baseUrlPath + '/uploads/product/' + galley.image_gallery"
-                                                     class="image" alt=""></div>
-                                        </div>
-                                    </div>
-                                    <!-- /carousel-inner -->
-                                    <a class="left carousel-control" href="#thumbcarousel" role="button"
-                                       data-slide="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i> </a> <a
-                                    class="right carousel-control" href="#thumbcarousel" role="button"
-                                    data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i> </a>
-                                </div>
-                                <!-- /thumbcarousel -->
-                            </div>
+                            <lingallery :addons="{ enableLargeView: true }" :iid.sync="currentId" :width="400" :height="350" :items="this.carouselItem()"/>
+                            <!--                            <div id="carousel" class="carousel slide" data-ride="carousel">-->
+                            <!--                                <div class="carousel-inner">-->
+                            <!--                                    <div v-for="(galley, key) in product.image_gallery_edit" :key="key"-->
+                            <!--                                         class="carousel-item" :class="{ active: key === 0 }"-->
+                            <!--                                         :id="'carousel' + galley.id"><img v-if="galley.image_gallery != null"-->
+                            <!--                                                                           :src="baseUrlPath + '/uploads/product/' + galley.image_gallery"-->
+                            <!--                                                                           class="image" alt=""></div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="clearfix">-->
+                            <!--                                <div id="thumbcarousel" class="carousel slide" data-interval="false">-->
+                            <!--                                    <div class="carousel-inner">-->
+                            <!--                                        <div v-for="(chunk, key) in chunkedItems" :key="key"-->
+                            <!--                                             class="carousel-item" :class="{ active: key === 0 }">-->
+                            <!--                                            &lt;!&ndash; <div data-target="#carousel" data-slide-to="0" class="thumb"><img v-if="galley.image_gallery === null" :src="baseUrlPath + '/frontend/img/macbookpro.png'" alt=""></div> &ndash;&gt;-->
+
+                            <!--                                            <div v-for="galley in chunk" :data-target="'#carousel' + galley.id" data-slide-to="0" class="thumb">-->
+                            <!--                                                <img v-if="galley.image_gallery != null"-->
+                            <!--                                                     :src="baseUrlPath + '/uploads/product/' + galley.image_gallery"-->
+                            <!--                                                     class="image" alt=""></div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    &lt;!&ndash; /carousel-inner &ndash;&gt;-->
+                            <!--                                    <a class="left carousel-control" href="#thumbcarousel" role="button"-->
+                            <!--                                       data-slide="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i> </a> <a-->
+                            <!--                                    class="right carousel-control" href="#thumbcarousel" role="button"-->
+                            <!--                                    data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i> </a>-->
+                            <!--                                </div>-->
+                            <!--                                &lt;!&ndash; /thumbcarousel &ndash;&gt;-->
+                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,7 @@
                     <div class="product-detail-right">
                         <h2>{{ product.name }}</h2>
                         <h5>Description</h5>
-                        <p>{{ description }}</p>
+                        <div v-html="product.product_description"></div>
                         <hr>
                         <div class="processor">
                             <b>Processor</b>
@@ -143,7 +145,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="price-box-contents">
-                            <h1>${{ parseFloat(unit_price) + parseFloat(grandPrice) }} <span>Your product price</span></h1>
+                            <h1>${{ parseFloat(unit_price) + parseFloat(grandPrice) }} <span>Your product price</span>
+                            </h1>
                             <button @click="addToCart(product)" type="submit" class="btn mb-5"
                                     style="border: 1px solid rgb(0, 119, 204);color: #fff;background: linear-gradient(rgb(66, 161, 236), rgb(0, 112, 201));">
                                 Add to basket
@@ -163,6 +166,7 @@ export default {
     data() {
         return {
             product: {},
+            slider_images: {},
             baseUrlPath: null,
             unit_price: 0,
             unit_price_sample: 0,
@@ -179,16 +183,33 @@ export default {
 
             prev_price: 0,
             price_array: [],
-            grandPrice: 0
+            grandPrice: 0,
+
+            currentId: null
         };
     },
 
     mounted() {
         this.loadProduct();
         this.baseUrlPath = axios.defaults.baseURL;
+        // this.carouselItem();
     },
 
     methods: {
+        carouselItem() {
+            const _this = this;
+            var carouse_items_object = [];
+            for (const [key, value] of Object.entries(_this.slider_images)) {
+                carouse_items_object.push({
+                    id: value.id,
+                    src: '/uploads/product/' + value.image_gallery,
+                    thumbnail: '/uploads/product/' + value.image_gallery,
+                    alt: 'Image',
+                    caption: '',
+                });
+            }
+            return carouse_items_object;
+        },
 
         addToCart(item) {
             const _this = this;
@@ -206,11 +227,13 @@ export default {
 
         loadProduct() {
             const _this = this;
-            axios.get(`/api/product/${this.$route.params.id}`).then((response) => {
-                _this.product = response.data;
-                _this.unit_price = _this.product.stock_product.unit_price;
-                _this.unit_price_sample = _this.product.stock_product.unit_price;
-            });
+            axios.get(`/api/product/${this.$route.params.id}`)
+                .then((response) => {
+                    _this.product = response.data;
+                    _this.slider_images = response.data.image_gallery_edit;
+                    _this.unit_price = _this.product.stock_product.unit_price;
+                    _this.unit_price_sample = _this.product.stock_product.unit_price;
+                });
         },
 
         additional_price_set(device_type, price, id_class, id) {
@@ -221,7 +244,7 @@ export default {
                     selected: id_class,
                     device_type: device_type,
                     price: price,
-                    id : id
+                    id: id
                 });
             } else {
                 _this.price_array[findPrev].price = price;
@@ -250,6 +273,10 @@ export default {
             products: "cart/products",
         }),
 
+        chunkedItems() {
+            return _.chunk(this.product.image_gallery_edit, 4)
+        },
+
         totalPrice() {
             let sum = 0;
             _.each(this.products, (p) => {
@@ -272,11 +299,12 @@ export default {
         },
 
         description() {
-            let regex = /(<([^>]+)>)/gi;
-            let des = this.product.product_description;
-            if (des !== null) {
-                return des.replace(regex, "");
-            }
+            return this.product.product_description;
+            // let regex = /(<([^>]+)>)/gi;
+            // let des = this.product.product_description;
+            // if (des !== null) {
+            //     return des.replace(regex, "");
+            // }
         },
     },
 };

@@ -15,7 +15,7 @@
                             <span style="font-size: 14px;">Refine By</span>
                             <a href="javascript:;">Clear All</a><br><br>
                             <span style="font-size: 15px;">STATUS: <b>In Stock</b></span>
-                            <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                            <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                         @click="refineBy(mainCat.id, 'category', 1)"></a><br>
                             <hr>
                         </div>
@@ -54,9 +54,9 @@
                         <div class="category-filter">
                             <h5>categories</h5>
                             <div v-for="(mainCat, key) in maincategory" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="mainCat.id"
                                        @click="filterAdd($event, 'category', mainCat.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="mainCat.id">
                                     {{ mainCat.mc_name }}
                                 </label>
                             </div>
@@ -171,9 +171,10 @@
                     <h5 class="store-title">Products</h5>
                 </div>
                 <div class="col-lg-6 col-sm-12">
-                    <select class="form-control product-filtering">
+                    <select class="form-control product-filtering" v-model="product_filtering_option">
+                        <option value="">Select</option>
                         <option value="best-selling">Best Selling</option>
-                        <option value="featured">Featured</option>
+<!--                        <option value="featured">Featured</option>-->
                         <option value="price-ascending">Price: Low to High</option>
                         <option value="price-descending">Price: High to Low</option>
                         <option value="title-ascending">Alphabetically: A-Z</option>
@@ -189,59 +190,59 @@
                             All</a><br><br>
                             <div v-for="(mainCat, index) in maincategory" v-if="refineBy(mainCat.id, 'category')">
                                 <span style="font-size: 15px;">Category : <b>{{ mainCat.mc_name }}</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(mainCat.id, 'category', 1)"></a><br>
                             </div>
                             <div v-for="(size, index) in sizes" v-if="refineBy(size.id, 'size')">
                                 <span style="font-size: 15px;">Size : <b>{{ size.size }} inch</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(size.id, 'size', 1)"></a><br>
                             </div>
                             <div v-if="year != ''">
                                 <span style="font-size: 15px;">Year : <b>{{ year }}</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(0, 'year', 1)"></a><br>
                             </div>
                             <div v-if="refineBy(1, 'stock')">
                                 <span style="font-size: 15px;">Stock : <b>In Stock</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(1, 'stock', 1)"></a><br>
                             </div>
                             <div v-if="refineBy(2, 'stock')">
                                 <span style="font-size: 15px;">Stock : <b>Comming Soon</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(2, 'stock', 1)"></a><br>
                             </div>
                             <div v-if="refineBy(1, 'condition')">
                                 <span style="font-size: 15px;">Condition : <b>New</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(1, 'condition', 1)"></a><br>
                             </div>
                             <div v-if="refineBy(2, 'condition')">
                                 <span style="font-size: 15px;">Condition : <b>Used Used</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(2, 'condition', 1)"></a><br>
                             </div>
                             <div v-if="refineBy(0, 'condition')">
                                 <span style="font-size: 15px;">Condition : <b>Approved Used</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(0, 'condition', 1)"></a><br>
                             </div>
                             <div v-for="(processor, key) in processors" v-if="refineBy(processor.id, 'processor')">
                                 <span style="font-size: 15px;">Processor : <b>{{ processor.processors_type }}</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(processor.id, 'processor', 1)"></a><br>
                             </div>
                             <div v-for="(ram, key) in rams" v-if="refineBy(ram.id, 'ram')">
                                 <span style="font-size: 15px;">RAM : <b>{{ ram.ram_size }} GB</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(ram.id, 'ram', 1)"></a><br>
                             </div>
                             <div v-for="(harddrive, key) in harddrives" v-if="refineBy(harddrive.id, 'hard_drive')">
                                 <span style="font-size: 15px;">Hard Drive : <b>{{
                                         harddrive.hard_drive_size
                                     }} GB SSD</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(harddrive.id, 'hard_drive', 1)"></a><br>
                             </div>
                             <div v-for="(graphicscard, key) in graphicscards"
@@ -249,12 +250,12 @@
                                 <span style="font-size: 15px;">Graphics Card : <b>{{
                                         graphicscard.graphics_card_size
                                     }}</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(graphicscard.id, 'graphics_card', 1)"></a><br>
                             </div>
                             <div v-for="(color, key) in colors" v-if="refineBy(color.id, 'color')">
                                 <span style="font-size: 15px;">Color : <b>{{ color.color_name }}</b></span>
-                                <a href="javascript:;"><img class="mb-2" :src="baseUrlPath + '/frontend/img/close.png'"
+                                <a href="javascript:;"><img class="mb-2" :src="'/frontend/img/close.png'"
                                                             @click="refineBy(color.id, 'color', 1)"></a><br>
                             </div>
                             <hr>
@@ -262,16 +263,16 @@
                         <div class="stock-filter">
                             <h5>stock status</h5>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" id="stock1"
                                        @click="filterAdd($event, 'stock', 1)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" for="stock1">
                                     In Stock
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" id="stock2"
                                        @click="filterAdd($event, 'stock', 2)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" for="stock2">
                                     Coming Soon
                                 </label>
                             </div>
@@ -280,28 +281,28 @@
                         <div class="condition-filter">
                             <h5>Condition</h5>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" id="condition1"
                                        @click="filterAdd($event, 'condition', 1)">
-                                <label class="form-check-label" for="defaultCheck1"> New </label>
+                                <label class="form-check-label" for="condition1"> New </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" id="condition2"
                                        @click="filterAdd($event, 'condition', 2)">
-                                <label class="form-check-label" for="defaultCheck1"> Used Used </label>
+                                <label class="form-check-label" for="condition2"> Used Used </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" id="condition0"
                                        @click="filterAdd($event, 'condition', 0)">
-                                <label class="form-check-label" for="defaultCheck1"> Approved Used </label>
+                                <label class="form-check-label" for="condition0"> Approved Used </label>
                             </div>
                             <hr>
                         </div>
                         <div class="category-filter">
                             <h5>categories</h5>
                             <div v-for="(mainCat, key) in maincategory" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'category'+mainCat.id"
                                        @click="filterAdd($event, 'category', mainCat.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'category'+mainCat.id">
                                     {{ mainCat.mc_name }}
                                 </label>
                             </div>
@@ -310,9 +311,9 @@
                         <div class="size-filter">
                             <h5>size</h5>
                             <div v-for="(size, key) in sizes" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2"
+                                <input class="form-check-input" type="checkbox" value="" :id="'size'+size.id"
                                        @click="filterAdd($event, 'size', size.id)">
-                                <label class="form-check-label" for="defaultCheck2">
+                                <label class="form-check-label" :for="'size'+size.id">
                                     {{ size.size }} inch
                                 </label>
                             </div>
@@ -331,7 +332,7 @@
                             <ul>
                                 <li>
                                     <div class="form-group clearfix">
-                                        <div id="slider-container"></div>
+                                        <div id="slider-container" @mouseup="loadProduct()"></div>
                                     </div>
                                 </li>
                                 <li class="clearfix">
@@ -356,20 +357,20 @@
                         <div class="processor-filter">
                             <h5>processor type</h5>
                             <div v-for="(processor, key) in processors" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'processor'+processor.id"
                                        @click="filterAdd($event, 'processor', processor.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'processor'+processor.id">
                                     {{ processor.processors_type }}
                                 </label>
                             </div>
                             <hr>
                         </div>
-                        <div class="harddrive-filter">
+                        <div class="ram-filter">
                             <h5>ram</h5>
                             <div v-for="(ram, key) in rams" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'ram'+ram.id"
                                        @click="filterAdd($event, 'ram', ram.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'ram'+ram.id">
                                     {{ ram.ram_size }} GB
                                 </label>
                             </div>
@@ -378,9 +379,9 @@
                         <div class="harddrive-filter">
                             <h5>hard drive</h5>
                             <div v-for="(harddrive, key) in harddrives" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'hard_drive'+harddrive.id"
                                        @click="filterAdd($event, 'hard_drive', harddrive.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'hard_drive'+harddrive.id">
                                     {{ harddrive.hard_drive_size }} GB SSD
                                 </label>
                             </div>
@@ -389,9 +390,9 @@
                         <div class="graphicscard-filter">
                             <h5>Graphics Card</h5>
                             <div v-for="(graphicscard, key) in graphicscards" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'graphics_card'+graphicscard.id"
                                        @click="filterAdd($event, 'graphics_card', graphicscard.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'graphics_card'+graphicscard.id">
                                     {{ graphicscard.graphics_card_size }}
                                 </label>
                             </div>
@@ -400,9 +401,9 @@
                         <div class="color-filter">
                             <h5>color</h5>
                             <div v-for="(color, key) in colors" :key="key" class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                <input class="form-check-input" type="checkbox" value="" :id="'color'+color.id"
                                        @click="filterAdd($event, 'color', color.id)">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" :for="'color'+color.id">
                                     {{ color.color_name }}
                                 </label>
                             </div>
@@ -412,29 +413,43 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div v-for="(product, key) in allproducts" :key="key" class="col-lg-4">
+
                             <div class="product-item">
-                                <!-- <img :src="baseUrlPath + '/frontend/img/macbookpro.png'" alt="Avatar" class="image" style="width:100%"> -->
-                                <img
-                                    v-if="product.feature_image === null"
-                                    :src="baseUrlPath + '/uploads/product/821600589513.jpg'"
-                                    class="image"
-                                    alt="" style="width:100%"
-                                />
-                                <img
-                                    v-else-if="product.feature_image != null"
-                                    :src="
-			                    baseUrlPath + '/uploads/product/' + product.feature_image
-			                  "
-                                    class="image"
-                                    alt="No Image" style="width:100%"
-                                />
-                                <div class="overlay">
-                                    <div class="text">
-                                        <a href="javascript:;" class="btn" data-toggle="modal"
-                                           :data-target="'#exampleModalCenter' + product.id">Quick View</a>
-                                    </div>
+                                <img v-if="product.feature_image != null"
+                                     :src="'/uploads/product/' + product.feature_image"
+                                     class="image"
+                                     alt="No Image" style="width:100%">
+                                <div class="text">
+                                    <a href="javascript:;" class="btn" data-toggle="modal" :data-target="'#exampleModalCenter' + product.id">Quick View</a>
                                 </div>
+                                <router-link :to="{name: 'product-details', params: {id: product.id}}">
+                                    <div class="overlay">
+                                    </div>
+                                </router-link>
                             </div>
+
+<!--                            <div class="product-item">-->
+<!--                                &lt;!&ndash; <img :src="'/frontend/img/macbookpro.png'" alt="Avatar" class="image" style="width:100%"> &ndash;&gt;-->
+<!--                                <img-->
+<!--                                    v-if="product.feature_image === null"-->
+<!--                                    :src="'/uploads/product/821600589513.jpg'"-->
+<!--                                    class="image"-->
+<!--                                    alt="" style="width:100%"-->
+<!--                                />-->
+<!--                                <img-->
+<!--                                    v-else-if="product.feature_image != null"-->
+<!--                                    :src="'/uploads/product/' + product.feature_image"-->
+<!--                                    class="image"-->
+<!--                                    alt="No Image" style="width:100%"-->
+<!--                                />-->
+<!--                                <div class="overlay">-->
+<!--                                    <div class="text">-->
+<!--                                        <a href="javascript:;" class="btn" data-toggle="modal"-->
+<!--                                           :data-target="'#exampleModalCenter' + product.id">Quick View</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            -->
                             <router-link :to="{name: 'product-details', params: {id: product.id}}" class="product-name">
                                 <h6>{{ product.name }}</h6>
                                 <p class="product-price">${{ product.stock_product.unit_price }}</p>
@@ -456,14 +471,14 @@
                                                     <div class="col-md-4">
                                                         <img
                                                             v-if="product.feature_image === null"
-                                                            :src="baseUrlPath + '/uploads/product/821600589513.jpg'"
+                                                            :src="'/uploads/product/821600589513.jpg'"
                                                             class="image"
                                                             alt="" style="width:100%"
                                                         />
                                                         <img
                                                             v-else-if="product.feature_image != null"
                                                             :src="
-							                    baseUrlPath + '/uploads/product/' + product.feature_image
+							                    '/uploads/product/' + product.feature_image
 							                  "
                                                             class="image"
                                                             alt="No Image" style="width:100%"
@@ -522,6 +537,7 @@ export default {
             colors: "",
             allproducts: null,
             baseUrlPath: null,
+            product_filtering_option: '',
 
             category: [],
             size: [],
@@ -538,6 +554,12 @@ export default {
             amount_to: 33000,
         };
     },
+    watch:{
+        'product_filtering_option'(newVal){
+            const _this = this;
+            _this.loadProduct();
+        },
+    },
     mounted() {
         this.loadMainCategory();
         this.loadSize();
@@ -547,7 +569,7 @@ export default {
         this.loadGraphicscard();
         this.loadColors();
         this.loadProduct();
-        this.sliderActive();
+        // this.sliderActive();
         this.baseUrlPath = axios.defaults.baseURL;
 
     },
@@ -599,13 +621,14 @@ export default {
         // allproducts show
         loadProduct() {
             const _this = this;
-            axios.get('/api/appleproducts?category=' + _this.category + '&size=' + _this.size + '&year=' + _this.year + '&price=' + _this.price + '&processor=' + _this.processor + '&ram=' + _this.ram + '&hard_drive=' + _this.hard_drive + '&graphics_card=' + _this.graphics_card + '&color=' + _this.color + '&amount_from=' + _this.amount_from + '&amount_to=' + _this.amount_to + '&condition=' + _this.condition + '&stock=' + _this.stock)
-                .then((response) => {
-                    this.allproducts = response.data;
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            axios.get('/api/appleproducts?category=' + _this.category + '&size=' + _this.size + '&year=' + _this.year + '&price=' + _this.price + '&processor=' + _this.processor + '&ram=' + _this.ram + '&hard_drive=' + _this.hard_drive + '&graphics_card=' + _this.graphics_card + '&color=' + _this.color + '&amount_from=' + _this.amount_from + '&amount_to=' + _this.amount_to + '&condition=' + _this.condition + '&stock=' + _this.stock+ '&product_filtering_option=' + _this.product_filtering_option)
+            .then((response) => {
+                this.allproducts = response.data;
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         },
 
         clearAll() {
@@ -623,6 +646,7 @@ export default {
             _this.stock = [];
             _this.amount_from = 20;
             _this.amount_to = 33000;
+            $('.stock-filter input:checkbox'). prop('checked', false);
         },
 
         refineBy(id, type, clean = 0) {
@@ -631,6 +655,7 @@ export default {
                 var category = _this.category.indexOf(id);
                 if (clean == 1) {
                     _this.category.splice(category, id);
+                    $('#category'+id). prop('checked', false);
                 } else {
                     if (category != -1) {
                         return true;
@@ -655,6 +680,7 @@ export default {
                 var ram = _this.ram.indexOf(id);
                 if (clean == 1) {
                     _this.ram.splice(ram, id);
+                    $('#ram'+id). prop('checked', false);
                 } else {
                     if (ram != -1) {
                         return true;
@@ -667,6 +693,7 @@ export default {
                 var size = _this.size.indexOf(id);
                 if (clean == 1) {
                     _this.size.splice(size, id);
+                    $('#size'+id). prop('checked', false);
                 } else {
                     if (size != -1) {
                         return true;
@@ -679,6 +706,7 @@ export default {
                 var processor = _this.processor.indexOf(id);
                 if (clean == 1) {
                     _this.processor.splice(processor, id);
+                    $('#processor'+id). prop('checked', false);
                 } else {
                     if (processor != -1) {
                         return true;
@@ -691,6 +719,7 @@ export default {
                 var hard_drive = _this.hard_drive.indexOf(id);
                 if (clean == 1) {
                     _this.hard_drive.splice(hard_drive, id);
+                    $('#hard_drive'+id). prop('checked', false);
                 } else {
                     if (hard_drive != -1) {
                         return true;
@@ -703,6 +732,7 @@ export default {
                 var graphics_card = _this.graphics_card.indexOf(id);
                 if (clean == 1) {
                     _this.graphics_card.splice(graphics_card, id);
+                    $('#graphics_card'+id). prop('checked', false);
                 } else {
                     if (graphics_card != -1) {
                         return true;
@@ -715,6 +745,7 @@ export default {
                 var color = _this.color.indexOf(id);
                 if (clean == 1) {
                     _this.color.splice(color, id);
+                    $('#color'+id). prop('checked', false);
                 } else {
                     if (color != -1) {
                         return true;
@@ -727,6 +758,7 @@ export default {
                 var condition = _this.condition.indexOf(id);
                 if (clean == 1) {
                     _this.condition.splice(condition, id);
+                    $('#condition'+id). prop('checked', false);
                 } else {
                     if (condition != -1) {
                         return true;
@@ -739,6 +771,7 @@ export default {
                 var stock = _this.stock.indexOf(id);
                 if (clean == 1) {
                     _this.stock.splice(stock, id);
+                    $('#stock'+id). prop('checked', false);
                 } else {
                     if (stock != -1) {
                         return true;
@@ -833,9 +866,13 @@ export default {
 
         // main Category
         loadMainCategory() {
+            const _this = this;
             axios.get("/api/main-category-menu")
                 .then((response) => {
                     this.maincategory = response.data;
+                    setTimeout(function(){
+                        _this.sliderActive();
+                    }, 1000);
                 })
                 .catch((error) => {
                     console.error(error);

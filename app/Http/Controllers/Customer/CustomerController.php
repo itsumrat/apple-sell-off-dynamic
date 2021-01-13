@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Model\Backend\Customer;
 use App\Model\Backend\CustomerAddress;
+use App\Model\Backend\GeneralSetting;
 use App\Model\Country;
 use App\Model\District;
 use App\Model\Division;
@@ -145,18 +146,27 @@ class CustomerController extends Controller
                     'hard_drive_id' => isset($value->attributes->hard_drive) ? $value->attributes->hard_drive : null,
                     'graphics_card_id' => isset($value->attributes->graphics_card) ? $value->attributes->graphics_card : null,
                     'processor_id' => isset($value->attributes->processor) ? $value->attributes->processor : null,
-                    'price' => $value->quantity * $value->price,
+                    'price' => $value->price,
                     'quantity' => $value->attributes->product_id,
                 ];
             }
             OrderProduct::insert($order_product);
             \Cart::clear();
             DB::commit();
+            return response()->json($order);
         } catch (Exception $e) {
             DB::rollBack();
             echo 'Caught exception: ',  $e->getMessage(), "\n";
             dd($e);
         }
+    }
+
+    public function invoice($id) {
+        $data['data'] = Order::with(['product.product','address.billing_country', 'address.billing_division', 'address.billing_district','address.shipping_country', 'address.shipping_division', 'address.shipping_district'])
+                                ->where('order_no', $id)
+                                ->first();
+        $data['setting'] = GeneralSetting::first();
+        return response()->json($data);
     }
 
     public function order_id() {

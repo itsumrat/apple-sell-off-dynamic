@@ -360,8 +360,7 @@ export default {
             })
             .then((response) => {
                 this.$toasted.success("Your Order Is Placed Successfully!!");
-                this.$router.push({name: '/'});
-                window.location.reload();
+                this.$router.push({path: '/invoice/'+response.data.order_no});
             })
             .catch((error) => {
                 console.log(error);

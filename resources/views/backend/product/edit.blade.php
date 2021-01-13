@@ -35,7 +35,7 @@
             <input type="hidden" name="id" value="{{ $product->id }}">
             @csrf
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -61,41 +61,41 @@
                             </div> --}}
 
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="unit_price">
                                         Unit Price
                                     </label>
                                     <input class="form-control" name="unit_price" id="unit_price" placeholder="Unit Price" type="number" required="" value="{{ $product->stockEdit->unit_price }}">
                                     </input>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" style="display: none;">
                                     <label for="purchase_price">
                                         Purchase Price
                                     </label>
-                                    <input class="form-control" name="purchase_price" id="purchase_price" placeholder="Purchase Price" type="number" value="{{ $product->stockEdit->purchase_price }}">
+                                    <input class="form-control" name="purchase_price" id="purchase_price" placeholder="Purchase Price" type="number" value="0">
                                     </input>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row"  style="display: none;">
                                 <div class="form-group col-md-4">
                                     <label for="tax">
                                         Tax
                                     </label>
-                                    <input class="form-control" name="tax" id="tax" placeholder="Tax" type="number" value="{{ $product->stockEdit->tax }}">
+                                    <input class="form-control" value="0" name="tax" id="tax" placeholder="Tax" type="number">
                                     </input>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="discount">
                                         Discount
                                     </label>
-                                    <input class="form-control" name="discount" id="discount" placeholder="Discount" type="number" value="{{ $product->stockEdit->discount }}">
+                                    <input class="form-control" value="0" name="discount" id="discount" placeholder="Discount" type="number">
                                     </input>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="stock_quantity">
                                         Stock Quantity
                                     </label>
-                                    <input class="form-control" name="stock_quantity" id="stock_quantity" placeholder="Stock Quantity" type="number" value="{{ $product->stockEdit->stock_quantity }}">
+                                    <input class="form-control" value="0" name="stock_quantity" id="stock_quantity" placeholder="Stock Quantity" type="number">
                                     </input>
                                 </div>
                             </div>
@@ -412,67 +412,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="feature_image">
-                                        Box Items
-                                    </label>
-                                    <div id="box_item">
-                                        @forelse($product->box_item as $key => $value)
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label> Name </label>
-                                                        <input class="form-control" name="box_item_name[]" type="text" value="{{ $value->name }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label> Image </label>
-                                                        <input type="hidden" name="box_item_image[]" value="{{ $value->image }}">
-                                                        <input class="form-control" name="box_item_image[]" type="file">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label> Action </label>
-                                                        @if($key == 0)
-                                                        <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
-                                                        @else
-                                                        <button type="button" class="btn btn-danger btn-sm box_item_remove">REM</button>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @empty
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label> Name </label>
-                                                        <input class="form-control" name="box_item_name[]" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label> Image </label>
-                                                        <input class="form-control" name="box_item_image[]" type="file">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label> Action </label>
-                                                        <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforelse
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -601,6 +544,66 @@
                             <div class="form-check">
                                 <input type="checkbox" name="is_suggestable" class="form-check-input" id="is_suggestable" value="1" @if($product->is_suggestable == 1) checked @endif>
                                 <label class="form-check-label" for="is_suggestable">Check Here for Suggest this product.</label>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="feature_image">
+                                            Box Items
+                                        </label>
+                                        <div id="box_item">
+                                            @forelse($product->box_item as $key => $value)
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <label> Name </label>
+                                                            <input class="form-control" name="box_item_name[]" type="text" value="{{ $value->name }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <label> Image </label>
+                                                            <input type="hidden" name="box_item_image[]" value="{{ $value->image }}">
+                                                            <input class="form-control" name="box_item_image[]" type="file">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label> Action </label>
+                                                            @if($key == 0)
+                                                                <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
+                                                            @else
+                                                                <button type="button" class="btn btn-danger btn-sm box_item_remove">REM</button>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <label> Name </label>
+                                                            <input class="form-control" name="box_item_name[]" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <label> Image </label>
+                                                            <input class="form-control" name="box_item_image[]" type="file">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label> Action </label>
+                                                            <button type="button" id="box_item_add" class="btn btn-success btn-sm">ADD</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             {{-- <div class="form-group">
                                 <label for="tag">

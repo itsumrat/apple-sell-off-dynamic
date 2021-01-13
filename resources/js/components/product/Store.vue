@@ -583,8 +583,8 @@ export default {
 
         sliderActive() {
             const _this = this;
-            var minValue = 1000;
-            var maxValue = 50000;
+            var minValue = 20;
+            var maxValue = 33000;
             $("#slider-container").slider({
                 range: true,
                 min: minValue,
@@ -665,16 +665,20 @@ export default {
                 }
             }
             if (type == 'year') {
-                var year = _this.year.indexOf(value);
                 if (clean == 1) {
-                    _this.year.splice(year, id);
-                } else {
-                    if (year != -1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    _this.year = '';
                 }
+                console.log(_this.year);
+                // var year = _this.year.indexOf(id);
+                // if (clean == 1) {
+                //     _this.year.splice(year, id);
+                // } else {
+                //     if (year != -1) {
+                //         return true;
+                //     } else {
+                //         return false;
+                //     }
+                // }
             }
             if (type == 'ram') {
                 var ram = _this.ram.indexOf(id);

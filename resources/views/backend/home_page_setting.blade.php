@@ -66,16 +66,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <img src="{{ asset($data->first_sec_image_1) }}" style="height: auto; width: 100%;" id="first_sec_image_1"/>
+                                        <img src="{{ asset($data->first_sec_image_1) }}" style="height: 150px;" id="first_sec_image_1"/>
                                     </div>
                                     <div class="col-lg-3">
-                                        <img src="{{ asset($data->first_sec_image_2) }}" style="height: auto; width: 100%;" id="first_sec_image_2"/>
+                                        <img src="{{ asset($data->first_sec_image_2) }}" style="height: 150px;" id="first_sec_image_2"/>
                                     </div>
                                     <div class="col-lg-3">
-                                        <img src="{{ asset($data->first_sec_image_3) }}" style="height: auto; width: 100%;" id="first_sec_image_3"/>
+                                        <img src="{{ asset($data->first_sec_image_3) }}" style="height: 150px;" id="first_sec_image_3"/>
                                     </div>
                                     <div class="col-lg-3">
-                                        <img src="{{ asset($data->first_sec_image_4) }}" style="height: auto; width: 100%;" id="first_sec_image_4"/>
+                                        <img src="{{ asset($data->first_sec_image_4) }}" style="height: 150px;" id="first_sec_image_4"/>
                                     </div>
                                 </div>
 
@@ -213,13 +213,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <img src="{{ asset($data->four_sec_image_1) }}" style="height: auto; width: 100%;" id="four_sec_image_1"/>
+                                        <img src="{{ asset($data->four_sec_image_1) }}" style="height: 250px;" id="four_sec_image_1"/>
                                     </div>
                                     <div class="col-lg-4">
-                                        <img src="{{ asset($data->four_sec_image_2) }}" style="height: auto; width: 100%;" id="four_sec_image_2"/>
+                                        <img src="{{ asset($data->four_sec_image_2) }}" style="height: 250px;" id="four_sec_image_2"/>
                                     </div>
                                     <div class="col-lg-4">
-                                        <img src="{{ asset($data->four_sec_image_3) }}" style="height: auto; width: 100%;" id="four_sec_image_3"/>
+                                        <img src="{{ asset($data->four_sec_image_3) }}" style="height: 250px;" id="four_sec_image_3"/>
                                     </div>
                                 </div>
 

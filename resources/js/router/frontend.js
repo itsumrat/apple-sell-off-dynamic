@@ -31,6 +31,7 @@ import Payment from "../components/order/Payment.vue";
 import OrderInvoice from "../components/order/OrderInvoice.vue";
 import OrderList from "../components/order/OrderList.vue";
 import OrderView from "../components/order/OrderView.vue";
+import Invoice from "../components/order/Invoice.vue";
 
 export const routes = [
     // customer realated
@@ -59,6 +60,7 @@ export const routes = [
 
     // product related
     {name: "product-details", path: "/product/:id", component: ProductDetails},
+    {name: "invoice", path: "/invoice/:id", component: Invoice},
 
     // search product
 

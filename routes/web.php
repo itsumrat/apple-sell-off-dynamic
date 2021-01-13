@@ -32,6 +32,7 @@ Route::prefix('api')->group(function () {
     Route::post('/customer_address_store', 'Customer\CustomerController@customer_address_store');
     Route::get('/address', 'Customer\CustomerController@address');
     Route::post('/confirm_order', 'Customer\CustomerController@confirm_order');
+    Route::get('/invoice/{id}', 'Customer\CustomerController@invoice');
 });
 
 Route::get('admin', 'Auth\LoginController@showLoginForm')->name('login');

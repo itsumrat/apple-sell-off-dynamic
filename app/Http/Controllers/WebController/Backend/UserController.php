@@ -8,6 +8,7 @@ use DB;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -30,9 +31,9 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $data = User::orderBy('id', 'ASC')
-                ->where('user_type', '=', 'Admin')
-                ->orWhere('user_type', '=', 'Manager')
-                ->paginate(10);
+            ->where('user_type', '=', 'Admin')
+            ->orWhere('user_type', '=', 'Manager')
+            ->paginate(10);
         return view('backend.users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -40,8 +41,8 @@ class UserController extends Controller
     public function vendor(Request $request)
     {
         $data = User::orderBy('id', 'ASC')
-                ->where('user_type', '=', 'Vendor')
-                ->paginate(10);
+            ->where('user_type', '=', 'Vendor')
+            ->paginate(10);
         return view('backend.users.vendor', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -49,8 +50,8 @@ class UserController extends Controller
     public function customer(Request $request)
     {
         $data = User::orderBy('id', 'ASC')
-                ->where('user_type', '=', 'Customer')
-                ->paginate(10);
+            ->where('user_type', '=', 'Customer')
+            ->paginate(10);
         return view('backend.users.customer', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -58,9 +59,9 @@ class UserController extends Controller
     public function staff(Request $request, $id)
     {
         $data = User::orderBy('id', 'ASC')
-                ->where('user_type', '=', 'Staff')
-                ->where('staff_owner', '=', $id)
-                ->paginate(10);
+            ->where('user_type', '=', 'Staff')
+            ->where('staff_owner', '=', $id)
+            ->paginate(10);
         return view('backend.users.staff', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -69,8 +70,8 @@ class UserController extends Controller
     {
         $data = User::find($request->user_status);
         if ($data->user_status == 0) {
-            $data =  $data->update($request->except('user_status')+['user_status' => 1]);
-        }else{
+            $data = $data->update($request->except('user_status') + ['user_status' => 1]);
+        } else {
             $data->user_status = 0;
             $data->save();
         }
@@ -91,6 +92,7 @@ class UserController extends Controller
     {
         return view('backend.users.ban');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -105,21 +107,21 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
             'username' => 'required|unique:users,username',
-            'phone'    => 'required|unique:users,phone',
+            'phone' => 'required|unique:users,phone',
             'password' => 'required|same:confirm-password',
-            'roles'    => 'required',
+            'roles' => 'required',
         ]);
 
-        $input             = $request->all();
+        $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
@@ -127,15 +129,15 @@ class UserController extends Controller
 
         if ($user) {
             $roleIds = Role::whereIn('name', $request->input('roles'))->get();
-            $idar    = [];
+            $idar = [];
             foreach ($roleIds as $value) {
                 array_push($idar, $value->id);
             }
-            $ids   = implode(',', $idar);
+            $ids = implode(',', $idar);
             $userU = User::find($user->id);
             $userU->update($input +
                 [
-                    'role_id'   => $ids,
+                    'role_id' => $ids,
                     'user_type' => implode(',', $request->input('roles')),
                 ]);
         }
@@ -147,7 +149,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -159,14 +161,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $user     = User::find($id);
-        $roles    = Role::where('name', '!=', 'Admin')->pluck('name', 'name')->all();
-        $aroles    = Role::where('name', '=', 'Admin')->pluck('name', 'name')->all();
+        $user = User::find($id);
+        $roles = Role::where('name', '!=', 'Admin')->pluck('name', 'name')->all();
+        $aroles = Role::where('name', '=', 'Admin')->pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
         return view('backend.users.edit', compact('user', 'roles', 'aroles', 'userRole'));
@@ -175,17 +177,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,' . $id,
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
-            'roles'    => 'required',
+            'roles' => 'required',
         ]);
 
         $input = $request->except('roles');
@@ -194,23 +196,23 @@ class UserController extends Controller
         } else {
             $input = Arr::except($input, array('password'));
         }
-        $roleId  = implode(',', $request->input('roles'));
+        $roleId = implode(',', $request->input('roles'));
         $roleIds = Role::whereIn('name', $request->input('roles'))->get();
-        $idar    = [];
+        $idar = [];
         foreach ($roleIds as $value) {
             array_push($idar, $value->id);
         }
-        $ids  = implode(',', $idar);
+        $ids = implode(',', $idar);
         $user = User::find($id);
         $user->update($input +
             [
-                'role_id'   => $ids,
+                'role_id' => $ids,
                 'user_type' => implode(',', $request->input('roles')),
             ]);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
-        Toastr::success('User updated successfully :)','Success');
+        Toastr::success('User updated successfully :)', 'Success');
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
     }
@@ -218,7 +220,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -227,5 +229,23 @@ class UserController extends Controller
         toastr()->error('User deleted successfully');
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
+    }
+
+    public function admin_profile() {
+        $data = Auth::user();
+
+        return view('backend.users.profile', compact('data'));
+    }
+
+    public function profile_update(Request $request, $id) {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'.$id,
+            'username' => 'required|unique:users,username,'.$id,
+            'phone' => 'required|unique:users,phone,'.$id,
+        ]);
+        $user = User::find($id);
+        $user->fill($request->all())->save();
+        return back();
     }
 }

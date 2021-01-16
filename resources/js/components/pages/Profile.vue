@@ -194,12 +194,18 @@
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>#</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
+                                    <th>Order ID</th>
                                     <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>S.total</th>
+                                    <th>Total</th>
+                                    <th>Invoice</th>
+                                </tr>
+                                <tr v-for="(data_value, index) in customer_order">
+                                    <td>{{ data_value.order_no }}</td>
+                                    <td>{{ data_value.total_count }}</td>
+                                    <td>{{ data_value.total_price }}</td>
+                                    <td>
+                                        <router-link :to="`invoice/${data_value.order_no}`">Invoice</router-link>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -241,6 +247,7 @@ export default {
             },
             country : {},
             customer_address : {},
+            customer_order : {},
         }
     },
     methods: {
@@ -277,7 +284,6 @@ export default {
             axios.get('/api/address')
             .then((response) => {
                 _this.country = response.data.data;
-                console.log(_this.country);
             })
             .catch((error) => {
                 console.log(error);
@@ -308,10 +314,23 @@ export default {
                 })
         },
 
+        CustomerOrder() {
+            const _this = this;
+            axios.get('/api/customer_order')
+                .then((response) => {
+                    _this.customer_order = response.data.data;
+                    console.log(_this.customer_order)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+
     },
     mounted() {
         this.User();
         this.address();
+        this.CustomerOrder();
     }
 };
 </script>

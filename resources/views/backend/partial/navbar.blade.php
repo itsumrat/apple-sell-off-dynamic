@@ -116,74 +116,34 @@
             </div>
         </li>
         <li class="nav-item dropdown no-caret mr-3 dropdown-notifications">
-            <a aria-expanded="false" aria-haspopup="true" class="btn btn-icon btn-transparent-dark dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" id="navbarDropdownAlerts" role="button">
+            <a aria-expanded="false" aria-haspopup="true" class="btn btn-icon btn-transparent-dark dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" id="navbarDropdownAlertss" role="button">
                 <i class="fas fa-cart-plus">
                 </i>
             </a>
-            <div aria-labelledby="navbarDropdownAlerts" class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up">
+            <div aria-labelledby="navbarDropdownAlertss" class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up">
                 <h6 class="dropdown-header dropdown-notifications-header">
                     <i class="mr-2" data-feather="bell">
                     </i>
                     Alerts Center
                 </h6>
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
+                @foreach(App\Model\Backend\Order::where('order_status', 0)->orderBy('created_at', 'DESC')->limit(10)->get() as $value)
+                <a class="dropdown-item dropdown-notifications-item" href="orders/{{$value->id}}">
                     <div class="dropdown-notifications-item-icon bg-warning">
                         <i data-feather="activity">
                         </i>
                     </div>
                     <div class="dropdown-notifications-item-content">
                         <div class="dropdown-notifications-item-content-details">
-                            December 29, 2019
+                            {{ date('d-m-Y', strtotime($value->created_at)) }}
                         </div>
                         <div class="dropdown-notifications-item-content-text">
-                            This is an alert message. It&apos;s nothing serious, but it requires your attention.
+                            Invoice: #{{$value->order_no}}, QTY: {{$value->total_count}}, Price: {{$value->price}}
                         </div>
                     </div>
                 </a>
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-info">
-                        <i data-feather="bar-chart">
-                        </i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 22, 2019
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            A new monthly report is ready. Click here to view!
-                        </div>
-                    </div>
-                </a>
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-danger">
-                        <i class="fas fa-exclamation-triangle">
-                        </i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 8, 2019
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            Critical system failure, systems shutting down.
-                        </div>
-                    </div>
-                </a>
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-success">
-                        <i data-feather="user-plus">
-                        </i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 2, 2019
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            New user request. Woody has requested access to the organization.
-                        </div>
-                    </div>
-                </a>
-                <a class="dropdown-item dropdown-notifications-footer" href="#!">
-                    View All Alerts
+                @endforeach
+                <a class="dropdown-item dropdown-notifications-footer" href="/orders">
+                    View All Order
                 </a>
             </div>
         </li>
@@ -206,10 +166,10 @@
                 </h6>
                 <div class="dropdown-divider">
                 </div>
-                <a class="dropdown-item" href="#!">
+                <a class="dropdown-item" href="/admin_profile">
                     <div class="dropdown-item-icon">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Settings
+                        Profile
                     </div>
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

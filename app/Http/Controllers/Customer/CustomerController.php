@@ -161,6 +161,14 @@ class CustomerController extends Controller
         }
     }
 
+    public function customer_order() {
+        $data['data'] = Order::with(['product.product','address.billing_country', 'address.billing_division', 'address.billing_district','address.shipping_country', 'address.shipping_division', 'address.shipping_district'])
+                                ->where('customer_id',  Auth::guard('customer')->user()->id)
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+        return response()->json($data);
+    }
+
     public function invoice($id) {
         $data['data'] = Order::with(['product.product','address.billing_country', 'address.billing_division', 'address.billing_district','address.shipping_country', 'address.shipping_division', 'address.shipping_district'])
                                 ->where('order_no', $id)

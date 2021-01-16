@@ -33,6 +33,7 @@ Route::prefix('api')->group(function () {
     Route::get('/address', 'Customer\CustomerController@address');
     Route::post('/confirm_order', 'Customer\CustomerController@confirm_order');
     Route::get('/invoice/{id}', 'Customer\CustomerController@invoice');
+    Route::get('/customer_order', 'Customer\CustomerController@customer_order');
 });
 
 Route::get('admin', 'Auth\LoginController@showLoginForm')->name('login');
@@ -48,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
     // user part
     Route::resource('users', 'WebController\Backend\UserController');
     Route::get('customers', 'WebController\Backend\UserController@customer')->name('customer');
+    Route::get('admin_profile', 'WebController\Backend\UserController@admin_profile')->name('admin_profile');
+    Route::put('profile_update/{id}', 'WebController\Backend\UserController@profile_update')->name('profile_update');
     Route::get('vendors', 'WebController\Backend\UserController@vendor')->name('vendor');
     Route::get('staff/{id}', 'WebController\Backend\UserController@staff')->name('staff');
     Route::post('updateStatus', 'WebController\Backend\UserController@updateStatus')->name('updateStatus');

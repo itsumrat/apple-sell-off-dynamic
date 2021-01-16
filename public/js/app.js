@@ -4860,6 +4860,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4886,7 +4892,8 @@ __webpack_require__.r(__webpack_exports__);
         saddress: ''
       },
       country: {},
-      customer_address: {}
+      customer_address: {},
+      customer_order: {}
     };
   },
   methods: {
@@ -4920,7 +4927,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/address').then(function (response) {
         _this.country = response.data.data;
-        console.log(_this.country);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -4952,11 +4958,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    CustomerOrder: function CustomerOrder() {
+      var _this = this;
+
+      axios.get('/api/customer_order').then(function (response) {
+        _this.customer_order = response.data.data;
+        console.log(_this.customer_order);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
     this.User();
     this.address();
+    this.CustomerOrder();
   }
 });
 
@@ -82237,7 +82254,56 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.active_tab == "order"
-          ? _c("div", { staticClass: "col-md-9 mt-2" }, [_vm._m(1)])
+          ? _c("div", { staticClass: "col-md-9 mt-2" }, [
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-header text-uppercase text-info" },
+                  [
+                    _vm._v(
+                      "\n                        Orders\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "table",
+                    { staticClass: "table table-bordered" },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm._l(_vm.customer_order, function(data_value, index) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(data_value.order_no))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data_value.total_count))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data_value.total_price))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: "invoice/" + data_value.order_no
+                                  }
+                                },
+                                [_vm._v("Invoice")]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ])
           : _vm._e()
       ])
     ])
@@ -82256,28 +82322,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header text-uppercase text-info" }, [
-        _vm._v("\n                        Orders\n                    ")
-      ]),
+    return _c("tr", [
+      _c("th", [_vm._v("Order ID")]),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("table", { staticClass: "table table-bordered" }, [
-          _c("tr", [
-            _c("th", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Image")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Quantity")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Price")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("S.total")])
-          ])
-        ])
-      ])
+      _c("th", [_vm._v("Quantity")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Total")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Invoice")])
     ])
   }
 ]
@@ -108434,15 +108486,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/components/order/Invoice.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Invoice_vue_vue_type_template_id_78b6c711_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Invoice.vue?vue&type=template&id=78b6c711&scoped=true& */ "./resources/js/components/order/Invoice.vue?vue&type=template&id=78b6c711&scoped=true&");
 /* harmony import */ var _Invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Invoice.vue?vue&type=script&lang=js& */ "./resources/js/components/order/Invoice.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Invoice_vue_vue_type_style_index_0_id_78b6c711_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Invoice.vue?vue&type=style&index=0&id=78b6c711&scoped=true&lang=css& */ "./resources/js/components/order/Invoice.vue?vue&type=style&index=0&id=78b6c711&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Invoice_vue_vue_type_style_index_0_id_78b6c711_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Invoice.vue?vue&type=style&index=0&id=78b6c711&scoped=true&lang=css& */ "./resources/js/components/order/Invoice.vue?vue&type=style&index=0&id=78b6c711&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -108474,7 +108525,7 @@ component.options.__file = "resources/js/components/order/Invoice.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/order/Invoice.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

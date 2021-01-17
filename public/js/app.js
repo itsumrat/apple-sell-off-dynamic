@@ -3292,7 +3292,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       axios.get('/api/user_info').then(function (response) {
-        console.log(response.data.addresses);
         _this.UserInfo = response.data.data;
         _this.addresses = response.data.addresses;
       })["catch"](function (error) {
@@ -4907,6 +4906,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/user_info').then(function (response) {
         _this.UserInfo = response.data.data;
+        _this.addresses = response.data.addresses;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5466,7 +5466,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       baseUrlPath: null,
       currentroute: null,
-      UserInfo: {}
+      UserInfo: {},
+      dropdown_display: 'none'
     };
   },
   methods: {
@@ -5480,6 +5481,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    dropDown: function dropDown() {
+      var _this = this;
+
+      if (_this.dropdown_display == 'none') {
+        _this.dropdown_display = 'block';
+      } else {
+        _this.dropdown_display = 'none';
+      }
     },
     cartList: function cartList() {
       var _this = this;
@@ -5643,7 +5653,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       baseUrlPath: null,
       currentroute: null,
-      UserInfo: {}
+      UserInfo: {},
+      dropdown_display: 'none'
     };
   },
   methods: {
@@ -5657,6 +5668,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    dropDown: function dropDown() {
+      var _this = this;
+
+      if (_this.dropdown_display == 'none') {
+        _this.dropdown_display = 'block';
+      } else {
+        _this.dropdown_display = 'none';
+      }
     },
     cartList: function cartList() {
       var _this = this;
@@ -80566,14 +80586,16 @@ var render = function() {
                 "div",
                 { staticClass: "button-grp" },
                 [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-block checkout-btn",
-                      attrs: { to: "checkout" }
-                    },
-                    [_vm._v("proceed to checkout")]
-                  )
+                  _vm.cart_list.data.length != 0
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-block checkout-btn",
+                          attrs: { to: "checkout" }
+                        },
+                        [_vm._v("proceed to checkout")]
+                      )
+                    : _vm._e()
                 ],
                 1
               )
@@ -83394,70 +83416,97 @@ var render = function() {
                   _vm._v(" "),
                   _vm.UserInfo != false
                     ? _c("li", { staticClass: "dropdown account_menu" }, [
-                        _vm._m(2),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-toggle",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "dropdown"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.dropDown()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "MY\n                            ACCOUNT\n                            "
+                            ),
+                            _c("span", { staticClass: "caret" })
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu" }, [
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "my_profile" } } },
-                                [_vm._v("My Account")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "cart" } } },
-                                [_vm._v("Cart")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "order_tracking" } } },
-                                [_vm._v("Order Tracking")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
+                        _c(
+                          "ul",
+                          {
+                            staticClass: "dropdown-menu",
+                            style: "display :" + _vm.dropdown_display
+                          },
+                          [
                             _c(
-                              "a",
-                              {
-                                attrs: { href: "javascript:;" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.logOut()
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "my_profile" } } },
+                                  [_vm._v("My Account")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "cart" } } },
+                                  [_vm._v("Cart")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "order_tracking" } } },
+                                  [_vm._v("Order Tracking")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:;" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.logOut()
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Logout")]
-                            )
-                          ])
-                        ])
+                                },
+                                [_vm._v("Logout")]
+                              )
+                            ])
+                          ]
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -83503,24 +83552,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "closeIcon" }, [
       _c("i", { staticClass: "fas fa-times" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdown-toggle",
-        attrs: { type: "button", "data-toggle": "dropdown" }
-      },
-      [
-        _vm._v(
-          "MY\n                            ACCOUNT\n                            "
-        ),
-        _c("span", { staticClass: "caret" })
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -83678,70 +83709,97 @@ var render = function() {
                   _vm._v(" "),
                   _vm.UserInfo != false
                     ? _c("li", { staticClass: "dropdown account_menu" }, [
-                        _vm._m(2),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-toggle",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "dropdown"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.dropDown()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "MY\n                            ACCOUNT\n                            "
+                            ),
+                            _c("span", { staticClass: "caret" })
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu" }, [
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "my_profile" } } },
-                                [_vm._v("My Account")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "cart" } } },
-                                [_vm._v("Cart")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: "order_tracking" } } },
-                                [_vm._v("Order Tracking")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
+                        _c(
+                          "ul",
+                          {
+                            staticClass: "dropdown-menu",
+                            style: "display :" + _vm.dropdown_display
+                          },
+                          [
                             _c(
-                              "a",
-                              {
-                                attrs: { href: "javascript:;" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.logOut()
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "my_profile" } } },
+                                  [_vm._v("My Account")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "cart" } } },
+                                  [_vm._v("Cart")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "order_tracking" } } },
+                                  [_vm._v("Order Tracking")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "divider" }),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:;" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.logOut()
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Logout")]
-                            )
-                          ])
-                        ])
+                                },
+                                [_vm._v("Logout")]
+                              )
+                            ])
+                          ]
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -83787,24 +83845,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "closeIcon" }, [
       _c("i", { staticClass: "fas fa-times" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdown-toggle",
-        attrs: { type: "button", "data-toggle": "dropdown" }
-      },
-      [
-        _vm._v(
-          "MY\n                            ACCOUNT\n                            "
-        ),
-        _c("span", { staticClass: "caret" })
-      ]
-    )
   },
   function() {
     var _vm = this

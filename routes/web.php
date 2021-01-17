@@ -50,6 +50,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'WebController\Backend\UserController');
     Route::get('customers', 'WebController\Backend\UserController@customer')->name('customer');
     Route::get('admin_profile', 'WebController\Backend\UserController@admin_profile')->name('admin_profile');
+    Route::get('admin_change_password', 'WebController\Backend\UserController@admin_change_password')->name('admin_change_password');
+    Route::post('admin_change_password', 'WebController\Backend\UserController@password_store')->name('admin_change_password');
     Route::put('profile_update/{id}', 'WebController\Backend\UserController@profile_update')->name('profile_update');
     Route::get('vendors', 'WebController\Backend\UserController@vendor')->name('vendor');
     Route::get('staff/{id}', 'WebController\Backend\UserController@staff')->name('staff');

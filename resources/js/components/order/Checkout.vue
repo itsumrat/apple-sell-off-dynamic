@@ -343,7 +343,6 @@ export default {
             const _this = this;
             axios.get('/api/user_info')
             .then((response) => {
-                console.log(response.data.addresses);
                 _this.UserInfo = response.data.data;
                 _this.addresses = response.data.addresses;
             })

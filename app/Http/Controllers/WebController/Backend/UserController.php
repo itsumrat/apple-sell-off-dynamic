@@ -4,13 +4,14 @@ namespace App\Http\Controllers\WebController\Backend;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use DB;
-use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
+use Validator;
+use DB;
+use Hash;
 
 class UserController extends Controller
 {
@@ -247,5 +248,24 @@ class UserController extends Controller
         $user = User::find($id);
         $user->fill($request->all())->save();
         return back();
+    }
+
+    public function admin_change_password() {
+        return view('backend.users.change_password');
+    }
+
+    public function password_store(Request $request) {
+        Validator::make($request->all(), [
+            'current_password' => ['required'],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ])->validate();
+
+        if (!Hash::check($request->current_password, Auth::user()->password))
+            return back()->with(['error' => 'Password Doest Match.']);
+
+        User::findOrFail(Auth::user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
+        return back()->with('success', 'Password changed successfully');
     }
 }

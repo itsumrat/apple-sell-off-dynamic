@@ -164,14 +164,21 @@
                         </div>
                     </div>
                 </h6>
-                <div class="dropdown-divider">
-                </div>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/admin_profile">
                     <div class="dropdown-item-icon">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </div>
                 </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/admin_change_password">
+                    <div class="dropdown-item-icon">
+                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Change Password
+                    </div>
+                </a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                     <div class="dropdown-item-icon">

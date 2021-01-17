@@ -31,11 +31,11 @@
                             <router-link :to="{name: 'login'}">Sign In</router-link>
                         </li>
                         <li  v-if="UserInfo != false" class="dropdown account_menu">
-                            <a class="dropdown-toggle" type="button" data-toggle="dropdown">MY
+                            <a class="dropdown-toggle" type="button" data-toggle="dropdown" @click="dropDown()">MY
                                 ACCOUNT
                                 <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" :style="'display :' + dropdown_display">
                                 <li>
                                     <router-link :to="{name: 'my_profile'}">My Account</router-link>
                                 </li>
@@ -73,6 +73,7 @@ export default {
             baseUrlPath: null,
             currentroute: null,
             UserInfo: {},
+            dropdown_display : 'none',
         };
     },
     methods: {
@@ -85,6 +86,14 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 })
+        },
+        dropDown() {
+            const _this = this;
+            if (_this.dropdown_display == 'none') {
+                _this.dropdown_display = 'block';
+            } else {
+                _this.dropdown_display = 'none';
+            }
         },
         cartList() {
             const _this = this;
